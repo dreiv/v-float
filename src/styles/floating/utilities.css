@@ -7,21 +7,22 @@
  */
 
 @layer floating.utilities {
-  /* --- Size --------------------------------------------------------------
-   * Constrains the panel to the anchor's available space using
-   * `anchor-size()`, so a tall panel next to a short anchor still respects
-   * how much room the anchor's box actually offers, with a viewport-based
-   * ceiling as a second line of defense.
+  /* --- Size ----------------------------------------------------------------
+   * `anchor-size()` is only valid in sizing/inset/margin properties, and it
+   * reports the ANCHOR's own box — it can't express "space remaining to the
+   * nearest edge" the way Floating UI's `size()` middleware does (that would
+   * need `anchor()`, which the spec restricts to inset properties only, so
+   * `max-height: anchor(bottom)` etc. is invalid CSS — not just unsupported).
+   *
+   * What `anchor-size()` is genuinely for: matching the panel's width to its
+   * anchor's, the classic "dropdown as wide as its trigger" pattern. We pair
+   * that with a plain viewport-relative ceiling for height, since bounding
+   * height to *available* space isn't reachable this way.
    */
   .v-float-panel[data-auto-size='true'] {
-    max-width: min(
-      anchor-size(width, var(--ui-max-width-fallback)),
-      100vw - (var(--ui-size-viewport-gutter) * 2)
-    );
-    max-height: min(
-      anchor-size(height, 50vh),
-      100vh - (var(--ui-size-viewport-gutter) * 2)
-    );
+    min-width: anchor-size(width);
+    max-width: max(anchor-size(width), min(var(--ui-max-width-fallback), 100vw - (var(--ui-size-viewport-gutter) * 2)));
+    max-height: min(50vh, 100vh - (var(--ui-size-viewport-gutter) * 2));
     overflow: auto;
   }
 

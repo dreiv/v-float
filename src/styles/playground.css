@@ -1,0 +1,42 @@
+/**
+ * Cosmetic styles for the demo pages under src/views/primitives/. Kept out
+ * of src/styles/floating/ deliberately — nothing here is part of the
+ * floating engine, it's just how the reference button and panel content
+ * look in the playground.
+ */
+
+.playground-anchor {
+  font: inherit;
+  padding: 0.6rem 1.1rem;
+  border-radius: 6px;
+  border: 1px solid color-mix(in oklab, canvastext 30%, transparent);
+  background: color-mix(in oklab, canvastext 6%, canvas);
+  color: inherit;
+  cursor: pointer;
+}
+
+.playground-anchor:hover {
+  background: color-mix(in oklab, canvastext 12%, canvas);
+}
+
+.playground-panel {
+  width: max-content;
+}
+
+.playground-panel__content {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  max-width: 240px;
+}
+
+.playground-panel__content--long {
+  max-width: 280px;
+}
+
+.playground-panel__content p {
+  margin: 0 0 0.5rem;
+}
+
+.playground-panel__content p:last-child {
+  margin-bottom: 0;
+}

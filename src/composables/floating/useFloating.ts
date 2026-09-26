@@ -34,23 +34,33 @@ export function useFloating(initial: FloatingStrategy = {}) {
 
   const options = reactive<Required<FloatingStrategy>>({
     placement: initial.placement ?? 'bottom',
+    offset: initial.offset ?? 8,
     flip: initial.flip ?? true,
     shift: initial.shift ?? false,
     hide: initial.hide ?? false,
     autoSize: initial.autoSize ?? false,
   })
 
-  const styleVars: FloatingStyleVars = { '--v-float-anchor-name': anchorName }
+  /**
+   * `--ui-offset` is declared here (on both the anchor and the panel) rather
+   * than only on the panel: the panel's own placement rules read it via
+   * `var()` for the margin that creates the gap, and setting it in one place
+   * keeps a future per-arrow reference to the same value in sync too.
+   */
+  const styleVars = computed<FloatingStyleVars>(() => ({
+    '--v-float-anchor-name': anchorName,
+    '--ui-offset': `${options.offset}px`,
+  }))
 
   /** Spread onto whichever element should act as the anchor. */
   const anchorProps = computed(() => ({
-    style: styleVars,
+    style: styleVars.value,
     'data-floating-anchor': '',
   }))
 
   /** Spread onto a <FloatingPanel>. */
   const panelProps = computed(() => ({
-    style: styleVars,
+    style: styleVars.value,
     placement: options.placement,
     flip: options.flip,
     shift: options.shift,
@@ -60,7 +70,7 @@ export function useFloating(initial: FloatingStrategy = {}) {
 
   /** Spread onto a <FloatingArrow> nested inside that same panel. */
   const arrowProps = computed(() => ({
-    style: styleVars,
+    style: styleVars.value,
   }))
 
   return {

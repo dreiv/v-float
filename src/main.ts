@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from './router'
 import { floatingPlugin } from './components/floating'
 import './styles/floating/index.css'
+import './styles/playground.css'
 
 const app = createApp(App)
 

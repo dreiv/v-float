@@ -1,16 +1,44 @@
 <script setup lang="ts">
-/**
- * Placeholder view for the "Shift" primitive. Intentionally empty of any
- * floating-engine usage — this scaffold ships the primitive itself
- * (see src/styles/floating/, src/composables/floating/useFloating.ts,
- * src/components/floating/) plus the route to reach this page; the demo
- * markup for Shift is a follow-up, not part of the initial scaffold.
- */
+import { onMounted, useTemplateRef } from 'vue'
+import { useFloating, FloatingPanel } from '@/components/floating'
+import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
+import PlaygroundViewport from '@/components/playground/PlaygroundViewport.vue'
+import { NumberControl, SelectControl, SwitchControl } from '@/components/playground/controls'
+import { verticalPlacementOptions } from '@/components/playground/placementOptions'
+import type { FloatingPlacement } from '@/composables/floating/types'
+
+const { anchorProps, panelProps, options } = useFloating({ placement: 'bottom-start', offset: 8, shift: true })
+
+const panelRef = useTemplateRef('panelRef')
+onMounted(() => panelRef.value?.show())
 </script>
 
 <template>
-  <section>
-    <h1>Shift</h1>
-    <p>Demo pending. Primitive lives in utilities.css [data-shift] (best-effort — see the caveat comment in that file).</p>
-  </section>
+  <PlaygroundLayout
+    title="Shift"
+    description="[data-shift='true'] clamps the panel's inline position so it doesn't run off the edge of its containing block — the real window, since panels are position: fixed. Scroll this box sideways until the anchor nears a window edge to see the clamp engage. This is documented as a best-effort approximation, not full parity — see utilities.css."
+  >
+    <template #viewport>
+      <PlaygroundViewport axis="horizontal">
+        <button class="playground-anchor" v-bind="anchorProps">Reference</button>
+      </PlaygroundViewport>
+
+      <FloatingPanel ref="panelRef" v-bind="panelProps" mode="manual" class="playground-panel">
+        <div class="playground-panel__content">
+          <p>Clamped to stay in view.</p>
+        </div>
+      </FloatingPanel>
+    </template>
+
+    <template #controls>
+      <SwitchControl v-model="options.shift" label="Shift enabled" />
+      <SelectControl
+        :model-value="options.placement"
+        label="Placement"
+        :options="[...verticalPlacementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
+      />
+      <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
+    </template>
+  </PlaygroundLayout>
 </template>

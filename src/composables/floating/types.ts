@@ -16,6 +16,8 @@ export type FloatingHideMode = boolean | 'no-overflow'
 export interface FloatingStrategy {
   /** Preferred side. The browser flips/shifts away from here as needed. */
   placement?: FloatingPlacement
+  /** Gap between anchor and panel, in pixels. Drives `--ui-offset`. Default: 8. */
+  offset?: number
   /** Whether `position-try-fallbacks` (flip) is enabled. Default: true. */
   flip?: boolean
   /** Whether the edge-clamping shift utility is enabled. Default: false. */
@@ -34,4 +36,5 @@ export type AnchorName = `--v-float-anchor-${string}`
 
 export interface FloatingStyleVars {
   '--v-float-anchor-name': AnchorName
+  '--ui-offset'?: string
 }
