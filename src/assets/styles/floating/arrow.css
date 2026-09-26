@@ -12,28 +12,28 @@
     pointer-events: none;
 
     [data-placement^='bottom'] & {
-      top: anchor(bottom);
+      top: calc(anchor(bottom) + var(--ui-offset));
       left: anchor(center);
       translate: -50% var(--ui-arrow-offset);
       rotate: 45deg;
     }
 
     [data-placement^='top'] & {
-      top: anchor(top);
+      top: calc(anchor(top) - var(--ui-offset));
       left: anchor(center);
       translate: -50% calc(-1 * var(--ui-arrow-size) / 2);
       rotate: 225deg;
     }
 
     [data-placement='right'] & {
-      left: anchor(right);
+      left: calc(anchor(right) + var(--ui-offset));
       top: anchor(center);
       translate: var(--ui-arrow-offset) -50%;
       rotate: -45deg;
     }
 
     [data-placement='left'] & {
-      left: anchor(left);
+      left: calc(anchor(left) - var(--ui-offset));
       top: anchor(center);
       translate: calc(-1 * var(--ui-arrow-size) / 2) -50%;
       rotate: 135deg;

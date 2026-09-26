@@ -19,22 +19,18 @@
     box-shadow: var(--ui-surface-shadow);
 
     opacity: 0;
-    scale: 0.96;
     transition:
       opacity var(--ui-transition-duration) var(--ui-transition-easing),
-      scale var(--ui-transition-duration) var(--ui-transition-easing),
       display var(--ui-transition-duration) allow-discrete,
       overlay var(--ui-transition-duration) allow-discrete;
 
     &:popover-open {
       opacity: 1;
-      scale: 1;
     }
 
     @starting-style {
       &:popover-open {
         opacity: 0;
-        scale: 0.96;
       }
     }
 
@@ -51,7 +47,7 @@
     }
 
     &[data-placement='top'] {
-      position-area: top;
+      position-area: top center;
       position-try-fallbacks: --v-float-bottom, flip-block;
     }
 
@@ -66,7 +62,7 @@
     }
 
     &[data-placement='bottom'] {
-      position-area: bottom;
+      position-area: bottom center;
       position-try-fallbacks: --v-float-top, flip-block;
     }
 
@@ -81,13 +77,13 @@
     }
 
     &[data-placement='left'] {
-      position-area: left;
+      position-area: center left;
       margin-inline: 0 var(--ui-offset);
       position-try-fallbacks: --v-float-right, flip-inline;
     }
 
     &[data-placement='right'] {
-      position-area: right;
+      position-area: center right;
       margin-inline: var(--ui-offset) 0;
       position-try-fallbacks: --v-float-left, flip-inline;
     }

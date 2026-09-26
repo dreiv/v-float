@@ -1,6 +1,6 @@
 @layer floating.base {
   @position-try --v-float-top {
-    position-area: top;
+    position-area: top center;
     margin-block: 0 var(--ui-offset);
   }
 
@@ -15,7 +15,7 @@
   }
 
   @position-try --v-float-bottom {
-    position-area: bottom;
+    position-area: bottom center;
     margin-block: var(--ui-offset) 0;
   }
 
@@ -30,12 +30,12 @@
   }
 
   @position-try --v-float-left {
-    position-area: left;
+    position-area: center left;
     margin-inline: 0 var(--ui-offset);
   }
 
   @position-try --v-float-right {
-    position-area: right;
+    position-area: center right;
     margin-inline: var(--ui-offset) 0;
   }
 }
