@@ -30,11 +30,8 @@ defineExpose({ el: viewportEl, recenter })
 
 <template>
   <div class="playground-viewport-wrap">
-    <div
-      ref="viewportEl"
-      class="playground-viewport"
-      :class="scrollable ? `playground-viewport--${axis}` : 'playground-viewport--static'"
-    >
+    <div ref="viewportEl" class="playground-viewport"
+      :class="scrollable ? `playground-viewport--${axis}` : 'playground-viewport--static'">
       <template v-if="scrollable">
         <div class="playground-viewport__spacer" aria-hidden="true" />
         <div class="playground-viewport__anchor-slot">
@@ -97,7 +94,7 @@ defineExpose({ el: viewportEl, recenter })
 
 .playground-viewport--vertical .playground-viewport__spacer {
   width: 100%;
-  min-height: 320px;
+  min-height: 480px;
 }
 
 .playground-viewport--horizontal .playground-viewport__spacer {

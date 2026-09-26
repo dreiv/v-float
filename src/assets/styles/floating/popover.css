@@ -1,4 +1,8 @@
 @layer floating.base {
+  [data-floating-anchor] {
+    anchor-name: var(--v-float-anchor-name);
+  }
+
   .v-float-panel {
     margin: 0;
     padding: 0;

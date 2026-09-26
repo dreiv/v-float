@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import App from '../App.vue'
-import { primitiveRoutes } from '../router/routes/primitives.routes'
+import { primitiveRoutes } from '../router'
 
 describe('App', () => {
   it('mounts and renders the router outlet', async () => {

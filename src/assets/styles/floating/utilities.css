@@ -1,10 +1,6 @@
 @layer floating.utilities {
   .v-float-panel[data-auto-size='true'] {
-    min-width: anchor-size(width);
-    max-width: max(
-      anchor-size(width),
-      min(var(--ui-max-width-fallback), 100vw - (var(--ui-size-viewport-gutter) * 2))
-    );
+    max-width: min(var(--ui-max-width-fallback), 100vw - (var(--ui-size-viewport-gutter) * 2));
     max-height: min(50vh, 100vh - (var(--ui-size-viewport-gutter) * 2));
     overflow: auto;
   }

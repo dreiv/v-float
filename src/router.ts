@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
 
 export const primitiveRoutes: RouteRecordRaw[] = [
   {
@@ -45,3 +45,12 @@ export const primitiveRoutes: RouteRecordRaw[] = [
     ],
   },
 ]
+
+const routes: RouteRecordRaw[] = [{ path: '/', redirect: '/primitives/offset' }, ...primitiveRoutes]
+
+const router = createRouter({
+  history: createWebHashHistory('/v-float/'),
+  routes,
+})
+
+export default router

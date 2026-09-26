@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import { onMounted, useTemplateRef } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
 import PlaygroundViewport from '@/components/playground/PlaygroundViewport.vue'
 import { NumberControl, SelectControl, SwitchControl } from '@/components/playground/controls'
-import { verticalPlacementOptions } from '@/components/playground/placementOptions'
-import type { FloatingPlacement } from '@/composables/floating/types'
+import { verticalPlacementOptions, triggerOptions } from '@/components/playground/placementOptions'
+import type { FloatingPlacement, FloatingTrigger } from '@/composables/floating/types'
 
-const { anchorProps, panelProps, options } = useFloating({
+const { anchorProps, panelProps, options, open, close } = useFloating({
   placement: 'bottom-start',
   offset: 8,
   shift: true,
+  trigger: 'manual',
 })
 
-const panelRef = useTemplateRef('panelRef')
-onMounted(() => panelRef.value?.show())
+onMounted(() => {
+  if (options.trigger === 'manual') open()
+})
+
+watch(
+  () => options.trigger,
+  (trigger) => (trigger === 'manual' ? open() : close()),
+)
 </script>
 
 <template>
@@ -27,7 +34,7 @@ onMounted(() => panelRef.value?.show())
         <button class="playground-anchor" v-bind="anchorProps">Reference</button>
       </PlaygroundViewport>
 
-      <FloatingPanel ref="panelRef" v-bind="panelProps" mode="manual" class="playground-panel">
+      <FloatingPanel v-bind="panelProps" mode="manual" class="playground-panel">
         <div class="playground-panel__content">
           <p>Clamped to stay in view.</p>
         </div>
@@ -43,6 +50,12 @@ onMounted(() => panelRef.value?.show())
         @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
       />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
+      <SelectControl
+        :model-value="options.trigger"
+        label="Trigger"
+        :options="[...triggerOptions]"
+        @update:model-value="(value) => (options.trigger = value as FloatingTrigger)"
+      />
     </template>
   </PlaygroundLayout>
 </template>

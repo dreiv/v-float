@@ -18,3 +18,10 @@ export const hideModeOptions = [
   { value: 'true', label: 'anchors-visible' },
   { value: 'no-overflow', label: 'no-overflow' },
 ] as const
+
+export const triggerOptions = [
+  { value: 'manual', label: 'Manual (always open)' },
+  { value: 'click', label: 'Click' },
+  { value: 'hover', label: 'Hover' },
+  { value: 'focus', label: 'Focus' },
+] as const

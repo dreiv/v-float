@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref, useTemplateRef } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
 import PlaygroundViewport from '@/components/playground/PlaygroundViewport.vue'
-import { NumberControl, SelectControl, SwitchControl } from '@/components/playground/controls'
+import { SelectControl, SwitchControl } from '@/components/playground/controls'
+import { triggerOptions } from '@/components/playground/placementOptions'
+import type { FloatingTrigger } from '@/composables/floating/types'
 
-const { anchorProps, panelProps, options } = useFloating({
+const { anchorProps, panelProps, options, open, close } = useFloating({
   placement: 'bottom',
   offset: 8,
   autoSize: true,
+  trigger: 'manual',
 })
-
-const anchorWidth = ref(140)
 
 const contentLength = ref<'short' | 'long'>('short')
 const contentOptions = [
@@ -19,32 +20,32 @@ const contentOptions = [
   { value: 'long', label: 'Long (forces scroll)' },
 ]
 
-const panelRef = useTemplateRef('panelRef')
-onMounted(() => panelRef.value?.show())
+onMounted(() => {
+  if (options.trigger === 'manual') open()
+})
+
+watch(
+  () => options.trigger,
+  (trigger) => (trigger === 'manual' ? open() : close()),
+)
 </script>
 
 <template>
   <PlaygroundLayout
     title="Size"
-    description="[data-auto-size='true'] uses anchor-size() to match the panel's min-width to its anchor's — the classic 'dropdown as wide as its trigger' pattern. Height is a plain viewport-relative ceiling with overflow: auto; anchor() can't express 'space remaining to the edge' since it's restricted to inset properties (see the comment in utilities.css)."
+    description="[data-auto-size='true'] caps the panel's own max-width/max-height to the available viewport space, with overflow: auto once content exceeds it. anchor() can't express 'space remaining to the edge' since it's restricted to inset properties, so this is a plain viewport-relative ceiling rather than a true available-space calculation."
   >
     <template #viewport>
       <PlaygroundViewport :scrollable="false">
-        <button
-          class="playground-anchor"
-          v-bind="anchorProps"
-          :style="{ width: `${anchorWidth}px` }"
-        >
-          Reference
-        </button>
+        <button class="playground-anchor" v-bind="anchorProps">Reference</button>
       </PlaygroundViewport>
 
-      <FloatingPanel ref="panelRef" v-bind="panelProps" mode="manual" class="playground-panel">
+      <FloatingPanel v-bind="panelProps" mode="manual" class="playground-panel">
         <div
           class="playground-panel__content"
           :class="{ 'playground-panel__content--long': contentLength === 'long' }"
         >
-          <p>Width tracks the reference's {{ anchorWidth }}px via anchor-size().</p>
+          <p>Capped to a viewport-relative max width and height.</p>
           <template v-if="contentLength === 'long'">
             <p>
               Long content clamps to a viewport-relative max-height and scrolls instead of
@@ -59,19 +60,18 @@ onMounted(() => panelRef.value?.show())
     </template>
 
     <template #controls>
-      <SwitchControl v-model="options.autoSize" label="Auto-size (match width)" />
-      <NumberControl
-        v-model="anchorWidth"
-        label="Reference width"
-        :min="80"
-        :max="320"
-        :step="10"
-      />
+      <SwitchControl v-model="options.autoSize" label="Cap panel size" />
       <SelectControl
         :model-value="contentLength"
         label="Content"
         :options="contentOptions"
         @update:model-value="(value) => (contentLength = value as 'short' | 'long')"
+      />
+      <SelectControl
+        :model-value="options.trigger"
+        label="Trigger"
+        :options="[...triggerOptions]"
+        @update:model-value="(value) => (options.trigger = value as FloatingTrigger)"
       />
     </template>
   </PlaygroundLayout>
