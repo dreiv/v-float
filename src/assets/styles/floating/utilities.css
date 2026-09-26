@@ -1,23 +1,23 @@
 @layer floating.utilities {
   .v-float-panel {
-    &[data-auto-size="true"] {
+    &[data-auto-size='true'] {
       max-width: min(var(--ui-max-width-fallback), 100vw - (var(--ui-size-viewport-gutter) * 2));
       max-height: min(50vh, 100vh - (var(--ui-size-viewport-gutter) * 2));
       overflow: auto;
     }
 
-    &[data-hide="true"] {
+    &[data-hide='true'] {
       position-visibility: anchors-visible;
     }
 
-    &[data-hide="no-overflow"] {
+    &[data-hide='no-overflow'] {
       position-visibility: no-overflow;
     }
 
-    &[data-shift="true"] {
+    &[data-shift='true'] {
       justify-self: anchor-center;
 
-      &:is([data-placement^="top"], [data-placement^="bottom"]) {
+      &:is([data-placement^='top'], [data-placement^='bottom']) {
         inset-inline: clamp(
             var(--ui-shift-padding),
             anchor(center),

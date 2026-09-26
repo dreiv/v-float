@@ -4,7 +4,7 @@ import { onMounted, useTemplateRef } from 'vue'
 const props = withDefaults(
   defineProps<{
     scrollable?: boolean
-    axis?: 'vertical' | 'horizontal'
+    axis?: 'vertical' | 'horizontal' | 'both'
   }>(),
   { scrollable: true, axis: 'vertical' },
 )
@@ -14,10 +14,11 @@ const viewportEl = useTemplateRef<HTMLDivElement>('viewportEl')
 function recenter() {
   const el = viewportEl.value
   if (!el) return
-  if (props.axis === 'horizontal') {
-    el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2
-  } else {
+  if (props.axis === 'vertical' || props.axis === 'both') {
     el.scrollTop = (el.scrollHeight - el.clientHeight) / 2
+  }
+  if (props.axis === 'horizontal' || props.axis === 'both') {
+    el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2
   }
 }
 
@@ -35,13 +36,11 @@ defineExpose({ el: viewportEl, recenter })
       class="playground-viewport"
       :class="scrollable ? `playground-viewport--${axis}` : 'playground-viewport--static'"
     >
-      <template v-if="scrollable">
-        <div class="playground-viewport__spacer" aria-hidden="true" />
+      <div v-if="scrollable" class="playground-viewport__pad">
         <div class="playground-viewport__anchor-slot">
           <slot />
         </div>
-        <div class="playground-viewport__spacer" aria-hidden="true" />
-      </template>
+      </div>
       <div v-else class="playground-viewport__anchor-slot">
         <slot />
       </div>
@@ -62,6 +61,7 @@ defineExpose({ el: viewportEl, recenter })
 }
 
 .playground-viewport {
+  position: relative;
   border: 1px solid color-mix(in oklab, canvastext 20%, transparent);
   border-radius: 8px;
   background: color-mix(in oklab, canvastext 4%, transparent);
@@ -76,13 +76,10 @@ defineExpose({ el: viewportEl, recenter })
     height: min(65dvh, 560px);
     overflow-y: auto;
     overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
-    & .playground-viewport__spacer {
+    & .playground-viewport__pad {
       width: 100%;
-      min-height: 60dvh;
+      height: 220%;
     }
   }
 
@@ -90,25 +87,30 @@ defineExpose({ el: viewportEl, recenter })
     height: 320px;
     overflow-x: auto;
     overflow-y: hidden;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
 
-    & .playground-viewport__spacer {
+    & .playground-viewport__pad {
+      width: 220%;
       height: 100%;
-      min-width: 60dvw;
+    }
+  }
+
+  &.playground-viewport--both {
+    height: min(65dvh, 560px);
+    overflow: auto;
+
+    & .playground-viewport__pad {
+      width: 220%;
+      height: 220%;
     }
   }
 }
 
-.playground-viewport__spacer {
-  flex: none;
+.playground-viewport__pad {
+  display: grid;
+  place-items: center;
 }
 
 .playground-viewport__anchor-slot {
-  flex: none;
-  display: grid;
-  place-items: center;
   padding: 2rem;
 }
 
