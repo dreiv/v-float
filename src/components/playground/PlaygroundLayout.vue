@@ -54,6 +54,10 @@ defineProps<{
   grid-template-columns: minmax(0, 1fr) 220px;
   gap: 1.25rem;
   align-items: start;
+
+  @media (max-width: 720px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .playground__stage {
@@ -68,11 +72,5 @@ defineProps<{
   padding: 1rem;
   border: 1px solid color-mix(in oklab, canvastext 15%, transparent);
   border-radius: 8px;
-}
-
-@media (max-width: 720px) {
-  .playground__body {
-    grid-template-columns: 1fr;
-  }
 }
 </style>

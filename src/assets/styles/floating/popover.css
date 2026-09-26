@@ -14,7 +14,6 @@
     position: fixed;
 
     position-try-fallbacks: flip-block, flip-inline;
-    position-try-order: most-height;
 
     border-radius: var(--ui-surface-radius);
     box-shadow: var(--ui-surface-shadow);
@@ -26,69 +25,75 @@
       scale var(--ui-transition-duration) var(--ui-transition-easing),
       display var(--ui-transition-duration) allow-discrete,
       overlay var(--ui-transition-duration) allow-discrete;
-  }
 
-  @starting-style {
-    .v-float-panel:popover-open {
-      opacity: 0;
-      scale: 0.96;
+    &:popover-open {
+      opacity: 1;
+      scale: 1;
     }
-  }
 
-  .v-float-panel:popover-open {
-    opacity: 1;
-    scale: 1;
-  }
+    @starting-style {
+      &:popover-open {
+        opacity: 0;
+        scale: 0.96;
+      }
+    }
 
-  .v-float-panel[data-placement='top'] {
-    position-area: top;
-    margin-block: 0 var(--ui-offset);
-    position-try-fallbacks: --v-float-bottom, flip-block;
-  }
+    &:is([data-placement='top'], [data-placement='top-start'], [data-placement='top-end']) {
+      margin-block: 0 var(--ui-offset);
+    }
 
-  .v-float-panel[data-placement='top-start'] {
-    position-area: top span-right;
-    margin-block: 0 var(--ui-offset);
-    position-try-fallbacks: --v-float-bottom-start, flip-block;
-  }
+    &:is(
+      [data-placement='bottom'],
+      [data-placement='bottom-start'],
+      [data-placement='bottom-end']
+    ) {
+      margin-block: var(--ui-offset) 0;
+    }
 
-  .v-float-panel[data-placement='top-end'] {
-    position-area: top span-left;
-    margin-block: 0 var(--ui-offset);
-    position-try-fallbacks: --v-float-bottom-end, flip-block;
-  }
+    &[data-placement='top'] {
+      position-area: top;
+      position-try-fallbacks: --v-float-bottom, flip-block;
+    }
 
-  .v-float-panel[data-placement='bottom'] {
-    position-area: bottom;
-    margin-block: var(--ui-offset) 0;
-    position-try-fallbacks: --v-float-top, flip-block;
-  }
+    &[data-placement='top-start'] {
+      position-area: top span-right;
+      position-try-fallbacks: --v-float-bottom-start, flip-block;
+    }
 
-  .v-float-panel[data-placement='bottom-start'] {
-    position-area: bottom span-right;
-    margin-block: var(--ui-offset) 0;
-    position-try-fallbacks: --v-float-top-start, flip-block;
-  }
+    &[data-placement='top-end'] {
+      position-area: top span-left;
+      position-try-fallbacks: --v-float-bottom-end, flip-block;
+    }
 
-  .v-float-panel[data-placement='bottom-end'] {
-    position-area: bottom span-left;
-    margin-block: var(--ui-offset) 0;
-    position-try-fallbacks: --v-float-top-end, flip-block;
-  }
+    &[data-placement='bottom'] {
+      position-area: bottom;
+      position-try-fallbacks: --v-float-top, flip-block;
+    }
 
-  .v-float-panel[data-placement='left'] {
-    position-area: left;
-    margin-inline: 0 var(--ui-offset);
-    position-try-fallbacks: --v-float-right, flip-inline;
-  }
+    &[data-placement='bottom-start'] {
+      position-area: bottom span-right;
+      position-try-fallbacks: --v-float-top-start, flip-block;
+    }
 
-  .v-float-panel[data-placement='right'] {
-    position-area: right;
-    margin-inline: var(--ui-offset) 0;
-    position-try-fallbacks: --v-float-left, flip-inline;
-  }
+    &[data-placement='bottom-end'] {
+      position-area: bottom span-left;
+      position-try-fallbacks: --v-float-top-end, flip-block;
+    }
 
-  .v-float-panel[data-flip='false'] {
-    position-try-fallbacks: none;
+    &[data-placement='left'] {
+      position-area: left;
+      margin-inline: 0 var(--ui-offset);
+      position-try-fallbacks: --v-float-right, flip-inline;
+    }
+
+    &[data-placement='right'] {
+      position-area: right;
+      margin-inline: var(--ui-offset) 0;
+      position-try-fallbacks: --v-float-left, flip-inline;
+    }
+
+    &[data-flip='false'] {
+      position-try-fallbacks: none;
+    }
   }
 }

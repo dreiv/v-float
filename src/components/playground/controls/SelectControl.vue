@@ -24,18 +24,18 @@ const model = defineModel<string>({ required: true })
   flex-direction: column;
   gap: 0.35rem;
   font-size: 0.85rem;
-}
 
-.control__label {
-  font-weight: 600;
-}
+  &__label {
+    font-weight: 600;
+  }
 
-.control__select {
-  font: inherit;
-  padding: 0.4rem 0.5rem;
-  border-radius: 6px;
-  border: 1px solid color-mix(in oklab, canvastext 25%, transparent);
-  background: canvas;
-  color: inherit;
+  &__select {
+    font: inherit;
+    padding: 0.4rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid color-mix(in oklab, canvastext 25%, transparent);
+    background: canvas;
+    color: inherit;
+  }
 }
 </style>

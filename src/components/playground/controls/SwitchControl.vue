@@ -20,15 +20,15 @@ const model = defineModel<boolean>({ required: true })
   gap: 0.5rem;
   font-size: 0.85rem;
   cursor: pointer;
-}
 
-.control__label {
-  font-weight: 600;
-}
+  & .control__label {
+    font-weight: 600;
+  }
 
-.control__checkbox {
-  width: 2rem;
-  height: 1.15rem;
-  accent-color: currentColor;
+  & .control__checkbox {
+    width: 2rem;
+    height: 1.15rem;
+    accent-color: currentColor;
+  }
 }
 </style>

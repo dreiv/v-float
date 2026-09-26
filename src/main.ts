@@ -4,6 +4,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { floatingPlugin } from './components/floating'
+import './assets/styles/base.css'
 import './assets/styles/floating/index.css'
 import './assets/styles/playground.css'
 

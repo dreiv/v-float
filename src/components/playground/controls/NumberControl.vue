@@ -35,26 +35,26 @@ const model = defineModel<number>({ required: true })
   flex-direction: column;
   gap: 0.35rem;
   font-size: 0.85rem;
-}
 
-.control__label {
-  font-weight: 600;
-}
+  &__label {
+    font-weight: 600;
+  }
 
-.control__row {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
 
-.control__range {
-  flex: 1;
-}
+  &__range {
+    flex: 1;
+  }
 
-.control__value {
-  min-width: 3ch;
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-  opacity: 0.8;
+  &__value {
+    min-width: 3ch;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.8;
+  }
 }
 </style>

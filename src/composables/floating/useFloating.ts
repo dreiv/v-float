@@ -24,7 +24,7 @@ export function useFloating(initial: FloatingStrategy = {}) {
     shift: initial.shift ?? false,
     hide: initial.hide ?? false,
     autoSize: initial.autoSize ?? false,
-    trigger: initial.trigger ?? 'click',
+    trigger: initial.trigger ?? ['click'],
   })
 
   let closeTimer: ReturnType<typeof setTimeout> | undefined
@@ -63,30 +63,27 @@ export function useFloating(initial: FloatingStrategy = {}) {
   }))
 
   const anchorProps = computed(() => {
-    const base = {
+    const props: Record<string, unknown> = {
       style: styleVars.value,
       'data-floating-anchor': '',
     }
 
-    switch (options.trigger) {
-      case 'click':
-        return { ...base, popovertarget: panelId, popovertargetaction: 'toggle' }
-      case 'hover':
-        return {
-          ...base,
-          onMouseenter: open,
-          onMouseleave: closeAfterDelay,
-        }
-      case 'focus':
-        return {
-          ...base,
-          onFocus: open,
-          onBlur: close,
-        }
-      case 'manual':
-      default:
-        return base
+    if (options.trigger.includes('click')) {
+      props.popovertarget = panelId
+      props.popovertargetaction = 'toggle'
     }
+
+    if (options.trigger.includes('hover')) {
+      props.onMouseenter = open
+      props.onMouseleave = closeAfterDelay
+    }
+
+    if (options.trigger.includes('focus')) {
+      props.onFocus = open
+      props.onBlur = close
+    }
+
+    return props
   })
 
   const panelProps = computed(() => {
@@ -100,7 +97,7 @@ export function useFloating(initial: FloatingStrategy = {}) {
       autoSize: options.autoSize,
     }
 
-    if (options.trigger !== 'hover') return base
+    if (!options.trigger.includes('hover')) return base
 
     return {
       ...base,

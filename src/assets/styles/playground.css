@@ -6,10 +6,10 @@
   background: color-mix(in oklab, canvastext 6%, canvas);
   color: inherit;
   cursor: pointer;
-}
 
-.playground-anchor:hover {
-  background: color-mix(in oklab, canvastext 12%, canvas);
+  &:hover {
+    background: color-mix(in oklab, canvastext 12%, canvas);
+  }
 }
 
 .playground-panel {
@@ -20,16 +20,16 @@
   padding: 0.75rem 1rem;
   font-size: 0.9rem;
   max-width: 240px;
-}
 
-.playground-panel__content--long {
-  max-width: 280px;
-}
+  &.playground-panel__content--long {
+    max-width: 280px;
+  }
 
-.playground-panel__content p {
-  margin: 0 0 0.5rem;
-}
+  & p {
+    margin: 0 0 0.5rem;
 
-.playground-panel__content p:last-child {
-  margin-bottom: 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

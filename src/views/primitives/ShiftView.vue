@@ -3,24 +3,29 @@ import { onMounted, watch } from 'vue'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
 import PlaygroundViewport from '@/components/playground/PlaygroundViewport.vue'
-import { NumberControl, SelectControl, SwitchControl } from '@/components/playground/controls'
+import {
+  CheckboxGroupControl,
+  NumberControl,
+  SelectControl,
+  SwitchControl,
+} from '@/components/playground/controls'
 import { verticalPlacementOptions, triggerOptions } from '@/components/playground/placementOptions'
-import type { FloatingPlacement, FloatingTrigger } from '@/composables/floating/types'
+import type { FloatingPlacement } from '@/composables/floating/types'
 
 const { anchorProps, panelProps, options, open, close } = useFloating({
   placement: 'bottom-start',
   offset: 8,
   shift: true,
-  trigger: 'manual',
+  trigger: [],
 })
 
 onMounted(() => {
-  if (options.trigger === 'manual') open()
+  if (options.trigger.length === 0) open()
 })
 
 watch(
-  () => options.trigger,
-  (trigger) => (trigger === 'manual' ? open() : close()),
+  () => options.trigger.length,
+  (length) => (length === 0 ? open() : close()),
 )
 </script>
 
@@ -50,11 +55,10 @@ watch(
         @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
       />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
-      <SelectControl
-        :model-value="options.trigger"
+      <CheckboxGroupControl
+        v-model="options.trigger"
         label="Trigger"
         :options="[...triggerOptions]"
-        @update:model-value="(value) => (options.trigger = value as FloatingTrigger)"
       />
     </template>
   </PlaygroundLayout>

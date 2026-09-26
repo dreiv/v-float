@@ -30,8 +30,11 @@ defineExpose({ el: viewportEl, recenter })
 
 <template>
   <div class="playground-viewport-wrap">
-    <div ref="viewportEl" class="playground-viewport"
-      :class="scrollable ? `playground-viewport--${axis}` : 'playground-viewport--static'">
+    <div
+      ref="viewportEl"
+      class="playground-viewport"
+      :class="scrollable ? `playground-viewport--${axis}` : 'playground-viewport--static'"
+    >
       <template v-if="scrollable">
         <div class="playground-viewport__spacer" aria-hidden="true" />
         <div class="playground-viewport__anchor-slot">
@@ -62,44 +65,44 @@ defineExpose({ el: viewportEl, recenter })
   border: 1px solid color-mix(in oklab, canvastext 20%, transparent);
   border-radius: 8px;
   background: color-mix(in oklab, canvastext 4%, transparent);
-}
 
-.playground-viewport--static {
-  height: min(50vh, 360px);
-  display: grid;
-  place-items: center;
-}
+  &.playground-viewport--static {
+    height: min(50vh, 360px);
+    display: grid;
+    place-items: center;
+  }
 
-.playground-viewport--vertical {
-  height: min(65vh, 480px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  &.playground-viewport--vertical {
+    height: min(65vh, 480px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-.playground-viewport--horizontal {
-  height: 220px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    & .playground-viewport__spacer {
+      width: 100%;
+      min-height: 480px;
+    }
+  }
+
+  &.playground-viewport--horizontal {
+    height: 220px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & .playground-viewport__spacer {
+      height: 100%;
+      min-width: 320px;
+    }
+  }
 }
 
 .playground-viewport__spacer {
   flex: none;
-}
-
-.playground-viewport--vertical .playground-viewport__spacer {
-  width: 100%;
-  min-height: 480px;
-}
-
-.playground-viewport--horizontal .playground-viewport__spacer {
-  height: 100%;
-  min-width: 320px;
 }
 
 .playground-viewport__anchor-slot {
@@ -119,9 +122,9 @@ defineExpose({ el: viewportEl, recenter })
   background: transparent;
   color: inherit;
   cursor: pointer;
-}
 
-.playground-viewport__recenter:hover {
-  background: color-mix(in oklab, canvastext 8%, transparent);
+  &:hover {
+    background: color-mix(in oklab, canvastext 8%, transparent);
+  }
 }
 </style>

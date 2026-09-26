@@ -20,7 +20,6 @@ export const hideModeOptions = [
 ] as const
 
 export const triggerOptions = [
-  { value: 'manual', label: 'Manual (always open)' },
   { value: 'click', label: 'Click' },
   { value: 'hover', label: 'Hover' },
   { value: 'focus', label: 'Focus' },

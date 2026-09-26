@@ -1,29 +1,30 @@
 @layer floating.utilities {
-  .v-float-panel[data-auto-size='true'] {
-    max-width: min(var(--ui-max-width-fallback), 100vw - (var(--ui-size-viewport-gutter) * 2));
-    max-height: min(50vh, 100vh - (var(--ui-size-viewport-gutter) * 2));
-    overflow: auto;
-  }
+  .v-float-panel {
+    &[data-auto-size='true'] {
+      max-width: min(var(--ui-max-width-fallback), 100vw - (var(--ui-size-viewport-gutter) * 2));
+      max-height: min(50vh, 100vh - (var(--ui-size-viewport-gutter) * 2));
+      overflow: auto;
+    }
 
-  .v-float-panel[data-hide='true'] {
-    position-visibility: anchors-visible;
-  }
+    &[data-hide='true'] {
+      position-visibility: anchors-visible;
+    }
 
-  .v-float-panel[data-hide='no-overflow'] {
-    position-visibility: no-overflow;
-  }
+    &[data-hide='no-overflow'] {
+      position-visibility: no-overflow;
+    }
 
-  .v-float-panel[data-shift='true'] {
-    justify-self: anchor-center;
-  }
+    &[data-shift='true'] {
+      justify-self: anchor-center;
 
-  .v-float-panel[data-shift='true'][data-placement^='top'],
-  .v-float-panel[data-shift='true'][data-placement^='bottom'] {
-    inset-inline: clamp(
-        var(--ui-shift-padding),
-        anchor(center),
-        calc(100vw - var(--ui-shift-padding))
-      )
-      auto;
+      &:is([data-placement^='top'], [data-placement^='bottom']) {
+        inset-inline: clamp(
+            var(--ui-shift-padding),
+            anchor(center),
+            calc(100vw - var(--ui-shift-padding))
+          )
+          auto;
+      }
+    }
   }
 }

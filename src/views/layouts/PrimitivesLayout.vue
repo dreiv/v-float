@@ -48,11 +48,11 @@ const links = [
   border-radius: 6px;
   color: inherit;
   text-decoration: none;
-}
 
-.primitives-layout__link:hover,
-.primitives-layout__link.router-link-active {
-  background: color-mix(in oklab, canvastext 8%, transparent);
+  &:hover,
+  &.router-link-active {
+    background: color-mix(in oklab, canvastext 8%, transparent);
+  }
 }
 
 .primitives-layout__content {

@@ -10,33 +10,33 @@
     rotate: 45deg;
     z-index: 1;
     pointer-events: none;
-  }
 
-  [data-placement^='bottom'] .v-float-arrow {
-    top: anchor(bottom);
-    left: anchor(center);
-    translate: -50% var(--ui-arrow-offset);
-    rotate: 45deg;
-  }
+    [data-placement^='bottom'] & {
+      top: anchor(bottom);
+      left: anchor(center);
+      translate: -50% var(--ui-arrow-offset);
+      rotate: 45deg;
+    }
 
-  [data-placement^='top'] .v-float-arrow {
-    top: anchor(top);
-    left: anchor(center);
-    translate: -50% calc(-1 * var(--ui-arrow-size) / 2);
-    rotate: 225deg;
-  }
+    [data-placement^='top'] & {
+      top: anchor(top);
+      left: anchor(center);
+      translate: -50% calc(-1 * var(--ui-arrow-size) / 2);
+      rotate: 225deg;
+    }
 
-  [data-placement='right'] .v-float-arrow {
-    left: anchor(right);
-    top: anchor(center);
-    translate: var(--ui-arrow-offset) -50%;
-    rotate: -45deg;
-  }
+    [data-placement='right'] & {
+      left: anchor(right);
+      top: anchor(center);
+      translate: var(--ui-arrow-offset) -50%;
+      rotate: -45deg;
+    }
 
-  [data-placement='left'] .v-float-arrow {
-    left: anchor(left);
-    top: anchor(center);
-    translate: calc(-1 * var(--ui-arrow-size) / 2) -50%;
-    rotate: 135deg;
+    [data-placement='left'] & {
+      left: anchor(left);
+      top: anchor(center);
+      translate: calc(-1 * var(--ui-arrow-size) / 2) -50%;
+      rotate: 135deg;
+    }
   }
 }

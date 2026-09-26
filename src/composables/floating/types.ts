@@ -12,7 +12,9 @@ export type FloatingPopoverMode = 'auto' | 'manual'
 
 export type FloatingHideMode = boolean | 'no-overflow'
 
-export type FloatingTrigger = 'click' | 'hover' | 'focus' | 'manual'
+export type FloatingTriggerType = 'click' | 'hover' | 'focus'
+
+export type FloatingTrigger = FloatingTriggerType[]
 
 export interface FloatingStrategy {
   placement?: FloatingPlacement
