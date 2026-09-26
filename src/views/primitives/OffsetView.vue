@@ -44,13 +44,13 @@ watch(
     </template>
 
     <template #controls>
-      <NumberControl v-model="options.offset" label="Offset" :min="0" :max="48" :step="2" />
       <SelectControl
         :model-value="options.placement"
         label="Placement"
         :options="[...placementOptions]"
         @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
       />
+      <NumberControl v-model="options.offset" label="Offset" :min="0" :max="48" :step="2" />
       <CheckboxGroupControl
         v-model="options.trigger"
         label="Trigger"

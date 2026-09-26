@@ -2,9 +2,17 @@
 import { computed, onMounted, useTemplateRef, watch } from 'vue'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
-import { CheckboxGroupControl, SelectControl } from '@/components/playground/controls'
-import { hideModeOptions, triggerOptions } from '@/components/playground/placementOptions'
-import type { FloatingHideMode } from '@/composables/floating/types'
+import {
+  CheckboxGroupControl,
+  NumberControl,
+  SelectControl,
+} from '@/components/playground/controls'
+import {
+  hideModeOptions,
+  placementOptions,
+  triggerOptions,
+} from '@/components/playground/placementOptions'
+import type { FloatingHideMode, FloatingPlacement } from '@/composables/floating/types'
 
 const { anchorProps, panelProps, options, open, close } = useFloating({
   placement: 'right',
@@ -54,6 +62,12 @@ watch(
 
     <template #controls>
       <SelectControl
+        :model-value="options.placement"
+        label="Placement"
+        :options="[...placementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
+      />
+      <SelectControl
         :model-value="hideModeValue"
         label="Hide mode"
         :options="[...hideModeOptions]"
@@ -64,6 +78,7 @@ watch(
             ) as FloatingHideMode)
         "
       />
+      <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
       <CheckboxGroupControl
         v-model="options.trigger"
         label="Trigger"

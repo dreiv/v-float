@@ -34,8 +34,28 @@
     margin-inline: 0 var(--ui-offset);
   }
 
+  @position-try --v-float-left-start {
+    position-area: span-bottom left;
+    margin-inline: 0 var(--ui-offset);
+  }
+
+  @position-try --v-float-left-end {
+    position-area: span-top left;
+    margin-inline: 0 var(--ui-offset);
+  }
+
   @position-try --v-float-right {
     position-area: center right;
+    margin-inline: var(--ui-offset) 0;
+  }
+
+  @position-try --v-float-right-start {
+    position-area: span-bottom right;
+    margin-inline: var(--ui-offset) 0;
+  }
+
+  @position-try --v-float-right-end {
+    position-area: span-top right;
     margin-inline: var(--ui-offset) 0;
   }
 }

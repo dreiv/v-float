@@ -2,11 +2,15 @@ export type FloatingPlacement =
   | 'top'
   | 'top-start'
   | 'top-end'
+  | 'right'
+  | 'right-start'
+  | 'right-end'
   | 'bottom'
   | 'bottom-start'
   | 'bottom-end'
   | 'left'
-  | 'right'
+  | 'left-start'
+  | 'left-end'
 
 export type FloatingPopoverMode = 'auto' | 'manual'
 

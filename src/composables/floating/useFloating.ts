@@ -130,10 +130,14 @@ export function isValidPlacement(value: string): value is FloatingPlacement {
     'top',
     'top-start',
     'top-end',
+    'right',
+    'right-start',
+    'right-end',
     'bottom',
     'bottom-start',
     'bottom-end',
     'left',
-    'right',
+    'left-start',
+    'left-end',
   ].includes(value)
 }

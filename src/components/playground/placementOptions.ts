@@ -2,11 +2,15 @@ export const placementOptions = [
   { value: 'top', label: 'Top' },
   { value: 'top-start', label: 'Top start' },
   { value: 'top-end', label: 'Top end' },
+  { value: 'right', label: 'Right' },
+  { value: 'right-start', label: 'Right start' },
+  { value: 'right-end', label: 'Right end' },
   { value: 'bottom', label: 'Bottom' },
   { value: 'bottom-start', label: 'Bottom start' },
   { value: 'bottom-end', label: 'Bottom end' },
   { value: 'left', label: 'Left' },
-  { value: 'right', label: 'Right' },
+  { value: 'left-start', label: 'Left start' },
+  { value: 'left-end', label: 'Left end' },
 ] as const
 
 export const verticalPlacementOptions = placementOptions.filter(

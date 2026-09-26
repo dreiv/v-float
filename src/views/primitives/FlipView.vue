@@ -67,7 +67,7 @@ watch(
     <template #controls>
       <SelectControl
         :model-value="options.placement"
-        label="Preferred placement"
+        label="Placement"
         :options="[...placementOptions]"
         @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
       />

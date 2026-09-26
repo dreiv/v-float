@@ -58,13 +58,13 @@ watch(
     </template>
 
     <template #controls>
-      <SwitchControl v-model="options.shift" label="Shift enabled" />
       <SelectControl
         :model-value="options.placement"
         label="Placement"
         :options="[...verticalPlacementOptions]"
         @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
       />
+      <SwitchControl v-model="options.shift" label="Shift enabled" />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
       <NumberControl
         v-model="anchorX"
