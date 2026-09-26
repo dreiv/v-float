@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, useTemplateRef, watch } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
 import {
@@ -12,7 +12,14 @@ import {
   placementOptions,
   triggerOptions,
 } from '@/components/playground/placementOptions'
+import { useDemoAutoOpen } from '@/composables/playground/useDemoAutoOpen'
 import type { FloatingHideMode, FloatingPlacement } from '@/composables/floating/types'
+
+function parseHideMode(value: string): FloatingHideMode {
+  if (value === 'false') return false
+  if (value === 'true') return true
+  return value as FloatingHideMode
+}
 
 const { anchorProps, panelProps, options, open, close } = useFloating({
   placement: 'right',
@@ -28,14 +35,7 @@ function scrollToAnchor() {
   anchorRef.value?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 }
 
-onMounted(() => {
-  if (options.trigger.length === 0) open()
-})
-
-watch(
-  () => options.trigger.length,
-  (length) => (length === 0 ? open() : close()),
-)
+useDemoAutoOpen(options.trigger, open, close)
 </script>
 
 <template>
@@ -71,12 +71,7 @@ watch(
         :model-value="hideModeValue"
         label="Hide mode"
         :options="[...hideModeOptions]"
-        @update:model-value="
-          (value) =>
-            (options.hide = (
-              value === 'false' ? false : value === 'true' ? true : value
-            ) as FloatingHideMode)
-        "
+        @update:model-value="(value) => (options.hide = parseHideMode(value))"
       />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
       <CheckboxGroupControl

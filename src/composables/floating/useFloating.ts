@@ -1,4 +1,5 @@
 import { computed, getCurrentInstance, onScopeDispose, reactive } from 'vue'
+import { FLOATING_PLACEMENTS } from './types'
 import type { AnchorName, FloatingPlacement, FloatingStrategy, FloatingStyleVars } from './types'
 
 let fallbackId = 0
@@ -126,18 +127,5 @@ export function useFloating(initial: FloatingStrategy = {}) {
 export type UseFloatingReturn = ReturnType<typeof useFloating>
 
 export function isValidPlacement(value: string): value is FloatingPlacement {
-  return [
-    'top',
-    'top-start',
-    'top-end',
-    'right',
-    'right-start',
-    'right-end',
-    'bottom',
-    'bottom-start',
-    'bottom-end',
-    'left',
-    'left-start',
-    'left-end',
-  ].includes(value)
+  return (FLOATING_PLACEMENTS as readonly string[]).includes(value)
 }

@@ -1,16 +1,19 @@
-export type FloatingPlacement =
-  | 'top'
-  | 'top-start'
-  | 'top-end'
-  | 'right'
-  | 'right-start'
-  | 'right-end'
-  | 'bottom'
-  | 'bottom-start'
-  | 'bottom-end'
-  | 'left'
-  | 'left-start'
-  | 'left-end'
+export const FLOATING_PLACEMENTS = [
+  'top',
+  'top-start',
+  'top-end',
+  'right',
+  'right-start',
+  'right-end',
+  'bottom',
+  'bottom-start',
+  'bottom-end',
+  'left',
+  'left-start',
+  'left-end',
+] as const
+
+export type FloatingPlacement = (typeof FLOATING_PLACEMENTS)[number]
 
 export type FloatingPopoverMode = 'auto' | 'manual'
 

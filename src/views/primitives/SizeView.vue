@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { ref } from 'vue'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
 import {
@@ -9,6 +9,7 @@ import {
   SwitchControl,
 } from '@/components/playground/controls'
 import { placementOptions, triggerOptions } from '@/components/playground/placementOptions'
+import { useDemoAutoOpen } from '@/composables/playground/useDemoAutoOpen'
 import type { FloatingPlacement } from '@/composables/floating/types'
 
 const { anchorProps, panelProps, options, open, close } = useFloating({
@@ -24,14 +25,7 @@ const contentOptions = [
   { value: 'long', label: 'Long (forces scroll)' },
 ]
 
-onMounted(() => {
-  if (options.trigger.length === 0) open()
-})
-
-watch(
-  () => options.trigger.length,
-  (length) => (length === 0 ? open() : close()),
-)
+useDemoAutoOpen(options.trigger, open, close)
 </script>
 
 <template>
