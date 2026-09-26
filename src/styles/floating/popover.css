@@ -1,0 +1,125 @@
+/**
+ * v-float :: popover primitive
+ * ---------------------------------------------------------------------------
+ * `.v-float-panel` is applied to any element with the native `popover`
+ * attribute (rendered by <FloatingPanel>). It links itself to whichever
+ * anchor set `--v-float-anchor-name` (see useFloating.ts) via
+ * `position-anchor: var(...)`, then resolves its initial side from
+ * `data-placement` and hands the fallback chain to `position-try-fallbacks`.
+ */
+
+@layer floating.base {
+  .v-float-panel {
+    /* --- top-layer plumbing ---------------------------------------------*/
+    margin: 0; /* popover UA stylesheet centers by default — opt out */
+    padding: 0;
+    border: none;
+    color: var(--ui-surface-fg);
+    background: var(--ui-surface-bg);
+
+    /* --- anchor linkage ---------------------------------------------------
+     * `anchor-name`/`position-anchor` accept <dashed-ident>, which a custom
+     * property CAN supply via var() substitution (the substitution happens
+     * before the value is parsed). This is what lets JS hand out a unique,
+     * collision-free name per instance while every positioning rule stays
+     * pure CSS.
+     */
+    position-anchor: var(--v-float-anchor-name);
+    position: fixed;
+
+    /* --- default placement + fallback chain ------------------------------*/
+    position-try-fallbacks: flip-block, flip-inline;
+    position-try-order: most-height;
+
+    /* --- surface ----------------------------------------------------------*/
+    border-radius: var(--ui-surface-radius);
+    box-shadow: var(--ui-surface-shadow);
+
+    /* --- entry/exit transition (discrete-property aware) ------------------*/
+    opacity: 0;
+    scale: 0.96;
+    transition:
+      opacity var(--ui-transition-duration) var(--ui-transition-easing),
+      scale var(--ui-transition-duration) var(--ui-transition-easing),
+      display var(--ui-transition-duration) allow-discrete,
+      overlay var(--ui-transition-duration) allow-discrete;
+  }
+
+  /* Entry state: what the panel animates FROM the instant it enters the
+   * top layer. Must be paired with `allow-discrete` above or the UA never
+   * lets `display: none -> block` participate in the transition. */
+  @starting-style {
+    .v-float-panel:popover-open {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+
+  .v-float-panel:popover-open {
+    opacity: 1;
+    scale: 1;
+  }
+
+  /* --- placement --------------------------------------------------------
+   * `data-placement` picks the *preferred* side; `position-try-fallbacks`
+   * (above) is what the UA reaches for when that side won't fit. Fallback
+   * order is deliberately the opposite side first, then the built-in
+   * flip-block/flip-inline as a last resort for unusual anchor shapes.
+   */
+  .v-float-panel[data-placement='top'] {
+    position-area: top;
+    margin-block: 0 var(--ui-offset);
+    position-try-fallbacks: --v-float-bottom, flip-block;
+  }
+
+  .v-float-panel[data-placement='top-start'] {
+    position-area: top span-right;
+    margin-block: 0 var(--ui-offset);
+    position-try-fallbacks: --v-float-bottom-start, flip-block;
+  }
+
+  .v-float-panel[data-placement='top-end'] {
+    position-area: top span-left;
+    margin-block: 0 var(--ui-offset);
+    position-try-fallbacks: --v-float-bottom-end, flip-block;
+  }
+
+  .v-float-panel[data-placement='bottom'] {
+    position-area: bottom;
+    margin-block: var(--ui-offset) 0;
+    position-try-fallbacks: --v-float-top, flip-block;
+  }
+
+  .v-float-panel[data-placement='bottom-start'] {
+    position-area: bottom span-right;
+    margin-block: var(--ui-offset) 0;
+    position-try-fallbacks: --v-float-top-start, flip-block;
+  }
+
+  .v-float-panel[data-placement='bottom-end'] {
+    position-area: bottom span-left;
+    margin-block: var(--ui-offset) 0;
+    position-try-fallbacks: --v-float-top-end, flip-block;
+  }
+
+  .v-float-panel[data-placement='left'] {
+    position-area: left;
+    margin-inline: 0 var(--ui-offset);
+    position-try-fallbacks: --v-float-right, flip-inline;
+  }
+
+  .v-float-panel[data-placement='right'] {
+    position-area: right;
+    margin-inline: var(--ui-offset) 0;
+    position-try-fallbacks: --v-float-left, flip-inline;
+  }
+
+  /* --- flip opt-out -------------------------------------------------------
+   * `<FloatingPanel :flip="false">` sets this attribute, which wins because
+   * it's declared after the placement rules and matches the same specificity
+   * via the extra attribute selector.
+   */
+  .v-float-panel[data-flip='false'] {
+    position-try-fallbacks: none;
+  }
+}

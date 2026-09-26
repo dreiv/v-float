@@ -1,0 +1,16 @@
+/**
+ * v-float :: stylesheet entrypoint
+ * ---------------------------------------------------------------------------
+ * Import once from main.ts. Layer order is declared up front so consumer
+ * app CSS (unlayered, or in its own @layer) can override anything here
+ * without fighting specificity — later layers in this list win, and any
+ * unlayered rule beats every layered one by spec.
+ */
+
+@layer floating.tokens, floating.base, floating.arrow, floating.utilities;
+
+@import './tokens.css';
+@import './position-try.css';
+@import './popover.css';
+@import './arrow.css';
+@import './utilities.css';

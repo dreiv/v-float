@@ -1,0 +1,42 @@
+/**
+ * v-float :: design tokens
+ * ---------------------------------------------------------------------------
+ * Single source of truth for spacing, sizing and motion values consumed by
+ * every floating primitive. Override per-instance by setting these custom
+ * properties directly on a <FloatingPanel> (they do NOT inherit across the
+ * anchor link, only down the normal DOM tree from the popover element).
+ */
+
+@layer floating.tokens {
+  :root {
+    /* --- Offset primitive ----------------------------------------------- */
+    --ui-offset: 8px;
+
+    /* --- Shift primitive -------------------------------------------------
+     * Minimum distance the floating element is allowed to sit from the
+     * viewport edge once it has been clamped back into view.
+     */
+    --ui-shift-padding: 8px;
+
+    /* --- Arrow primitive --------------------------------------------------*/
+    --ui-arrow-size: 8px;
+    --ui-arrow-offset: calc(var(--ui-arrow-size) / -2);
+
+    /* --- Size primitive ---------------------------------------------------
+     * Fallback used by browsers/contexts where anchor-size() can't resolve.
+     */
+    --ui-max-width-fallback: 320px;
+    --ui-size-viewport-gutter: 16px;
+
+    /* --- Motion (top-layer entry/exit) ------------------------------------*/
+    --ui-transition-duration: 0.2s;
+    --ui-transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* --- Surface tokens (kept minimal & theme-aware) ----------------------*/
+    --ui-surface-bg: canvas;
+    --ui-surface-fg: canvastext;
+    --ui-surface-border: color-mix(in oklab, canvastext 15%, transparent);
+    --ui-surface-radius: 8px;
+    --ui-surface-shadow: 0 4px 16px color-mix(in oklab, canvastext 18%, transparent);
+  }
+}

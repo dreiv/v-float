@@ -1,0 +1,63 @@
+/**
+ * v-float :: size / hide / shift utilities
+ * ---------------------------------------------------------------------------
+ * Opt-in via data attributes on `.v-float-panel` (set by <FloatingPanel>
+ * props `autoSize`, `hide`, `shift`) so the base popover.css stays lean for
+ * consumers who don't need them.
+ */
+
+@layer floating.utilities {
+  /* --- Size --------------------------------------------------------------
+   * Constrains the panel to the anchor's available space using
+   * `anchor-size()`, so a tall panel next to a short anchor still respects
+   * how much room the anchor's box actually offers, with a viewport-based
+   * ceiling as a second line of defense.
+   */
+  .v-float-panel[data-auto-size='true'] {
+    max-width: min(
+      anchor-size(width, var(--ui-max-width-fallback)),
+      100vw - (var(--ui-size-viewport-gutter) * 2)
+    );
+    max-height: min(
+      anchor-size(height, 50vh),
+      100vh - (var(--ui-size-viewport-gutter) * 2)
+    );
+    overflow: auto;
+  }
+
+  /* --- Hide ----------------------------------------------------------------
+   * Once the anchor scrolls out of its own scroll-container's view, hide the
+   * floating element entirely rather than let it drift over unrelated
+   * content. `anchors-visible` requires full visibility; swap to
+   * `no-overflow` if partial occlusion should still count as "visible".
+   */
+  .v-float-panel[data-hide='true'] {
+    position-visibility: anchors-visible;
+  }
+
+  .v-float-panel[data-hide='no-overflow'] {
+    position-visibility: no-overflow;
+  }
+
+  /* --- Shift -----------------------------------------------------------
+   * True axis-sliding shift (as Floating UI does it) needs the floating
+   * element's OWN size in the clamp math, which pure CSS cannot read today
+   * — there is no `anchor-size(self)`. `justify-self`/`align-self:
+   * anchor-center` gets the common case (centering along the cross axis)
+   * for free from `position-area`; this block adds a best-effort inset
+   * clamp for the rest, using generous viewport-relative bounds instead of
+   * the panel's exact box. Treat as progressive enhancement, not parity.
+   */
+  .v-float-panel[data-shift='true'] {
+    justify-self: anchor-center;
+  }
+
+  .v-float-panel[data-shift='true'][data-placement^='top'],
+  .v-float-panel[data-shift='true'][data-placement^='bottom'] {
+    inset-inline: clamp(
+      var(--ui-shift-padding),
+      anchor(center),
+      calc(100vw - var(--ui-shift-padding))
+    ) auto;
+  }
+}
