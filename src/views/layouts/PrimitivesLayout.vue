@@ -1,9 +1,4 @@
 <script setup lang="ts">
-/**
- * Route-level layout for /primitives/*. Provides just the nav shell; each
- * child view is a placeholder to be filled in with an actual primitive demo
- * later. Deliberately contains no floating-engine usage itself.
- */
 const links = [
   { to: '/primitives/offset', label: 'Offset' },
   { to: '/primitives/flip', label: 'Flip' },

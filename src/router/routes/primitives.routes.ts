@@ -1,11 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-/**
- * One route per CSS-first floating primitive. Each view is lazy-loaded and
- * currently a placeholder stub (see src/views/primitives/) — this file
- * establishes the URL/nav structure the demos will later fill in, without
- * shipping any usage examples itself.
- */
 export const primitiveRoutes: RouteRecordRaw[] = [
   {
     path: '/primitives',

@@ -16,7 +16,14 @@ const model = defineModel<number>({ required: true })
   <label class="control">
     <span class="control__label">{{ label }}</span>
     <span class="control__row">
-      <input class="control__range" type="range" :min="min" :max="max" :step="step" v-model.number="model" />
+      <input
+        class="control__range"
+        type="range"
+        :min="min"
+        :max="max"
+        :step="step"
+        v-model.number="model"
+      />
       <output class="control__value">{{ model }}</output>
     </span>
   </label>

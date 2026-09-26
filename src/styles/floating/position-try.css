@@ -1,22 +1,3 @@
-/**
- * v-float :: position-try fallback chain
- * ---------------------------------------------------------------------------
- * Floating UI's "offset" + "flip" middleware, reimplemented as native
- * `@position-try` blocks. Each block pairs a `position-area` (the side of
- * the anchor the panel sits on) with a margin that reproduces `--ui-offset`
- * on the correct logical edge, so switching sides never loses the gap.
- *
- * The panel's default placement is applied inline via `position-area` +
- * margin (see popover.css `[data-placement]`); these `@position-try` blocks
- * are what the UA swaps to automatically when the preferred side has no
- * room, wired up through `position-try-fallbacks` on `.v-float-panel`.
- *
- * Browser support: Chrome/Edge 125+. Firefox and Safari do not yet ship
- * CSS Anchor Positioning — treat this layer as progressive enhancement;
- * `popover.css` keeps the panel usable (just unpositioned-by-anchor) when
- * unsupported.
- */
-
 @layer floating.base {
   @position-try --v-float-top {
     position-area: top;

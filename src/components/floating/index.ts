@@ -8,12 +8,6 @@ export { useFloating, isValidPlacement } from '@/composables/floating/useFloatin
 export * from '@/composables/floating/types'
 export { vAnchor }
 
-/**
- * Optional convenience installer:
- * `app.use(floatingPlugin)` registers `FloatingPanel`, `FloatingArrow` and
- * `v-anchor` globally. Everything also works with plain per-component
- * imports if you'd rather not install anything globally.
- */
 export const floatingPlugin = {
   install(app: App) {
     app.component('FloatingPanel', FloatingPanel)

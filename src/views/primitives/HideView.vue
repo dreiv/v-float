@@ -7,7 +7,11 @@ import { SelectControl } from '@/components/playground/controls'
 import { hideModeOptions } from '@/components/playground/placementOptions'
 import type { FloatingHideMode } from '@/composables/floating/types'
 
-const { anchorProps, panelProps, options } = useFloating({ placement: 'right', offset: 8, hide: true })
+const { anchorProps, panelProps, options } = useFloating({
+  placement: 'right',
+  offset: 8,
+  hide: true,
+})
 
 const hideModeValue = computed(() => String(options.hide))
 
@@ -38,7 +42,10 @@ onMounted(() => panelRef.value?.show())
         label="Hide mode"
         :options="[...hideModeOptions]"
         @update:model-value="
-          (value) => (options.hide = (value === 'false' ? false : value === 'true' ? true : value) as FloatingHideMode)
+          (value) =>
+            (options.hide = (
+              value === 'false' ? false : value === 'true' ? true : value
+            ) as FloatingHideMode)
         "
       />
     </template>

@@ -7,7 +7,11 @@ import { NumberControl, SelectControl, SwitchControl } from '@/components/playgr
 import { verticalPlacementOptions } from '@/components/playground/placementOptions'
 import type { FloatingPlacement } from '@/composables/floating/types'
 
-const { anchorProps, panelProps, options } = useFloating({ placement: 'bottom-start', offset: 8, shift: true })
+const { anchorProps, panelProps, options } = useFloating({
+  placement: 'bottom-start',
+  offset: 8,
+  shift: true,
+})
 
 const panelRef = useTemplateRef('panelRef')
 onMounted(() => panelRef.value?.show())

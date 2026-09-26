@@ -1,37 +1,14 @@
-/**
- * v-float :: size / hide / shift utilities
- * ---------------------------------------------------------------------------
- * Opt-in via data attributes on `.v-float-panel` (set by <FloatingPanel>
- * props `autoSize`, `hide`, `shift`) so the base popover.css stays lean for
- * consumers who don't need them.
- */
-
 @layer floating.utilities {
-  /* --- Size ----------------------------------------------------------------
-   * `anchor-size()` is only valid in sizing/inset/margin properties, and it
-   * reports the ANCHOR's own box — it can't express "space remaining to the
-   * nearest edge" the way Floating UI's `size()` middleware does (that would
-   * need `anchor()`, which the spec restricts to inset properties only, so
-   * `max-height: anchor(bottom)` etc. is invalid CSS — not just unsupported).
-   *
-   * What `anchor-size()` is genuinely for: matching the panel's width to its
-   * anchor's, the classic "dropdown as wide as its trigger" pattern. We pair
-   * that with a plain viewport-relative ceiling for height, since bounding
-   * height to *available* space isn't reachable this way.
-   */
   .v-float-panel[data-auto-size='true'] {
     min-width: anchor-size(width);
-    max-width: max(anchor-size(width), min(var(--ui-max-width-fallback), 100vw - (var(--ui-size-viewport-gutter) * 2)));
+    max-width: max(
+      anchor-size(width),
+      min(var(--ui-max-width-fallback), 100vw - (var(--ui-size-viewport-gutter) * 2))
+    );
     max-height: min(50vh, 100vh - (var(--ui-size-viewport-gutter) * 2));
     overflow: auto;
   }
 
-  /* --- Hide ----------------------------------------------------------------
-   * Once the anchor scrolls out of its own scroll-container's view, hide the
-   * floating element entirely rather than let it drift over unrelated
-   * content. `anchors-visible` requires full visibility; swap to
-   * `no-overflow` if partial occlusion should still count as "visible".
-   */
   .v-float-panel[data-hide='true'] {
     position-visibility: anchors-visible;
   }
@@ -40,15 +17,6 @@
     position-visibility: no-overflow;
   }
 
-  /* --- Shift -----------------------------------------------------------
-   * True axis-sliding shift (as Floating UI does it) needs the floating
-   * element's OWN size in the clamp math, which pure CSS cannot read today
-   * — there is no `anchor-size(self)`. `justify-self`/`align-self:
-   * anchor-center` gets the common case (centering along the cross axis)
-   * for free from `position-area`; this block adds a best-effort inset
-   * clamp for the rest, using generous viewport-relative bounds instead of
-   * the panel's exact box. Treat as progressive enhancement, not parity.
-   */
   .v-float-panel[data-shift='true'] {
     justify-self: anchor-center;
   }
@@ -56,9 +24,10 @@
   .v-float-panel[data-shift='true'][data-placement^='top'],
   .v-float-panel[data-shift='true'][data-placement^='bottom'] {
     inset-inline: clamp(
-      var(--ui-shift-padding),
-      anchor(center),
-      calc(100vw - var(--ui-shift-padding))
-    ) auto;
+        var(--ui-shift-padding),
+        anchor(center),
+        calc(100vw - var(--ui-shift-padding))
+      )
+      auto;
   }
 }

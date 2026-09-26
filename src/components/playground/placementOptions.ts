@@ -9,9 +9,8 @@ export const placementOptions = [
   { value: 'right', label: 'Right' },
 ] as const
 
-/** Left/right excluded: arrow.css and utilities.css only rotate/shift for these four base sides cleanly. */
-export const verticalPlacementOptions = placementOptions.filter((option) =>
-  option.value.startsWith('top') || option.value.startsWith('bottom'),
+export const verticalPlacementOptions = placementOptions.filter(
+  (option) => option.value.startsWith('top') || option.value.startsWith('bottom'),
 )
 
 export const hideModeOptions = [

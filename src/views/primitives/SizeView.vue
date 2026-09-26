@@ -5,7 +5,11 @@ import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
 import PlaygroundViewport from '@/components/playground/PlaygroundViewport.vue'
 import { NumberControl, SelectControl, SwitchControl } from '@/components/playground/controls'
 
-const { anchorProps, panelProps, options } = useFloating({ placement: 'bottom', offset: 8, autoSize: true })
+const { anchorProps, panelProps, options } = useFloating({
+  placement: 'bottom',
+  offset: 8,
+  autoSize: true,
+})
 
 const anchorWidth = ref(140)
 
@@ -26,14 +30,26 @@ onMounted(() => panelRef.value?.show())
   >
     <template #viewport>
       <PlaygroundViewport :scrollable="false">
-        <button class="playground-anchor" v-bind="anchorProps" :style="{ width: `${anchorWidth}px` }">Reference</button>
+        <button
+          class="playground-anchor"
+          v-bind="anchorProps"
+          :style="{ width: `${anchorWidth}px` }"
+        >
+          Reference
+        </button>
       </PlaygroundViewport>
 
       <FloatingPanel ref="panelRef" v-bind="panelProps" mode="manual" class="playground-panel">
-        <div class="playground-panel__content" :class="{ 'playground-panel__content--long': contentLength === 'long' }">
+        <div
+          class="playground-panel__content"
+          :class="{ 'playground-panel__content--long': contentLength === 'long' }"
+        >
           <p>Width tracks the reference's {{ anchorWidth }}px via anchor-size().</p>
           <template v-if="contentLength === 'long'">
-            <p>Long content clamps to a viewport-relative max-height and scrolls instead of overflowing the window.</p>
+            <p>
+              Long content clamps to a viewport-relative max-height and scrolls instead of
+              overflowing the window.
+            </p>
             <p>Scroll within this panel to see the rest.</p>
             <p>One more line to make sure it actually overflows on most screens.</p>
             <p>And a little more, just to be safe.</p>
@@ -44,7 +60,13 @@ onMounted(() => panelRef.value?.show())
 
     <template #controls>
       <SwitchControl v-model="options.autoSize" label="Auto-size (match width)" />
-      <NumberControl v-model="anchorWidth" label="Reference width" :min="80" :max="320" :step="10" />
+      <NumberControl
+        v-model="anchorWidth"
+        label="Reference width"
+        :min="80"
+        :max="320"
+        :step="10"
+      />
       <SelectControl
         :model-value="contentLength"
         label="Content"

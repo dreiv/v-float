@@ -1,25 +1,8 @@
 <script setup lang="ts">
-/**
- * PlaygroundViewport
- * ---------------------------------------------------------------------------
- * A bordered, optionally-scrollable box to demo a primitive in, similar in
- * spirit to the "Scroll" containers on floating-ui.com's docs.
- *
- * Important nuance this scaffold is honest about: our panels are
- * `position: fixed` (see popover.css), so their containing block — the box
- * `@position-try`/`position-try-fallbacks` measures overflow against — is
- * the REAL browser window, not this div. Scrolling this box still moves the
- * anchor's actual on-screen position, so Flip/Shift do react to it, but only
- * once the anchor gets close enough to the true window edge, not this box's
- * edge. `position-visibility: anchors-visible` (Hide) is the exception: it
- * tracks the anchor's visibility within ITS OWN scrollable ancestors, which
- * this box genuinely is — so the Hide demo reacts to this box directly.
- */
 import { onMounted, useTemplateRef } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    /** Bounded scrollable box (Flip/Shift/Hide) vs a static centered box (Offset/Arrow/Size). */
     scrollable?: boolean
     axis?: 'vertical' | 'horizontal'
   }>(),

@@ -10,28 +10,17 @@ export type FloatingPlacement =
 
 export type FloatingPopoverMode = 'auto' | 'manual'
 
-/** How aggressively `[data-hide]` reacts to the anchor leaving view. */
 export type FloatingHideMode = boolean | 'no-overflow'
 
 export interface FloatingStrategy {
-  /** Preferred side. The browser flips/shifts away from here as needed. */
   placement?: FloatingPlacement
-  /** Gap between anchor and panel, in pixels. Drives `--ui-offset`. Default: 8. */
   offset?: number
-  /** Whether `position-try-fallbacks` (flip) is enabled. Default: true. */
   flip?: boolean
-  /** Whether the edge-clamping shift utility is enabled. Default: false. */
   shift?: boolean
-  /** Whether the panel hides once its anchor leaves the viewport. */
   hide?: FloatingHideMode
-  /** Constrain the panel's box to the anchor's available space. */
   autoSize?: boolean
 }
 
-/**
- * The dashed-ident CSS custom property value that links an anchor element
- * to its floating element(s). Generated once per `useFloating()` call.
- */
 export type AnchorName = `--v-float-anchor-${string}`
 
 export interface FloatingStyleVars {
