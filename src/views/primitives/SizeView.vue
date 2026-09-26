@@ -43,7 +43,7 @@ watch(
         <button class="playground-anchor" v-bind="anchorProps">Reference</button>
       </PlaygroundViewport>
 
-      <FloatingPanel v-bind="panelProps" mode="manual" class="playground-panel">
+      <FloatingPanel v-bind="panelProps" class="playground-panel">
         <div
           class="playground-panel__content"
           :class="{ 'playground-panel__content--long': contentLength === 'long' }"

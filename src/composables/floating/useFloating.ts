@@ -95,6 +95,7 @@ export function useFloating(initial: FloatingStrategy = {}) {
       shift: options.shift,
       hide: options.hide,
       autoSize: options.autoSize,
+      mode: options.trigger.includes('click') ? ('auto' as const) : ('manual' as const),
     }
 
     if (!options.trigger.includes('hover')) return base

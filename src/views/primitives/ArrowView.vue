@@ -39,7 +39,7 @@ watch(
         <button class="playground-anchor" v-bind="anchorProps">Reference</button>
       </PlaygroundViewport>
 
-      <FloatingPanel v-bind="panelProps" mode="manual" class="playground-panel">
+      <FloatingPanel v-bind="panelProps" class="playground-panel">
         <FloatingArrow v-if="showArrow" v-bind="arrowProps" />
         <div class="playground-panel__content">
           <p>Pointing back at the anchor.</p>
