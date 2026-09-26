@@ -11,25 +11,10 @@ const links = [
 
 <template>
   <div class="primitives-layout">
-    <nav class="primitives-layout__nav" aria-label="Floating primitives">
-      <section class="primitives-layout__about">
-        <h2 class="primitives-layout__about-title">About</h2>
-        <p class="primitives-layout__about-text">
-          A zero-dependency playground for the core Floating UI-style primitives, reimplemented with
-          native CSS anchor positioning and the Popover API — no JS layout math.
-        </p>
-      </section>
-
-      <div class="primitives-layout__links">
-        <RouterLink
-          v-for="link in links"
-          :key="link.to"
-          :to="link.to"
-          class="primitives-layout__link"
-        >
-          {{ link.label }}
-        </RouterLink>
-      </div>
+    <nav class="primitives-layout__tabs" aria-label="Floating primitives">
+      <RouterLink v-for="link in links" :key="link.to" :to="link.to" class="primitives-layout__tab">
+        {{ link.label }}
+      </RouterLink>
     </nav>
 
     <main class="primitives-layout__content">
@@ -40,78 +25,44 @@ const links = [
 
 <style scoped>
 .primitives-layout {
-  display: grid;
-  grid-template-columns: minmax(160px, 200px) 1fr;
-  grid-template-areas: 'nav content';
-  gap: 1.5rem;
-  min-height: 100vh;
-  padding: 1.5rem;
-
-  @media (max-width: 720px) {
-    grid-template-columns: 1fr;
-    grid-template-areas: 'nav' 'content';
-    gap: 1rem;
-    padding: 1rem;
-  }
-}
-
-.primitives-layout__about {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  padding-bottom: 1rem;
+  min-height: 100%;
+}
+
+.primitives-layout__tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.75rem 1.5rem 0;
   border-bottom: 1px solid color-mix(in oklab, canvastext 15%, transparent);
+  overflow-x: auto;
+  position: sticky;
+  top: 0;
+  background: canvas;
+  z-index: 3;
 }
 
-.primitives-layout__about-title {
-  margin: 0;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  opacity: 0.7;
-}
-
-.primitives-layout__about-text {
-  margin: 0;
-  font-size: 0.85rem;
-  max-width: 60ch;
-  opacity: 0.85;
-}
-
-.primitives-layout__nav {
-  grid-area: nav;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.primitives-layout__links {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  @media (max-width: 720px) {
-    flex-direction: row;
-    overflow-x: auto;
-    padding-bottom: 0.25rem;
-  }
-}
-
-.primitives-layout__link {
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+.primitives-layout__tab {
+  padding: 0.6rem 1rem;
+  border-radius: 6px 6px 0 0;
   color: inherit;
   text-decoration: none;
   white-space: nowrap;
+  border-bottom: 2px solid transparent;
 
-  &:hover,
-  &.router-link-active {
+  &:hover {
     background: color-mix(in oklab, canvastext 8%, transparent);
+  }
+
+  &.router-link-active {
+    border-bottom-color: canvastext;
+    font-weight: 600;
   }
 }
 
 .primitives-layout__content {
-  grid-area: content;
+  flex: 1;
   min-width: 0;
+  padding: 1.5rem;
 }
 </style>

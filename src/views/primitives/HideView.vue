@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, onMounted, watch } from 'vue'
+import { computed, onMounted, useTemplateRef, watch } from 'vue'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
-import PlaygroundViewport from '@/components/playground/PlaygroundViewport.vue'
 import { CheckboxGroupControl, SelectControl } from '@/components/playground/controls'
 import { hideModeOptions, triggerOptions } from '@/components/playground/placementOptions'
 import type { FloatingHideMode } from '@/composables/floating/types'
@@ -15,6 +14,11 @@ const { anchorProps, panelProps, options, open, close } = useFloating({
 })
 
 const hideModeValue = computed(() => String(options.hide))
+const anchorRef = useTemplateRef<HTMLButtonElement>('anchorRef')
+
+function scrollToAnchor() {
+  anchorRef.value?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+}
 
 onMounted(() => {
   if (options.trigger.length === 0) open()
@@ -29,12 +33,17 @@ watch(
 <template>
   <PlaygroundLayout
     title="Hide"
-    description="[data-hide] sets position-visibility, which tracks the anchor's visibility within its OWN scrollable ancestors — unlike Flip/Shift, this one really does react to this box, not the real window. Scroll the reference out of view to watch the panel disappear, then scroll it back."
+    description="[data-hide] sets position-visibility, which tracks the anchor's visibility within its nearest scrollable ancestor — unlike Flip/Shift, that's a real containing box regardless of the popover top layer, and here it's the page itself. Scroll the reference out of the window to watch the panel disappear, then scroll it back."
   >
-    <template #viewport>
-      <PlaygroundViewport axis="vertical">
-        <button class="playground-anchor" v-bind="anchorProps">Reference</button>
-      </PlaygroundViewport>
+    <template #stage>
+      <div class="playground-stage playground-stage--scroll">
+        <button type="button" class="playground-stage__scroll-to" @click="scrollToAnchor">
+          Scroll to reference
+        </button>
+        <div class="playground-stage__spacer" />
+        <button ref="anchorRef" class="playground-anchor" v-bind="anchorProps">Reference</button>
+        <div class="playground-stage__spacer" />
+      </div>
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">
         <div class="playground-panel__content">

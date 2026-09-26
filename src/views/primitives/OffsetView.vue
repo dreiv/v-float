@@ -2,7 +2,6 @@
 import { onMounted, watch } from 'vue'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
-import PlaygroundViewport from '@/components/playground/PlaygroundViewport.vue'
 import {
   CheckboxGroupControl,
   NumberControl,
@@ -32,10 +31,10 @@ watch(
     title="Offset"
     description="Margin on the placement's logical edge, sized from --ui-offset. Drag the slider — the gap changes live, no JS positioning math involved, just the panel re-reading a custom property."
   >
-    <template #viewport>
-      <PlaygroundViewport :scrollable="false">
+    <template #stage>
+      <div class="playground-stage">
         <button class="playground-anchor" v-bind="anchorProps">Reference</button>
-      </PlaygroundViewport>
+      </div>
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">
         <div class="playground-panel__content">

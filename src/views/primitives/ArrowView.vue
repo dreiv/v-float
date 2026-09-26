@@ -2,7 +2,6 @@
 import { onMounted, ref, watch } from 'vue'
 import { useFloating, FloatingPanel, FloatingArrow } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
-import PlaygroundViewport from '@/components/playground/PlaygroundViewport.vue'
 import {
   CheckboxGroupControl,
   NumberControl,
@@ -34,10 +33,10 @@ watch(
     title="Arrow"
     description="The arrow shares the panel's --v-float-anchor-name and centers itself on the anchor's edge with anchor(), rotating per data-placement via a descendant selector — no arrow positioning logic runs in JS."
   >
-    <template #viewport>
-      <PlaygroundViewport :scrollable="false">
+    <template #stage>
+      <div class="playground-stage">
         <button class="playground-anchor" v-bind="anchorProps">Reference</button>
-      </PlaygroundViewport>
+      </div>
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">
         <FloatingArrow v-if="showArrow" v-bind="arrowProps" />

@@ -2,7 +2,6 @@
 import { onMounted, ref, watch } from 'vue'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
-import PlaygroundViewport from '@/components/playground/PlaygroundViewport.vue'
 import {
   CheckboxGroupControl,
   SelectControl,
@@ -38,10 +37,10 @@ watch(
     title="Size"
     description="[data-auto-size='true'] caps the panel's own max-width/max-height to the available viewport space, with overflow: auto once content exceeds it. anchor() can't express 'space remaining to the edge' since it's restricted to inset properties, so this is a plain viewport-relative ceiling rather than a true available-space calculation."
   >
-    <template #viewport>
-      <PlaygroundViewport :scrollable="false">
+    <template #stage>
+      <div class="playground-stage">
         <button class="playground-anchor" v-bind="anchorProps">Reference</button>
-      </PlaygroundViewport>
+      </div>
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">
         <div

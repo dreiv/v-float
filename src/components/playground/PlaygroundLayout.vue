@@ -14,7 +14,7 @@ defineProps<{
 
     <div class="playground__body">
       <div class="playground__stage">
-        <slot name="viewport" />
+        <slot name="stage" />
       </div>
       <aside class="playground__controls" aria-label="Controls">
         <slot name="controls" />
