@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
 import PlaygroundViewport from '@/components/playground/PlaygroundViewport.vue'
@@ -15,7 +15,13 @@ import type { FloatingPlacement } from '@/composables/floating/types'
 const { anchorProps, panelProps, options, open, close } = useFloating({
   placement: 'bottom',
   offset: 8,
+  hide: true,
   trigger: [],
+})
+
+const hideEnabled = computed({
+  get: () => options.hide !== false,
+  set: (value: boolean) => (options.hide = value),
 })
 
 onMounted(() => {
@@ -31,7 +37,7 @@ watch(
 <template>
   <PlaygroundLayout
     title="Flip"
-    description="position-try-fallbacks swaps to the opposite side when the preferred one won't fit. Panels here are position: fixed, so the boundary is the real browser window — scroll this box until the anchor nears the window's top or bottom edge (not just this box's edge) to see it flip."
+    description="position-try-fallbacks swaps to the opposite side when the preferred one won't fit. Panels here are position: fixed, so the boundary is the real browser window — scroll this box until the anchor nears the window's top or bottom edge (not just this box's edge) to see it flip. With hide enabled, position-visibility also drops the panel once the anchor scrolls fully out of this box's own scrollport, then restores it once it's back in view."
   >
     <template #viewport>
       <PlaygroundViewport axis="vertical">
@@ -53,6 +59,7 @@ watch(
         @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
       />
       <SwitchControl v-model="options.flip" label="Flip enabled" />
+      <SwitchControl v-model="hideEnabled" label="Hide when out of view" />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
       <CheckboxGroupControl
         v-model="options.trigger"

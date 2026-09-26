@@ -73,7 +73,7 @@ defineExpose({ el: viewportEl, recenter })
   }
 
   &.playground-viewport--vertical {
-    height: 70dvh;
+    height: min(65dvh, 560px);
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
@@ -82,12 +82,12 @@ defineExpose({ el: viewportEl, recenter })
 
     & .playground-viewport__spacer {
       width: 100%;
-      min-height: 100dvh;
+      min-height: 60dvh;
     }
   }
 
   &.playground-viewport--horizontal {
-    height: 220px;
+    height: 320px;
     overflow-x: auto;
     overflow-y: hidden;
     display: flex;
@@ -96,7 +96,7 @@ defineExpose({ el: viewportEl, recenter })
 
     & .playground-viewport__spacer {
       height: 100%;
-      min-width: 100dvw;
+      min-width: 60dvw;
     }
   }
 }
