@@ -1,7 +1,6 @@
 <script setup lang="ts">
 defineProps<{
   label: string
-  description?: string
   options: { value: string; label: string }[]
 }>()
 
@@ -15,7 +14,6 @@ function toggle(value: string, checked: boolean) {
 <template>
   <fieldset class="control">
     <legend class="control__label">{{ label }}</legend>
-    <p v-if="description" class="control__description">{{ description }}</p>
     <label v-for="option in options" :key="option.value" class="control__option">
       <input
         type="checkbox"

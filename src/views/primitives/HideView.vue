@@ -39,10 +39,7 @@ useDemoAutoOpen(options.trigger, open, close)
 </script>
 
 <template>
-  <PlaygroundLayout
-    title="Hide"
-    description="[data-hide] sets position-visibility, which tracks the anchor's visibility within its nearest scrollable ancestor — unlike Flip/Shift, that's a real containing box regardless of the popover top layer, and here it's the page itself. Scroll the reference out of the window to watch the panel disappear, then scroll it back."
-  >
+  <PlaygroundLayout>
     <template #stage>
       <div class="playground-stage playground-stage--scroll">
         <button type="button" class="playground-stage__scroll-to" @click="scrollToAnchor">
@@ -61,34 +58,12 @@ useDemoAutoOpen(options.trigger, open, close)
     </template>
 
     <template #controls>
-      <SelectControl
-        :model-value="options.placement"
-        label="Placement"
-        description="Which side of the anchor the panel appears on."
-        :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
-      />
-      <SelectControl
-        :model-value="hideModeValue"
-        label="Hide mode"
-        description="anchors-visible hides once the anchor is fully clipped; no-overflow hides on any overflow."
-        :options="[...hideModeOptions]"
-        @update:model-value="(value) => (options.hide = parseHideMode(value))"
-      />
-      <NumberControl
-        v-model="options.offset"
-        label="Offset"
-        description="Gap between the anchor and the panel, in pixels."
-        :min="0"
-        :max="32"
-        :step="2"
-      />
-      <CheckboxGroupControl
-        v-model="options.trigger"
-        label="Trigger"
-        description="How the panel is opened: click toggles it, hover opens on mouseenter, focus opens on focus."
-        :options="[...triggerOptions]"
-      />
+      <SelectControl :model-value="options.placement" label="Placement" :options="[...placementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)" />
+      <SelectControl :model-value="hideModeValue" label="Hide mode" :options="[...hideModeOptions]"
+        @update:model-value="(value) => (options.hide = parseHideMode(value))" />
+      <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
+      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="[...triggerOptions]" />
     </template>
   </PlaygroundLayout>
 </template>

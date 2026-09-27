@@ -20,10 +20,7 @@ useDemoAutoOpen(options.trigger, open, close)
 </script>
 
 <template>
-  <PlaygroundLayout
-    title="Offset"
-    description="Margin on the placement's logical edge, sized from --ui-offset. Drag the slider — the gap changes live, no JS positioning math involved, just the panel re-reading a custom property."
-  >
+  <PlaygroundLayout>
     <template #stage>
       <div class="playground-stage">
         <button class="playground-anchor" v-bind="anchorProps">Reference</button>
@@ -37,27 +34,10 @@ useDemoAutoOpen(options.trigger, open, close)
     </template>
 
     <template #controls>
-      <SelectControl
-        :model-value="options.placement"
-        label="Placement"
-        description="Which side of the anchor the panel appears on."
-        :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
-      />
-      <NumberControl
-        v-model="options.offset"
-        label="Offset"
-        description="Gap between the anchor and the panel, in pixels."
-        :min="0"
-        :max="48"
-        :step="2"
-      />
-      <CheckboxGroupControl
-        v-model="options.trigger"
-        label="Trigger"
-        description="How the panel is opened: click toggles it, hover opens on mouseenter, focus opens on focus."
-        :options="[...triggerOptions]"
-      />
+      <SelectControl :model-value="options.placement" label="Placement" :options="[...placementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)" />
+      <NumberControl v-model="options.offset" label="Offset" :min="0" :max="48" :step="2" />
+      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="[...triggerOptions]" />
     </template>
   </PlaygroundLayout>
 </template>

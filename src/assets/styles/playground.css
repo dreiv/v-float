@@ -110,10 +110,3 @@
     background: color-mix(in oklab, canvastext 8%, transparent);
   }
 }
-
-.control__description {
-  margin: 0;
-  font-size: 0.75rem;
-  opacity: 0.65;
-  font-weight: 400;
-}

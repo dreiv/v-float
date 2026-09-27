@@ -2,7 +2,6 @@
 withDefaults(
   defineProps<{
     label: string
-    description?: string
     min: number
     max: number
     step?: number
@@ -16,7 +15,6 @@ const model = defineModel<number>({ required: true })
 <template>
   <label class="control">
     <span class="control__label">{{ label }}</span>
-    <p v-if="description" class="control__description">{{ description }}</p>
     <span class="control__row">
       <input
         class="control__range"

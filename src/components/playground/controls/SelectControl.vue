@@ -1,7 +1,6 @@
 <script setup lang="ts">
 defineProps<{
   label: string
-  description?: string
   options: { value: string; label: string }[]
 }>()
 
@@ -11,7 +10,6 @@ const model = defineModel<string>({ required: true })
 <template>
   <label class="control">
     <span class="control__label">{{ label }}</span>
-    <p v-if="description" class="control__description">{{ description }}</p>
     <select class="control__select" v-model="model">
       <option v-for="option in options" :key="option.value" :value="option.value">
         {{ option.label }}

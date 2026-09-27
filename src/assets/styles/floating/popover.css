@@ -12,6 +12,7 @@
 
     position-anchor: var(--v-float-anchor-name);
     position: fixed;
+    inset: auto;
 
     position-try-fallbacks: flip-block, flip-inline;
 
@@ -34,85 +35,79 @@
       }
     }
 
-    &:is([data-placement='top'], [data-placement='top-start'], [data-placement='top-end']) {
-      margin-block: 0 var(--ui-offset);
+    &[data-placement="top"] {
+      bottom: calc(anchor(top) + var(--ui-offset));
+      justify-self: anchor-center;
+      position-try-fallbacks: flip-block;
     }
 
-    &:is(
-      [data-placement='bottom'],
-      [data-placement='bottom-start'],
-      [data-placement='bottom-end']
-    ) {
-      margin-block: var(--ui-offset) 0;
+    &[data-placement="top-start"] {
+      bottom: calc(anchor(top) + var(--ui-offset));
+      left: anchor(left);
+      position-try-fallbacks: flip-block;
     }
 
-    &[data-placement='top'] {
-      position-area: top center;
-      position-try-fallbacks: --v-float-bottom, flip-block;
+    &[data-placement="top-end"] {
+      bottom: calc(anchor(top) + var(--ui-offset));
+      right: anchor(right);
+      position-try-fallbacks: flip-block;
     }
 
-    &[data-placement='top-start'] {
-      position-area: top span-right;
-      position-try-fallbacks: --v-float-bottom-start, flip-block;
+    &[data-placement="bottom"] {
+      top: calc(anchor(bottom) + var(--ui-offset));
+      justify-self: anchor-center;
+      position-try-fallbacks: flip-block;
     }
 
-    &[data-placement='top-end'] {
-      position-area: top span-left;
-      position-try-fallbacks: --v-float-bottom-end, flip-block;
+    &[data-placement="bottom-start"] {
+      top: calc(anchor(bottom) + var(--ui-offset));
+      left: anchor(left);
+      position-try-fallbacks: flip-block;
     }
 
-    &[data-placement='bottom'] {
-      position-area: bottom center;
-      position-try-fallbacks: --v-float-top, flip-block;
+    &[data-placement="bottom-end"] {
+      top: calc(anchor(bottom) + var(--ui-offset));
+      right: anchor(right);
+      position-try-fallbacks: flip-block;
     }
 
-    &[data-placement='bottom-start'] {
-      position-area: bottom span-right;
-      position-try-fallbacks: --v-float-top-start, flip-block;
+    &[data-placement="left"] {
+      right: calc(anchor(left) + var(--ui-offset));
+      align-self: anchor-center;
+      position-try-fallbacks: flip-inline;
     }
 
-    &[data-placement='bottom-end'] {
-      position-area: bottom span-left;
-      position-try-fallbacks: --v-float-top-end, flip-block;
+    &[data-placement="left-start"] {
+      right: calc(anchor(left) + var(--ui-offset));
+      top: anchor(top);
+      position-try-fallbacks: flip-inline;
     }
 
-    &[data-placement='left'] {
-      position-area: center left;
-      margin-inline: 0 var(--ui-offset);
-      position-try-fallbacks: --v-float-right, flip-inline;
+    &[data-placement="left-end"] {
+      right: calc(anchor(left) + var(--ui-offset));
+      bottom: anchor(bottom);
+      position-try-fallbacks: flip-inline;
     }
 
-    &[data-placement='left-start'] {
-      position-area: span-bottom left;
-      margin-inline: 0 var(--ui-offset);
-      position-try-fallbacks: --v-float-right-start, flip-inline;
+    &[data-placement="right"] {
+      left: calc(anchor(right) + var(--ui-offset));
+      align-self: anchor-center;
+      position-try-fallbacks: flip-inline;
     }
 
-    &[data-placement='left-end'] {
-      position-area: span-top left;
-      margin-inline: 0 var(--ui-offset);
-      position-try-fallbacks: --v-float-right-end, flip-inline;
+    &[data-placement="right-start"] {
+      left: calc(anchor(right) + var(--ui-offset));
+      top: anchor(top);
+      position-try-fallbacks: flip-inline;
     }
 
-    &[data-placement='right'] {
-      position-area: center right;
-      margin-inline: var(--ui-offset) 0;
-      position-try-fallbacks: --v-float-left, flip-inline;
+    &[data-placement="right-end"] {
+      left: calc(anchor(right) + var(--ui-offset));
+      bottom: anchor(bottom);
+      position-try-fallbacks: flip-inline;
     }
 
-    &[data-placement='right-start'] {
-      position-area: span-bottom right;
-      margin-inline: var(--ui-offset) 0;
-      position-try-fallbacks: --v-float-left-start, flip-inline;
-    }
-
-    &[data-placement='right-end'] {
-      position-area: span-top right;
-      margin-inline: var(--ui-offset) 0;
-      position-try-fallbacks: --v-float-left-end, flip-inline;
-    }
-
-    &[data-flip='false'] {
+    &[data-flip="false"] {
       position-try-fallbacks: none;
     }
   }

@@ -1,17 +1,7 @@
-<script setup lang="ts">
-defineProps<{
-  title: string
-  description?: string
-}>()
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <section class="playground">
-    <header class="playground__header">
-      <h1 class="playground__title">{{ title }}</h1>
-      <p v-if="description" class="playground__description">{{ description }}</p>
-    </header>
-
     <div class="playground__stage">
       <slot name="stage" />
     </div>
@@ -31,24 +21,6 @@ defineProps<{
   flex-direction: column;
   gap: 1rem;
   min-width: 0;
-}
-
-.playground__header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.playground__title {
-  font-size: 1.25rem;
-  margin: 0;
-}
-
-.playground__description {
-  margin: 0;
-  font-size: 0.85rem;
-  opacity: 0.75;
-  max-width: 60ch;
 }
 
 .playground__stage {

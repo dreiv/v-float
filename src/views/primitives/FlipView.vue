@@ -28,10 +28,7 @@ const { scrollToCenter } = useScrollCenteredDemo(anchorRef, options.trigger, ope
 </script>
 
 <template>
-  <PlaygroundLayout
-    title="Flip"
-    description="position-try-fallbacks swaps to the opposite side when the preferred one won't fit against the real browser window — the only containing block a top-layer popover panel ever measures against. Scroll the page toward an edge of this 2x-viewport stage to watch it flip. Shown by default; toggle hide separately to see that primitive combined with flip."
-  >
+  <PlaygroundLayout>
     <template #stage>
       <div class="playground-stage--scroll-area">
         <div class="playground-stage__scroll-target">
@@ -50,37 +47,12 @@ const { scrollToCenter } = useScrollCenteredDemo(anchorRef, options.trigger, ope
       <button type="button" class="playground-controls__action" @click="scrollToCenter">
         Scroll to center
       </button>
-      <SelectControl
-        :model-value="options.placement"
-        label="Placement"
-        description="Which side of the anchor the panel prefers to appear on."
-        :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
-      />
-      <SwitchControl
-        v-model="options.flip"
-        label="Flip enabled"
-        description="Try the opposite side via position-try-fallbacks when the preferred side overflows."
-      />
-      <SwitchControl
-        v-model="hideEnabled"
-        label="Hide when out of view"
-        description="Combine with position-visibility: anchors-visible to hide instead of flip."
-      />
-      <NumberControl
-        v-model="options.offset"
-        label="Offset"
-        description="Gap between the anchor and the panel, in pixels."
-        :min="0"
-        :max="32"
-        :step="2"
-      />
-      <CheckboxGroupControl
-        v-model="options.trigger"
-        label="Trigger"
-        description="How the panel is opened: click toggles it, hover opens on mouseenter, focus opens on focus."
-        :options="[...triggerOptions]"
-      />
+      <SelectControl :model-value="options.placement" label="Placement" :options="[...placementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)" />
+      <SwitchControl v-model="options.flip" label="Flip enabled" />
+      <SwitchControl v-model="hideEnabled" label="Hide when out of view" />
+      <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
+      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="[...triggerOptions]" />
     </template>
   </PlaygroundLayout>
 </template>

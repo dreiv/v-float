@@ -25,6 +25,8 @@ const links = [
 
 <style scoped>
 .primitives-layout {
+  --tabs-height: 3.25rem;
+
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -32,14 +34,18 @@ const links = [
 
 .primitives-layout__tabs {
   display: flex;
+  align-items: center;
   gap: 0.25rem;
-  padding: 0.75rem 1.5rem 0;
+  height: var(--tabs-height);
+  padding: 0 1.5rem;
   border-bottom: 1px solid color-mix(in oklab, canvastext 15%, transparent);
   overflow-x: auto;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   background: canvas;
-  z-index: 3;
+  z-index: 20;
 }
 
 .primitives-layout__tab {
@@ -63,6 +69,6 @@ const links = [
 .primitives-layout__content {
   flex: 1;
   min-width: 0;
-  padding: 1.5rem;
+  padding: calc(var(--tabs-height) + 1.5rem) 1.5rem 1.5rem;
 }
 </style>
