@@ -11,7 +11,7 @@ placement rule lives in `src/styles/floating/`.
 | Layer | File | Responsibility |
 |---|---|---|
 | `floating.tokens` | `tokens.css` | Spacing/size/motion custom properties |
-| `floating.base` | `position-try.css`, `popover.css` | Anchor linkage, placement, offset, flip |
+| `floating.base` | `popover.css` | Anchor linkage, placement, offset, flip |
 | `floating.arrow` | `arrow.css` | Arrow centering via `anchor()` |
 | `floating.utilities` | `utilities.css` | Size (`anchor-size()`), hide (`position-visibility`), shift |
 
@@ -27,10 +27,14 @@ instance in JS while the rule itself stays static CSS. See
 ## Primitive → mechanism map
 
 1. **Offset** — margin on the logical edge matching the placement, driven by
-   `--ui-offset` (`position-try.css`, `popover.css`).
-2. **Flip** — `position-try-fallbacks`: a same-axis `@position-try` block
-   first (keeps the offset), then the built-in `flip-block`/`flip-inline`
-   keywords as a last resort.
+   `--ui-offset` (`popover.css`).
+2. **Flip** — `position-try-fallbacks: flip-block` (for top/bottom
+   placements) or `flip-inline` (for left/right placements). These are the
+   browser's built-in try-tactics: they mirror the box's own inset
+   properties across the anchor, so the same `--ui-offset` margin that
+   applies in the primary placement is preserved automatically in the
+   flipped one — no separate `@position-try` block is needed to keep the
+   offset.
 3. **Shift** — partial. `justify-self: anchor-center` covers cross-axis
    centering for free. A true Floating-UI-style axis slide needs the
    floating element's *own* box size in the clamp math; there is no
@@ -46,12 +50,13 @@ instance in JS while the rule itself stays static CSS. See
 
 ## Browser support
 
-CSS Anchor Positioning (`anchor()`, `anchor-size()`, `@position-try`,
-`position-try-fallbacks`, `position-visibility`) ships in Chromium 125+ only
-as of this writing. Firefox/Safari fall back to the popover's default
-top-layer, top-of-viewport placement — functional, just unanchored. Don't
-ship this as the only positioning strategy for a production surface that
-needs cross-browser support without checking current caveat status first.
+CSS Anchor Positioning (`anchor()`, `anchor-size()`, `position-try-fallbacks`,
+`position-visibility`) reached Baseline in 2026: Chrome/Edge 125+, Safari 26+,
+and Firefox 147+ all support it natively. Older versions of any of these
+browsers fall back to the popover's default top-layer, top-of-viewport
+placement — functional, just unanchored. Check your actual target browser
+versions before relying on this as the only positioning strategy for a
+production surface.
 
 ## Usage sketch (not included in this scaffold)
 
