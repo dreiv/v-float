@@ -1,7 +1,6 @@
 @layer floating.tokens, floating.base, floating.arrow, floating.utilities;
 
 @import './tokens.css';
-@import './position-try.css';
 @import './popover.css';
 @import './arrow.css';
 @import './utilities.css';

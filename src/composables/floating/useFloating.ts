@@ -1,12 +1,15 @@
-import { computed, reactive } from 'vue'
+import { computed, getCurrentInstance, reactive } from 'vue'
 import { FLOATING_PLACEMENTS } from './types'
-import { useAnchorIdentity } from './useAnchorIdentity'
 import { usePopoverTrigger } from './usePopoverTrigger'
 import { buildAnchorProps, buildPanelProps } from './floatingProps'
-import type { FloatingPlacement, FloatingStrategy, FloatingStyleVars } from './types'
+import type { AnchorName, FloatingPlacement, FloatingStrategy, FloatingStyleVars } from './types'
+
+let fallbackId = 0
 
 export function useFloating(initial: FloatingStrategy = {}) {
-  const { anchorName, panelId } = useAnchorIdentity()
+  const uid = getCurrentInstance()?.uid ?? fallbackId++
+  const anchorName = `--v-float-anchor-${uid}` as AnchorName
+  const panelId = `v-float-panel-${uid}`
 
   const options = reactive<Required<FloatingStrategy>>({
     placement: initial.placement ?? 'bottom',
