@@ -1,24 +1,34 @@
 <script setup lang="ts">
 defineProps<{
   label: string
+  description?: string
 }>()
 
 const model = defineModel<boolean>({ required: true })
 </script>
 
 <template>
-  <label class="control control--checkbox">
-    <input type="checkbox" v-model="model" />
-    <span>{{ label }}</span>
-  </label>
+  <div class="control">
+    <label class="control__row">
+      <input type="checkbox" v-model="model" />
+      <span>{{ label }}</span>
+    </label>
+    <p v-if="description" class="control__description">{{ description }}</p>
+  </div>
 </template>
 
 <style scoped>
-.control--checkbox {
+.control {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.35rem;
   font-size: 0.85rem;
-  cursor: pointer;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
 }
 </style>

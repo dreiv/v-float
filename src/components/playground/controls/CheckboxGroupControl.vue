@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   label: string
+  description?: string
   options: { value: string; label: string }[]
 }>()
 
@@ -14,9 +15,11 @@ function toggle(value: string, checked: boolean) {
 <template>
   <fieldset class="control">
     <legend class="control__label">{{ label }}</legend>
+    <p v-if="description" class="control__description">{{ description }}</p>
     <label v-for="option in options" :key="option.value" class="control__option">
       <input
         type="checkbox"
+        :value="option.value"
         :checked="model.includes(option.value)"
         @change="toggle(option.value, ($event.target as HTMLInputElement).checked)"
       />
@@ -32,8 +35,8 @@ function toggle(value: string, checked: boolean) {
   gap: 0.35rem;
   font-size: 0.85rem;
   border: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
 
   &__label {
     font-weight: 600;

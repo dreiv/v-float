@@ -44,14 +44,27 @@ useDemoAutoOpen(options.trigger, open, close)
       <SelectControl
         :model-value="options.placement"
         label="Placement"
+        description="Which side of the anchor the panel appears on."
         :options="[...placementOptions]"
         @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
       />
-      <SwitchControl v-model="showArrow" label="Show arrow" />
-      <NumberControl v-model="options.offset" label="Offset" :min="4" :max="32" :step="2" />
+      <SwitchControl
+        v-model="showArrow"
+        label="Show arrow"
+        description="Toggle whether the pointer triangle is rendered."
+      />
+      <NumberControl
+        v-model="options.offset"
+        label="Offset"
+        description="Gap between the anchor and the panel, in pixels."
+        :min="4"
+        :max="32"
+        :step="2"
+      />
       <CheckboxGroupControl
         v-model="options.trigger"
         label="Trigger"
+        description="How the panel is opened: click toggles it, hover opens on mouseenter, focus opens on focus."
         :options="[...triggerOptions]"
       />
     </template>
