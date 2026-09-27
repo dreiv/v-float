@@ -19,16 +19,28 @@ data attributes — all placement math is CSS, in
 - `anchor-name`/`position-anchor` hold a `<dashed-ident>` via a CSS var
   (`--v-float-anchor-name`), minted uniquely per instance in
   `useFloating.ts`.
+- **Placement** — each side (`top`/`bottom`/`left`/`right`) sets
+  `position-area: block-start | block-end | inline-start | inline-end`,
+  which spans the full cross-axis by default. The `-start`/`-end`/plain
+  variant then sets `justify-self`/`align-self` explicitly
+  (`start`/`end`/`anchor-center`) instead of computing an offset with
+  `anchor()`. The gap to the anchor is a `margin-block-*`/
+  `margin-inline-*` on the side facing the anchor, not a `calc()`.
 - **Flip** — one shared `position-try-fallbacks: flip-block, flip-inline,
-flip-block flip-inline;` on the panel. Browser tries the primary spot,
-  then flips whichever axis overflows, then both for corners.
+  flip-block flip-inline;` on the panel. Per spec, a flip mirrors the
+  position-area's axis and any margin on that axis, so the offset margin
+  flips sides along with the placement — no extra rule needed.
 - **Shift** — `anchor-center` for plain centered placements; when
   `data-shift="true"`, a manual clamp takes over using
   `anchor-size(self-inline/self-block)` (the panel's own size — Baseline
   Jan 2026) so both viewport edges are respected, not just the near one.
-- **Arrow** — anchored to the same anchor, positioned with `anchor()`.
-  Also uses `@container anchored(fallback: ...)` to detect a real flip
-  and re-point itself (see below).
+  This still works unchanged under `position-area`, because each side's
+  area spans the full cross-axis, so its near edge is the viewport edge
+  (offset 0) — same frame of reference the clamp already assumed.
+- **Arrow** — anchored to the same anchor, positioned with `anchor()`
+  (there's no `position-area` equivalent precise enough for an 8px
+  diamond). Also uses `@container anchored(fallback: ...)` to detect a
+  real flip and re-point itself (see below).
 - **Size** — `anchor-size()` caps max-width/height.
 - **Hide** — `position-visibility`.
 
@@ -41,8 +53,21 @@ point the wrong way once the panel silently flipped. Fix:
 `container-type: anchored` on the panel + `@container anchored(fallback:
 flip-block)` on the arrow, so it can detect the flip and swap edges.
 
-**Chrome/Edge 143+ only.** Degrades gracefully elsewhere — the arrow just
-stays put on unsupported engines, same as before this fix.
+## Why `position-area`, not raw `anchor()` + `justify-self`
+
+The panel used to set `bottom: calc(anchor(top) + var(--ui-offset))`
+plus `justify-self: anchor-center` etc. for every one of the 12
+placements. That's the older technique from before `position-area`
+reached Baseline (Jan 2026), and it's more fragile: it depends on
+`position-anchor` resolving to a real anchor before the `anchor()`
+call is read, and on getting every offset's sign right by hand.
+`position-area` expresses "which side of the anchor" declaratively and
+lets `position-try-fallbacks: flip-*` flip both the area and the
+margin for you. If a panel still looks right in one Chromium build and
+wrong in another, compare exact build numbers first (`edge://version`,
+`chrome://version`) — embedded webviews (VS Code, Electron, WebView2)
+often run a different Chromium than your system browser, and anchor
+positioning is still evolving release to release.
 
 ## Known gaps
 
@@ -56,14 +81,10 @@ stays put on unsupported engines, same as before this fix.
 
 ## Browser support
 
-Core anchor positioning: Baseline Jan 2026 (Chrome/Edge 125+, Safari 26+,
-Firefox 147+). `@container anchored()` (used only for the arrow's
-flip-tracking): Chrome/Edge 143+ so far.
-
-If it looks right in one browser and wrong in another, compare exact
-build numbers first (`edge://version`, `chrome://version`) — embedded
-webviews (VS Code, Electron, WebView2) often run a different Chromium
-build than your system browser.
+Core anchor positioning + `position-area` + `position-try-fallbacks`:
+Baseline Jan 2026 (Chrome/Edge 125+ for the core, current stable for
+`position-area`). `@container anchored()` (used only for the arrow's
+flip-tracking): Chrome/Edge 143+.
 
 ## Usage
 
@@ -82,5 +103,5 @@ const { anchorProps, panelProps, arrowProps } = useFloating({ placement: 'bottom
 </template>
 ```
 
-The six views under `src/views/primitives/` are placeholders, not filled
-demos.
+The six views under `src/views/primitives/` show each primitive in
+isolation with live controls.

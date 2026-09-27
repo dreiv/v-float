@@ -40,67 +40,51 @@
       }
     }
 
-    &[data-placement="top"] {
-      bottom: calc(anchor(top) + var(--ui-offset));
+    &[data-placement^='top'] {
+      position-area: block-start;
+      margin-block-end: var(--ui-offset);
+    }
+
+    &[data-placement^='bottom'] {
+      position-area: block-end;
+      margin-block-start: var(--ui-offset);
+    }
+
+    &[data-placement^='left'] {
+      position-area: inline-start;
+      margin-inline-end: var(--ui-offset);
+    }
+
+    &[data-placement^='right'] {
+      position-area: inline-end;
+      margin-inline-start: var(--ui-offset);
+    }
+
+    &:is([data-placement='top'], [data-placement='bottom']) {
       justify-self: anchor-center;
     }
 
-    &[data-placement="top-start"] {
-      bottom: calc(anchor(top) + var(--ui-offset));
-      left: anchor(left);
+    &:is([data-placement='top-start'], [data-placement='bottom-start']) {
+      justify-self: start;
     }
 
-    &[data-placement="top-end"] {
-      bottom: calc(anchor(top) + var(--ui-offset));
-      right: anchor(right);
+    &:is([data-placement='top-end'], [data-placement='bottom-end']) {
+      justify-self: end;
     }
 
-    &[data-placement="bottom"] {
-      top: calc(anchor(bottom) + var(--ui-offset));
-      justify-self: anchor-center;
-    }
-
-    &[data-placement="bottom-start"] {
-      top: calc(anchor(bottom) + var(--ui-offset));
-      left: anchor(left);
-    }
-
-    &[data-placement="bottom-end"] {
-      top: calc(anchor(bottom) + var(--ui-offset));
-      right: anchor(right);
-    }
-
-    &[data-placement="left"] {
-      right: calc(anchor(left) + var(--ui-offset));
+    &:is([data-placement='left'], [data-placement='right']) {
       align-self: anchor-center;
     }
 
-    &[data-placement="left-start"] {
-      right: calc(anchor(left) + var(--ui-offset));
-      top: anchor(top);
+    &:is([data-placement='left-start'], [data-placement='right-start']) {
+      align-self: start;
     }
 
-    &[data-placement="left-end"] {
-      right: calc(anchor(left) + var(--ui-offset));
-      bottom: anchor(bottom);
+    &:is([data-placement='left-end'], [data-placement='right-end']) {
+      align-self: end;
     }
 
-    &[data-placement="right"] {
-      left: calc(anchor(right) + var(--ui-offset));
-      align-self: anchor-center;
-    }
-
-    &[data-placement="right-start"] {
-      left: calc(anchor(right) + var(--ui-offset));
-      top: anchor(top);
-    }
-
-    &[data-placement="right-end"] {
-      left: calc(anchor(right) + var(--ui-offset));
-      bottom: anchor(bottom);
-    }
-
-    &[data-flip="false"] {
+    &[data-flip='false'] {
       position-try-fallbacks: none;
     }
   }

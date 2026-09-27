@@ -10,28 +10,28 @@
     z-index: 1;
     pointer-events: none;
 
-    [data-placement^="bottom"] & {
+    [data-placement^='bottom'] & {
       top: calc(anchor(bottom) + var(--ui-offset));
       left: anchor(center);
       translate: -50% var(--ui-arrow-offset);
       rotate: 45deg;
     }
 
-    [data-placement^="top"] & {
+    [data-placement^='top'] & {
       top: calc(anchor(top) - var(--ui-offset));
       left: anchor(center);
       translate: -50% calc(-1 * var(--ui-arrow-size) / 2);
       rotate: 225deg;
     }
 
-    [data-placement^="right"] & {
+    [data-placement^='right'] & {
       left: calc(anchor(right) + var(--ui-offset));
       top: anchor(center);
       translate: var(--ui-arrow-offset) -50%;
       rotate: -45deg;
     }
 
-    [data-placement^="left"] & {
+    [data-placement^='left'] & {
       left: calc(anchor(left) - var(--ui-offset));
       top: anchor(center);
       translate: calc(-1 * var(--ui-arrow-size) / 2) -50%;
@@ -39,13 +39,13 @@
     }
 
     @container anchored(fallback: flip-block) {
-      [data-placement^="bottom"] & {
+      [data-placement^='bottom'] & {
         top: calc(anchor(top) - var(--ui-offset));
         translate: -50% calc(-1 * var(--ui-arrow-size) / 2);
         rotate: 225deg;
       }
 
-      [data-placement^="top"] & {
+      [data-placement^='top'] & {
         top: calc(anchor(bottom) + var(--ui-offset));
         translate: -50% var(--ui-arrow-offset);
         rotate: 45deg;
@@ -53,13 +53,13 @@
     }
 
     @container anchored(fallback: flip-inline) {
-      [data-placement^="right"] & {
+      [data-placement^='right'] & {
         left: calc(anchor(left) - var(--ui-offset));
         translate: calc(-1 * var(--ui-arrow-size) / 2) -50%;
         rotate: 135deg;
       }
 
-      [data-placement^="left"] & {
+      [data-placement^='left'] & {
         left: calc(anchor(right) + var(--ui-offset));
         translate: var(--ui-arrow-offset) -50%;
         rotate: -45deg;
