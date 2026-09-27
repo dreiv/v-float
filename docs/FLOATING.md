@@ -1,64 +1,71 @@
 # v-float — CSS-first floating engine
 
-A zero-dependency reimplementation of the core Floating UI / Popper.js
-primitives using native CSS Anchor Positioning, the Popover API, and
-`@starting-style`. No positioning math runs in JavaScript — JS's only job is
-minting a unique anchor name and toggling data attributes; every actual
-placement rule lives in `src/styles/floating/`.
+Zero-dependency Floating UI/Popper replacement built on CSS Anchor
+Positioning + the Popover API. JS only mints an anchor name and toggles
+data attributes — all placement math is CSS, in
+`src/assets/styles/floating/`.
 
 ## Layers
 
-| Layer | File | Responsibility |
-|---|---|---|
-| `floating.tokens` | `tokens.css` | Spacing/size/motion custom properties |
-| `floating.base` | `popover.css` | Anchor linkage, placement, offset, flip |
-| `floating.arrow` | `arrow.css` | Arrow centering via `anchor()` |
-| `floating.utilities` | `utilities.css` | Size (`anchor-size()`), hide (`position-visibility`), shift |
+| Layer     | File            | Does                                 |
+| --------- | --------------- | ------------------------------------ |
+| tokens    | `tokens.css`    | spacing/motion custom properties     |
+| base      | `popover.css`   | anchor link, placement, offset, flip |
+| arrow     | `arrow.css`     | arrow position + flip-tracking       |
+| utilities | `utilities.css` | size, hide, shift                    |
 
-## The anchor-name trick
+## How it works
 
-`anchor-name` and `position-anchor` take a `<dashed-ident>`. A CSS custom
-property can hold one, and `var()` substitution happens *before* the value
-is parsed — so `anchor-name: var(--v-float-anchor-name)` is valid, and lets
-`useFloating()` mint a collision-free name (`--v-float-anchor-42`) per
-instance in JS while the rule itself stays static CSS. See
-`useFloating.ts` and `popover.css`.
+- `anchor-name`/`position-anchor` hold a `<dashed-ident>` via a CSS var
+  (`--v-float-anchor-name`), minted uniquely per instance in
+  `useFloating.ts`.
+- **Flip** — one shared `position-try-fallbacks: flip-block, flip-inline,
+flip-block flip-inline;` on the panel. Browser tries the primary spot,
+  then flips whichever axis overflows, then both for corners.
+- **Shift** — `anchor-center` for plain centered placements; when
+  `data-shift="true"`, a manual clamp takes over using
+  `anchor-size(self-inline/self-block)` (the panel's own size — Baseline
+  Jan 2026) so both viewport edges are respected, not just the near one.
+- **Arrow** — anchored to the same anchor, positioned with `anchor()`.
+  Also uses `@container anchored(fallback: ...)` to detect a real flip
+  and re-point itself (see below).
+- **Size** — `anchor-size()` caps max-width/height.
+- **Hide** — `position-visibility`.
 
-## Primitive → mechanism map
+## The arrow-flip fix
 
-1. **Offset** — margin on the logical edge matching the placement, driven by
-   `--ui-offset` (`popover.css`).
-2. **Flip** — `position-try-fallbacks: flip-block` (for top/bottom
-   placements) or `flip-inline` (for left/right placements). These are the
-   browser's built-in try-tactics: they mirror the box's own inset
-   properties across the anchor, so the same `--ui-offset` margin that
-   applies in the primary placement is preserved automatically in the
-   flipped one — no separate `@position-try` block is needed to keep the
-   offset.
-3. **Shift** — partial. `justify-self: anchor-center` covers cross-axis
-   centering for free. A true Floating-UI-style axis slide needs the
-   floating element's *own* box size in the clamp math; there is no
-   `anchor-size(self)` yet, so `utilities.css` documents this as a
-   best-effort approximation, not parity.
-4. **Arrow** — `anchor()` calls centering a 45°-rotated square on whichever
-   edge the panel currently occupies, keyed off `data-placement` via
-   descendant selectors (`arrow.css`).
-5. **Size** — `anchor-size()` bounds `max-width`/`max-height` to the
-   anchor's available space, floored by a viewport-relative ceiling
-   (`utilities.css`).
-6. **Hide** — `position-visibility: anchors-visible` (or `no-overflow`).
+`position-try-fallbacks` updates the panel's own position automatically on
+a flip. The arrow is a separate element keyed off the _requested_
+`data-placement`, which never reflected an actual flip — so it used to
+point the wrong way once the panel silently flipped. Fix:
+`container-type: anchored` on the panel + `@container anchored(fallback:
+flip-block)` on the arrow, so it can detect the flip and swap edges.
+
+**Chrome/Edge 143+ only.** Degrades gracefully elsewhere — the arrow just
+stays put on unsupported engines, same as before this fix.
+
+## Known gaps
+
+- Arrow doesn't handle the _combined_ corner flip
+  (`flip-block flip-inline`), only single-axis. Rare in practice; extend
+  `arrow.css` if you need it.
+- Flip/shift overflow is checked against the panel's own containing
+  block — the viewport, since it's `position: fixed`. An anchor nested in
+  its own `overflow: auto` container needs `position: absolute` + a
+  positioned ancestor instead, with the math adjusted accordingly.
 
 ## Browser support
 
-CSS Anchor Positioning (`anchor()`, `anchor-size()`, `position-try-fallbacks`,
-`position-visibility`) reached Baseline in 2026: Chrome/Edge 125+, Safari 26+,
-and Firefox 147+ all support it natively. Older versions of any of these
-browsers fall back to the popover's default top-layer, top-of-viewport
-placement — functional, just unanchored. Check your actual target browser
-versions before relying on this as the only positioning strategy for a
-production surface.
+Core anchor positioning: Baseline Jan 2026 (Chrome/Edge 125+, Safari 26+,
+Firefox 147+). `@container anchored()` (used only for the arrow's
+flip-tracking): Chrome/Edge 143+ so far.
 
-## Usage sketch (not included in this scaffold)
+If it looks right in one browser and wrong in another, compare exact
+build numbers first (`edge://version`, `chrome://version`) — embedded
+webviews (VS Code, Electron, WebView2) often run a different Chromium
+build than your system browser.
+
+## Usage
 
 ```vue
 <script setup>
@@ -75,5 +82,5 @@ const { anchorProps, panelProps, arrowProps } = useFloating({ placement: 'bottom
 </template>
 ```
 
-Per the brief, this file is documentation only — the six primitive views
-under `src/views/primitives/` are placeholders, not filled-in demos.
+The six views under `src/views/primitives/` are placeholders, not filled
+demos.

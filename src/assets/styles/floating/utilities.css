@@ -1,29 +1,66 @@
 @layer floating.utilities {
   .v-float-panel {
-    &[data-auto-size='true'] {
+    &[data-auto-size="true"] {
       max-width: min(var(--ui-max-width-fallback), 100vw - (var(--ui-size-viewport-gutter) * 2));
       max-height: min(50vh, 100vh - (var(--ui-size-viewport-gutter) * 2));
       overflow: auto;
     }
 
-    &[data-hide='true'] {
+    &[data-hide="true"] {
       position-visibility: anchors-visible;
     }
 
-    &[data-hide='no-overflow'] {
+    &[data-hide="no-overflow"] {
       position-visibility: no-overflow;
     }
 
-    &[data-shift='true'] {
-      justify-self: anchor-center;
+    &[data-shift="true"] {
+      &:is([data-placement^="top"], [data-placement^="bottom"]) {
+        justify-self: normal;
+        left: clamp(
+          var(--ui-shift-padding),
+          var(--v-float-shift-ideal, anchor(center)),
+          calc(100vw - var(--ui-shift-padding) - anchor-size(self-inline))
+        );
+      }
 
-      &:is([data-placement^='top'], [data-placement^='bottom']) {
-        inset-inline: clamp(
-            var(--ui-shift-padding),
-            anchor(center),
-            calc(100vw - var(--ui-shift-padding))
-          )
-          auto;
+      &:is([data-placement^="left"], [data-placement^="right"]) {
+        align-self: normal;
+        top: clamp(
+          var(--ui-shift-padding),
+          var(--v-float-shift-ideal, anchor(center)),
+          calc(100vh - var(--ui-shift-padding) - anchor-size(self-block))
+        );
+      }
+
+      &[data-placement="top"],
+      &[data-placement="bottom"] {
+        --v-float-shift-ideal: calc(anchor(center) - anchor-size(self-inline) / 2);
+      }
+
+      &[data-placement="top-start"],
+      &[data-placement="bottom-start"] {
+        --v-float-shift-ideal: anchor(left);
+      }
+
+      &[data-placement="top-end"],
+      &[data-placement="bottom-end"] {
+        --v-float-shift-ideal: calc(anchor(right) - anchor-size(self-inline));
+      }
+
+      &[data-placement="left"],
+      &[data-placement="right"] {
+        --v-float-shift-ideal: calc(anchor(center) - anchor-size(self-block) / 2);
+      }
+
+      &[data-placement="left-start"],
+      &[data-placement="right-start"] {
+        --v-float-shift-ideal: anchor(top);
+      }
+
+      &[data-placement="left-end"],
+      &[data-placement="right-end"] {
+        --v-float-shift-ideal: calc(anchor(bottom) - anchor-size(self-block));
       }
     }
   }
