@@ -28,9 +28,7 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
     <template #stage>
       <div class="playground-stage--scroll-area">
         <div class="playground-stage__scroll-target">
-          <button ref="anchorRef" class="playground-anchor" v-bind="anchorProps">
-            Reference
-          </button>
+          <button ref="anchorRef" class="playground-anchor" v-bind="anchorProps">Reference</button>
         </div>
       </div>
 
@@ -46,11 +44,19 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
       <button type="button" class="playground-controls__action" @click="scrollToAnchor">
         Scroll to reference
       </button>
-      <SelectControl :model-value="options.placement" label="Placement" :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)" />
+      <SelectControl
+        :model-value="options.placement"
+        label="Placement"
+        :options="[...placementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
+      />
       <SwitchControl v-model="showArrow" label="Show arrow" />
       <NumberControl v-model="options.offset" label="Offset" :min="4" :max="32" :step="2" />
-      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="[...triggerOptions]" />
+      <CheckboxGroupControl
+        v-model="options.trigger"
+        label="Trigger"
+        :options="[...triggerOptions]"
+      />
     </template>
   </PlaygroundLayout>
 </template>

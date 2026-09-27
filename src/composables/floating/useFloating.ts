@@ -44,8 +44,6 @@ export function useFloating(initial: FloatingStrategy = {}) {
   }
 }
 
-export type UseFloatingReturn = ReturnType<typeof useFloating>
-
 export function isValidPlacement(value: string): value is FloatingPlacement {
   return (FLOATING_PLACEMENTS as readonly string[]).includes(value)
 }

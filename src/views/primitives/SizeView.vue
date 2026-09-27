@@ -34,14 +34,15 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
     <template #stage>
       <div class="playground-stage--scroll-area">
         <div class="playground-stage__scroll-target">
-          <button ref="anchorRef" class="playground-anchor" v-bind="anchorProps">
-            Reference
-          </button>
+          <button ref="anchorRef" class="playground-anchor" v-bind="anchorProps">Reference</button>
         </div>
       </div>
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">
-        <div class="playground-panel__content" :class="{ 'playground-panel__content--long': contentLength === 'long' }">
+        <div
+          class="playground-panel__content"
+          :class="{ 'playground-panel__content--long': contentLength === 'long' }"
+        >
           <p>Capped to a viewport-relative max width and height.</p>
           <template v-if="contentLength === 'long'">
             <p>
@@ -60,13 +61,25 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
       <button type="button" class="playground-controls__action" @click="scrollToAnchor">
         Scroll to reference
       </button>
-      <SelectControl :model-value="options.placement" label="Placement" :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)" />
+      <SelectControl
+        :model-value="options.placement"
+        label="Placement"
+        :options="[...placementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
+      />
       <SwitchControl v-model="options.autoSize" label="Cap panel size" />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="48" :step="2" />
-      <SelectControl :model-value="contentLength" label="Content" :options="contentOptions"
-        @update:model-value="(value) => (contentLength = value as 'short' | 'long')" />
-      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="[...triggerOptions]" />
+      <SelectControl
+        :model-value="contentLength"
+        label="Content"
+        :options="contentOptions"
+        @update:model-value="(value) => (contentLength = value as 'short' | 'long')"
+      />
+      <CheckboxGroupControl
+        v-model="options.trigger"
+        label="Trigger"
+        :options="[...triggerOptions]"
+      />
     </template>
   </PlaygroundLayout>
 </template>

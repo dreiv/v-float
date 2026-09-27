@@ -10,12 +10,14 @@ export function useScrollIntoViewDemo(
 ) {
   useAutoOpen(trigger, open, close)
 
+  const scrollOptions: ScrollIntoViewOptions = { block: 'center', inline: 'center' }
+
   function scrollToAnchor() {
-    anchorRef.value?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+    anchorRef.value?.scrollIntoView({ ...scrollOptions, behavior: 'smooth' })
   }
 
   onMounted(() => {
-    anchorRef.value?.scrollIntoView({ block: 'center', inline: 'center' })
+    anchorRef.value?.scrollIntoView(scrollOptions)
   })
 
   return { scrollToAnchor }
