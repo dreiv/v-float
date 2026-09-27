@@ -38,13 +38,15 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
     <template #stage>
       <div class="playground-stage--scroll-area">
         <div class="playground-stage__scroll-target">
-          <button ref="anchorRef" class="playground-anchor" v-bind="anchorProps">Reference</button>
+          <button ref="anchorRef" class="playground-anchor" v-bind="anchorProps">
+            Reference
+          </button>
         </div>
       </div>
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">
         <div class="playground-panel__content">
-          <p>Hidden once the anchor scrolls out of view.</p>
+          <p>Hides when the reference scrolls out of view, and reappears once it's back.</p>
         </div>
       </FloatingPanel>
     </template>
@@ -53,24 +55,12 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
       <button type="button" class="playground-controls__action" @click="scrollToAnchor">
         Scroll to reference
       </button>
-      <SelectControl
-        :model-value="options.placement"
-        label="Placement"
-        :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
-      />
-      <SelectControl
-        :model-value="hideModeValue"
-        label="Hide mode"
-        :options="[...hideModeOptions]"
-        @update:model-value="(value) => (options.hide = parseHideMode(value))"
-      />
+      <SelectControl :model-value="options.placement" label="Placement" :options="[...placementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)" />
+      <SelectControl :model-value="hideModeValue" label="Hide mode" :options="[...hideModeOptions]"
+        @update:model-value="(value) => (options.hide = parseHideMode(value))" />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
-      <CheckboxGroupControl
-        v-model="options.trigger"
-        label="Trigger"
-        :options="[...triggerOptions]"
-      />
+      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="[...triggerOptions]" />
     </template>
   </PlaygroundLayout>
 </template>
