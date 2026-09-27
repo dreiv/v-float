@@ -33,15 +33,36 @@
   font-size: 0.8rem;
   text-align: center;
   line-height: 1.2;
-  border-radius: 6px;
-  border: 1px solid color-mix(in oklab, canvastext 30%, transparent);
+  text-decoration: underline dashed;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--ui-surface-border);
+  border-radius: var(--ui-surface-radius);
+  border: 1px solid var(--ui-surface-border);
   background: color-mix(in oklab, canvastext 6%, canvas);
   color: inherit;
   cursor: pointer;
+  transition-property: background-color, outline-color;
+  transition-duration: var(--ui-transition-duration);
+  transition-timing-function: var(--ui-transition-easing);
 
   &:hover {
     background: color-mix(in oklab, canvastext 12%, canvas);
   }
+
+  &:active {
+    background: color-mix(in oklab, canvastext 18%, canvas);
+    scale: 0.97;
+  }
+
+  &:focus-visible {
+    outline: 2px solid AccentColor;
+    outline-offset: 2px;
+  }
+}
+
+.playground__stage:has(.v-float-panel:popover-open) .playground-anchor {
+  border-color: AccentColor;
+  background: color-mix(in oklab, AccentColor 12%, canvas);
 }
 
 .playground-panel {
