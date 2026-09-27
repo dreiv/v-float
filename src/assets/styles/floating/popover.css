@@ -6,7 +6,7 @@
   .v-float-panel {
     margin: 0;
     padding: 0;
-    border: none;
+    border: 1px solid var(--ui-surface-border);
     color: var(--ui-surface-fg);
     background: var(--ui-surface-bg);
 
@@ -110,6 +110,10 @@
 
     &[data-flip='false'] {
       position-try-fallbacks: none;
+    }
+
+    @media (forced-colors: active) {
+      border-color: CanvasText;
     }
   }
 }
