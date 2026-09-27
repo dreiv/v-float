@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const links = [
+  { to: '/primitives/demo', label: 'Demo' },
   { to: '/primitives/offset', label: 'Offset' },
   { to: '/primitives/flip', label: 'Flip' },
   { to: '/primitives/shift', label: 'Shift' },
@@ -11,7 +12,7 @@ const links = [
 
 <template>
   <div class="primitives-layout">
-    <nav class="primitives-layout__tabs" aria-label="Floating primitives">
+    <nav class="primitives-layout__tabs" aria-label="Floating primitives and demo">
       <RouterLink v-for="link in links" :key="link.to" :to="link.to" class="primitives-layout__tab">
         {{ link.label }}
       </RouterLink>

@@ -8,6 +8,7 @@ import './assets/styles/base.css'
 import './assets/styles/floating/index.css'
 import './assets/styles/controls.css'
 import './assets/styles/playground.css'
+import './assets/styles/demo.css'
 
 const app = createApp(App)
 

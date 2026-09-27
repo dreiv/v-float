@@ -5,7 +5,13 @@ export const primitiveRoutes: RouteRecordRaw[] = [
     path: '/primitives',
     component: () => import('@/views/layouts/PrimitivesLayout.vue'),
     children: [
-      { path: '', redirect: '/primitives/offset' },
+      { path: '', redirect: '/primitives/demo' },
+      {
+        path: 'demo',
+        name: 'primitives-demo',
+        component: () => import('@/views/demo/DemoView.vue'),
+        meta: { title: 'Demo' },
+      },
       {
         path: 'offset',
         name: 'primitives-offset',
@@ -46,7 +52,7 @@ export const primitiveRoutes: RouteRecordRaw[] = [
   },
 ]
 
-const routes: RouteRecordRaw[] = [{ path: '/', redirect: '/primitives/offset' }, ...primitiveRoutes]
+const routes: RouteRecordRaw[] = [{ path: '/', redirect: '/primitives/demo' }, ...primitiveRoutes]
 
 const router = createRouter({
   history: createWebHashHistory('/v-float/'),
