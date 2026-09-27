@@ -34,7 +34,7 @@ const links = [
 
 .primitives-layout__tabs {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 0.25rem;
   height: var(--tabs-height);
   padding: 0 1.5rem;
@@ -49,8 +49,9 @@ const links = [
 }
 
 .primitives-layout__tab {
-  padding: 0.6rem 1rem;
-  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
   color: inherit;
   text-decoration: none;
   white-space: nowrap;

@@ -9,7 +9,7 @@ import {
   SwitchControl,
 } from '@/components/playground/controls'
 import { placementOptions, triggerOptions } from '@/components/playground/placementOptions'
-import { useScrollCenteredDemo } from '@/composables/playground/useScrollCenteredDemo'
+import { useScrollIntoViewDemo } from '@/composables/playground/useScrollIntoViewDemo'
 import type { FloatingPlacement } from '@/composables/floating/types'
 
 const { anchorProps, panelProps, options, open, close } = useFloating({
@@ -24,7 +24,7 @@ const hideEnabled = computed({
 })
 
 const anchorRef = useTemplateRef<HTMLButtonElement>('anchorRef')
-const { scrollToCenter } = useScrollCenteredDemo(anchorRef, options.trigger, open, close)
+const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, open, close)
 </script>
 
 <template>
@@ -44,15 +44,23 @@ const { scrollToCenter } = useScrollCenteredDemo(anchorRef, options.trigger, ope
     </template>
 
     <template #controls>
-      <button type="button" class="playground-controls__action" @click="scrollToCenter">
-        Scroll to center
+      <button type="button" class="playground-controls__action" @click="scrollToAnchor">
+        Scroll to reference
       </button>
-      <SelectControl :model-value="options.placement" label="Placement" :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)" />
+      <SelectControl
+        :model-value="options.placement"
+        label="Placement"
+        :options="[...placementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
+      />
       <SwitchControl v-model="options.flip" label="Flip enabled" />
       <SwitchControl v-model="hideEnabled" label="Hide when out of view" />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
-      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="[...triggerOptions]" />
+      <CheckboxGroupControl
+        v-model="options.trigger"
+        label="Trigger"
+        :options="[...triggerOptions]"
+      />
     </template>
   </PlaygroundLayout>
 </template>

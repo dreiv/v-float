@@ -35,79 +35,79 @@
       }
     }
 
-    &[data-placement="top"] {
+    &[data-placement='top'] {
       bottom: calc(anchor(top) + var(--ui-offset));
       justify-self: anchor-center;
       position-try-fallbacks: flip-block;
     }
 
-    &[data-placement="top-start"] {
+    &[data-placement='top-start'] {
       bottom: calc(anchor(top) + var(--ui-offset));
       left: anchor(left);
       position-try-fallbacks: flip-block;
     }
 
-    &[data-placement="top-end"] {
+    &[data-placement='top-end'] {
       bottom: calc(anchor(top) + var(--ui-offset));
       right: anchor(right);
       position-try-fallbacks: flip-block;
     }
 
-    &[data-placement="bottom"] {
+    &[data-placement='bottom'] {
       top: calc(anchor(bottom) + var(--ui-offset));
       justify-self: anchor-center;
       position-try-fallbacks: flip-block;
     }
 
-    &[data-placement="bottom-start"] {
+    &[data-placement='bottom-start'] {
       top: calc(anchor(bottom) + var(--ui-offset));
       left: anchor(left);
       position-try-fallbacks: flip-block;
     }
 
-    &[data-placement="bottom-end"] {
+    &[data-placement='bottom-end'] {
       top: calc(anchor(bottom) + var(--ui-offset));
       right: anchor(right);
       position-try-fallbacks: flip-block;
     }
 
-    &[data-placement="left"] {
+    &[data-placement='left'] {
       right: calc(anchor(left) + var(--ui-offset));
       align-self: anchor-center;
       position-try-fallbacks: flip-inline;
     }
 
-    &[data-placement="left-start"] {
+    &[data-placement='left-start'] {
       right: calc(anchor(left) + var(--ui-offset));
       top: anchor(top);
       position-try-fallbacks: flip-inline;
     }
 
-    &[data-placement="left-end"] {
+    &[data-placement='left-end'] {
       right: calc(anchor(left) + var(--ui-offset));
       bottom: anchor(bottom);
       position-try-fallbacks: flip-inline;
     }
 
-    &[data-placement="right"] {
+    &[data-placement='right'] {
       left: calc(anchor(right) + var(--ui-offset));
       align-self: anchor-center;
       position-try-fallbacks: flip-inline;
     }
 
-    &[data-placement="right-start"] {
+    &[data-placement='right-start'] {
       left: calc(anchor(right) + var(--ui-offset));
       top: anchor(top);
       position-try-fallbacks: flip-inline;
     }
 
-    &[data-placement="right-end"] {
+    &[data-placement='right-end'] {
       left: calc(anchor(right) + var(--ui-offset));
       bottom: anchor(bottom);
       position-try-fallbacks: flip-inline;
     }
 
-    &[data-flip="false"] {
+    &[data-flip='false'] {
       position-try-fallbacks: none;
     }
   }

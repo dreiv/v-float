@@ -12,7 +12,7 @@ import {
   placementOptions,
   triggerOptions,
 } from '@/components/playground/placementOptions'
-import { useDemoAutoOpen } from '@/composables/playground/useDemoAutoOpen'
+import { useScrollIntoViewDemo } from '@/composables/playground/useScrollIntoViewDemo'
 import type { FloatingHideMode, FloatingPlacement } from '@/composables/floating/types'
 
 function parseHideMode(value: string): FloatingHideMode {
@@ -30,24 +30,16 @@ const { anchorProps, panelProps, options, open, close } = useFloating({
 
 const hideModeValue = computed(() => String(options.hide))
 const anchorRef = useTemplateRef<HTMLButtonElement>('anchorRef')
-
-function scrollToAnchor() {
-  anchorRef.value?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-}
-
-useDemoAutoOpen(options.trigger, open, close)
+const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, open, close)
 </script>
 
 <template>
   <PlaygroundLayout>
     <template #stage>
-      <div class="playground-stage playground-stage--scroll">
-        <button type="button" class="playground-stage__scroll-to" @click="scrollToAnchor">
-          Scroll to reference
-        </button>
-        <div class="playground-stage__spacer" />
-        <button ref="anchorRef" class="playground-anchor" v-bind="anchorProps">Reference</button>
-        <div class="playground-stage__spacer" />
+      <div class="playground-stage--scroll-area">
+        <div class="playground-stage__scroll-target">
+          <button ref="anchorRef" class="playground-anchor" v-bind="anchorProps">Reference</button>
+        </div>
       </div>
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">
@@ -58,12 +50,27 @@ useDemoAutoOpen(options.trigger, open, close)
     </template>
 
     <template #controls>
-      <SelectControl :model-value="options.placement" label="Placement" :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)" />
-      <SelectControl :model-value="hideModeValue" label="Hide mode" :options="[...hideModeOptions]"
-        @update:model-value="(value) => (options.hide = parseHideMode(value))" />
+      <button type="button" class="playground-controls__action" @click="scrollToAnchor">
+        Scroll to reference
+      </button>
+      <SelectControl
+        :model-value="options.placement"
+        label="Placement"
+        :options="[...placementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
+      />
+      <SelectControl
+        :model-value="hideModeValue"
+        label="Hide mode"
+        :options="[...hideModeOptions]"
+        @update:model-value="(value) => (options.hide = parseHideMode(value))"
+      />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="32" :step="2" />
-      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="[...triggerOptions]" />
+      <CheckboxGroupControl
+        v-model="options.trigger"
+        label="Trigger"
+        :options="[...triggerOptions]"
+      />
     </template>
   </PlaygroundLayout>
 </template>

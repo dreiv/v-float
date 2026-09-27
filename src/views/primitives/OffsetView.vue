@@ -7,7 +7,7 @@ import {
   SelectControl,
 } from '@/components/playground/controls'
 import { placementOptions, triggerOptions } from '@/components/playground/placementOptions'
-import { useDemoAutoOpen } from '@/composables/playground/useDemoAutoOpen'
+import { useAutoOpen } from '@/composables/playground/useAutoOpen'
 import type { FloatingPlacement } from '@/composables/floating/types'
 
 const { anchorProps, panelProps, options, open, close } = useFloating({
@@ -16,7 +16,7 @@ const { anchorProps, panelProps, options, open, close } = useFloating({
   trigger: [],
 })
 
-useDemoAutoOpen(options.trigger, open, close)
+useAutoOpen(options.trigger, open, close)
 </script>
 
 <template>
@@ -34,10 +34,18 @@ useDemoAutoOpen(options.trigger, open, close)
     </template>
 
     <template #controls>
-      <SelectControl :model-value="options.placement" label="Placement" :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)" />
+      <SelectControl
+        :model-value="options.placement"
+        label="Placement"
+        :options="[...placementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
+      />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="48" :step="2" />
-      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="[...triggerOptions]" />
+      <CheckboxGroupControl
+        v-model="options.trigger"
+        label="Trigger"
+        :options="[...triggerOptions]"
+      />
     </template>
   </PlaygroundLayout>
 </template>

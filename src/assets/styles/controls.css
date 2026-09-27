@@ -1,0 +1,56 @@
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+}
+
+.control__label {
+  font-weight: 600;
+}
+
+.control__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control__select {
+  font: inherit;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid color-mix(in oklab, canvastext 25%, transparent);
+  background: canvas;
+  color: inherit;
+}
+
+.control__range {
+  flex: 1;
+}
+
+.control__value {
+  min-width: 3ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
+.control__option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+fieldset.control {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.control--inline {
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}

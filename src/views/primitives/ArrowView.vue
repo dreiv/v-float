@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 import { useFloating, FloatingPanel, FloatingArrow } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
 import {
@@ -9,7 +9,7 @@ import {
   SwitchControl,
 } from '@/components/playground/controls'
 import { placementOptions, triggerOptions } from '@/components/playground/placementOptions'
-import { useDemoAutoOpen } from '@/composables/playground/useDemoAutoOpen'
+import { useScrollIntoViewDemo } from '@/composables/playground/useScrollIntoViewDemo'
 import type { FloatingPlacement } from '@/composables/floating/types'
 
 const { anchorProps, panelProps, arrowProps, options, open, close } = useFloating({
@@ -19,14 +19,17 @@ const { anchorProps, panelProps, arrowProps, options, open, close } = useFloatin
 })
 const showArrow = ref(true)
 
-useDemoAutoOpen(options.trigger, open, close)
+const anchorRef = useTemplateRef<HTMLButtonElement>('anchorRef')
+const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, open, close)
 </script>
 
 <template>
   <PlaygroundLayout>
     <template #stage>
-      <div class="playground-stage">
-        <button class="playground-anchor" v-bind="anchorProps">Reference</button>
+      <div class="playground-stage--scroll-area">
+        <div class="playground-stage__scroll-target">
+          <button ref="anchorRef" class="playground-anchor" v-bind="anchorProps">Reference</button>
+        </div>
       </div>
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">
@@ -38,11 +41,22 @@ useDemoAutoOpen(options.trigger, open, close)
     </template>
 
     <template #controls>
-      <SelectControl :model-value="options.placement" label="Placement" :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)" />
+      <button type="button" class="playground-controls__action" @click="scrollToAnchor">
+        Scroll to reference
+      </button>
+      <SelectControl
+        :model-value="options.placement"
+        label="Placement"
+        :options="[...placementOptions]"
+        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
+      />
       <SwitchControl v-model="showArrow" label="Show arrow" />
       <NumberControl v-model="options.offset" label="Offset" :min="4" :max="32" :step="2" />
-      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="[...triggerOptions]" />
+      <CheckboxGroupControl
+        v-model="options.trigger"
+        label="Trigger"
+        :options="[...triggerOptions]"
+      />
     </template>
   </PlaygroundLayout>
 </template>

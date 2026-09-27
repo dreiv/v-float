@@ -1,22 +1,12 @@
-import { computed, getCurrentInstance, onScopeDispose, reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { FLOATING_PLACEMENTS } from './types'
-import type { AnchorName, FloatingPlacement, FloatingStrategy, FloatingStyleVars } from './types'
-
-let fallbackId = 0
-
-const HOVER_CLOSE_DELAY = 120
-
-type PopoverEl = HTMLElement & {
-  showPopover?: () => void
-  hidePopover?: () => void
-  togglePopover?: () => void
-}
+import { useAnchorIdentity } from './useAnchorIdentity'
+import { usePopoverTrigger } from './usePopoverTrigger'
+import { buildAnchorProps, buildPanelProps } from './floatingProps'
+import type { FloatingPlacement, FloatingStrategy, FloatingStyleVars } from './types'
 
 export function useFloating(initial: FloatingStrategy = {}) {
-  const instance = getCurrentInstance()
-  const uid = instance?.uid ?? fallbackId++
-  const anchorName = `--v-float-anchor-${uid}` as AnchorName
-  const panelId = `v-float-panel-${uid}`
+  const { anchorName, panelId } = useAnchorIdentity()
 
   const options = reactive<Required<FloatingStrategy>>({
     placement: initial.placement ?? 'bottom',
@@ -28,89 +18,16 @@ export function useFloating(initial: FloatingStrategy = {}) {
     trigger: initial.trigger ?? ['click'],
   })
 
-  let closeTimer: ReturnType<typeof setTimeout> | undefined
-
-  function getPanelEl(): PopoverEl | null {
-    return document.getElementById(panelId) as PopoverEl | null
-  }
-
-  function clearCloseTimer() {
-    if (closeTimer !== undefined) {
-      clearTimeout(closeTimer)
-      closeTimer = undefined
-    }
-  }
-
-  function open() {
-    clearCloseTimer()
-    getPanelEl()?.showPopover?.()
-  }
-
-  function close() {
-    clearCloseTimer()
-    getPanelEl()?.hidePopover?.()
-  }
-
-  function closeAfterDelay() {
-    clearCloseTimer()
-    closeTimer = setTimeout(close, HOVER_CLOSE_DELAY)
-  }
-
-  onScopeDispose(clearCloseTimer)
+  const trigger = usePopoverTrigger(panelId)
 
   const styleVars = computed<FloatingStyleVars>(() => ({
     '--v-float-anchor-name': anchorName,
     '--ui-offset': `${options.offset}px`,
   }))
 
-  const anchorProps = computed(() => {
-    const props: Record<string, unknown> = {
-      style: styleVars.value,
-      'data-floating-anchor': '',
-    }
-
-    if (options.trigger.includes('click')) {
-      props.popovertarget = panelId
-      props.popovertargetaction = 'toggle'
-    }
-
-    if (options.trigger.includes('hover')) {
-      props.onMouseenter = open
-      props.onMouseleave = closeAfterDelay
-    }
-
-    if (options.trigger.includes('focus')) {
-      props.onFocus = open
-      props.onBlur = close
-    }
-
-    return props
-  })
-
-  const panelProps = computed(() => {
-    const base = {
-      id: panelId,
-      style: styleVars.value,
-      placement: options.placement,
-      flip: options.flip,
-      shift: options.shift,
-      hide: options.hide,
-      autoSize: options.autoSize,
-      mode: options.trigger.includes('click') ? ('auto' as const) : ('manual' as const),
-    }
-
-    if (!options.trigger.includes('hover')) return base
-
-    return {
-      ...base,
-      onMouseenter: clearCloseTimer,
-      onMouseleave: closeAfterDelay,
-    }
-  })
-
-  const arrowProps = computed(() => ({
-    style: styleVars.value,
-  }))
+  const anchorProps = computed(() => buildAnchorProps(options, panelId, styleVars.value, trigger))
+  const panelProps = computed(() => buildPanelProps(options, panelId, styleVars.value, trigger))
+  const arrowProps = computed(() => ({ style: styleVars.value }))
 
   return {
     anchorName,
@@ -119,8 +36,8 @@ export function useFloating(initial: FloatingStrategy = {}) {
     anchorProps,
     panelProps,
     arrowProps,
-    open,
-    close,
+    open: trigger.open,
+    close: trigger.close,
   }
 }
 

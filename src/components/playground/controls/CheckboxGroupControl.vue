@@ -25,27 +25,3 @@ function toggle(value: string, checked: boolean) {
     </label>
   </fieldset>
 </template>
-
-<style scoped>
-.control {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  font-size: 0.85rem;
-  border: none;
-  padding: 0;
-  margin: 0;
-
-  &__label {
-    font-weight: 600;
-    padding: 0;
-  }
-
-  &__option {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-  }
-}
-</style>
