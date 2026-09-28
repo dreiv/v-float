@@ -1,104 +1,75 @@
-.playground-stage {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: min(50vh, 360px);
-}
-
-.playground-stage--scroll-area {
-  position: relative;
-  width: 200vw;
-  height: 200vh;
-  background-image:
-    linear-gradient(color-mix(in oklab, canvastext 6%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklab, canvastext 6%, transparent) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-.playground-stage__scroll-target {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-}
-
-.playground-anchor {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 96px;
-  height: 96px;
-  padding: 0;
-  font: inherit;
-  font-size: 0.8rem;
-  text-align: center;
-  line-height: 1.2;
-  text-decoration: underline dashed;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--ui-surface-border);
-  border-radius: var(--ui-surface-radius);
-  border: 1px solid var(--ui-surface-border);
-  background: color-mix(in oklab, canvastext 6%, canvas);
-  color: inherit;
-  cursor: pointer;
-  transition-property: background-color, outline-color;
-  transition-duration: var(--ui-transition-duration);
-  transition-timing-function: var(--ui-transition-easing);
-
-  &:hover {
-    background: color-mix(in oklab, canvastext 12%, canvas);
+@layer components {
+  .playground-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: min(50vh, 360px);
   }
 
-  &:active {
-    background: color-mix(in oklab, canvastext 18%, canvas);
-    scale: 0.97;
+  .playground-stage--scroll-area {
+    position: relative;
+    inline-size: 200vw;
+    block-size: 200vh;
+    background-image:
+      linear-gradient(var(--ui-tint-06) 1px, transparent 1px),
+      linear-gradient(90deg, var(--ui-tint-06) 1px, transparent 1px);
+    background-size: 48px 48px;
   }
 
-  &:focus-visible {
-    outline: 2px solid AccentColor;
-    outline-offset: 2px;
-  }
-}
-
-.playground__stage:has(.v-float-panel:popover-open) .playground-anchor {
-  border-color: AccentColor;
-  background: color-mix(in oklab, AccentColor 12%, canvas);
-}
-
-.playground-panel {
-  width: max-content;
-}
-
-.playground-panel__content {
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-  max-width: 240px;
-
-  &.playground-panel__content--long {
-    max-width: 280px;
+  .playground-stage__scroll-target {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    translate: -50% -50%;
   }
 
-  & p {
-    margin: 0 0 0.5rem;
+  .playground-anchor {
+    inline-size: 96px;
+    block-size: 96px;
+    padding: 0;
+    font-size: 0.8rem;
+    text-align: center;
+    line-height: 1.2;
+    text-decoration: underline dashed;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--ui-surface-border);
+  }
 
-    &:last-child {
-      margin-bottom: 0;
+  .playground__stage:has(.v-float-panel:popover-open) .playground-anchor {
+    border-color: AccentColor;
+    background: var(--ui-accent-shade-12);
+  }
+
+  .playground-panel {
+    inline-size: max-content;
+  }
+
+  .playground-panel__content {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    max-inline-size: 240px;
+
+    &.playground-panel__content--long {
+      max-inline-size: 280px;
+    }
+
+    & p {
+      margin: 0 0 0.5rem;
+
+      &:last-child {
+        margin-block-end: 0;
+      }
     }
   }
-}
 
-.playground-controls__action {
-  font: inherit;
-  font-size: 0.85rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  border: 1px solid color-mix(in oklab, canvastext 25%, transparent);
-  background: canvas;
-  color: inherit;
-  cursor: pointer;
-  align-self: flex-start;
+  .playground-controls__action {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    align-self: flex-start;
 
-  &:hover {
-    background: color-mix(in oklab, canvastext 8%, transparent);
+    &:hover {
+      background: var(--ui-hover-bg-subtle);
+    }
   }
 }

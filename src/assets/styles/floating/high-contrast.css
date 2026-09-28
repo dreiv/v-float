@@ -1,0 +1,8 @@
+@layer floating.utilities {
+  @media (forced-colors: active) {
+    .v-float-panel,
+    .v-float-arrow {
+      border-color: CanvasText;
+    }
+  }
+}

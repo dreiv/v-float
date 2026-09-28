@@ -11,10 +11,6 @@
     z-index: 1;
     pointer-events: none;
 
-    @media (forced-colors: active) {
-      border-color: CanvasText;
-    }
-
     [data-placement^='bottom'] & {
       top: calc(anchor(bottom) + var(--ui-offset));
       left: anchor(center);

@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { useFloating, FloatingPanel } from '@/components/floating'
 
-withDefaults(
-  defineProps<{
-    label?: string
-  }>(),
-  {
-    label: 'Open menu',
-  },
-)
+const { label = 'Open menu' } = defineProps<{
+  label?: string
+}>()
 
 const { anchorProps, panelProps } = useFloating({
   placement: 'bottom-start',
@@ -20,7 +15,7 @@ const { anchorProps, panelProps } = useFloating({
 </script>
 
 <template>
-  <button type="button" class="demo-menu__trigger" v-bind="anchorProps">
+  <button type="button" class="demo-menu__trigger ui-surface" v-bind="anchorProps">
     {{ label }}
   </button>
 

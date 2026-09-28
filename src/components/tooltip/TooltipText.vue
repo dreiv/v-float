@@ -2,15 +2,10 @@
 import Tooltip from './BaseTooltip.vue'
 import type { FloatingPlacement } from '@/composables/floating/types'
 
-withDefaults(
-  defineProps<{
-    hint: string
-    placement?: FloatingPlacement
-  }>(),
-  {
-    placement: 'top',
-  },
-)
+const { placement = 'top' } = defineProps<{
+  hint: string
+  placement?: FloatingPlacement
+}>()
 </script>
 
 <template>

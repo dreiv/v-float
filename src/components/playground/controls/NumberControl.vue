@@ -1,13 +1,10 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    label: string
-    min: number
-    max: number
-    step?: number
-  }>(),
-  { step: 1 },
-)
+const { step = 1 } = defineProps<{
+  label: string
+  min: number
+  max: number
+  step?: number
+}>()
 
 const model = defineModel<number>({ required: true })
 </script>

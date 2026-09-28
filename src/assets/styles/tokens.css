@@ -1,0 +1,54 @@
+@layer tokens {
+  :root {
+    --ui-offset: 8px;
+    --ui-shift-padding: 8px;
+
+    --ui-arrow-size: 8px;
+    --ui-arrow-offset: calc(var(--ui-arrow-size) / -2);
+    --ui-arrow-radius: 2px;
+
+    --ui-max-width-fallback: 320px;
+    --ui-size-viewport-gutter: 16px;
+
+    --ui-transition-duration: 0.2s;
+    --ui-transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
+
+    --ui-surface-bg: canvas;
+    --ui-surface-fg: canvastext;
+    --ui-surface-radius: 8px;
+    --ui-field-radius: 6px;
+
+    --ui-tint-06: color-mix(in oklab, canvastext 6%, transparent);
+    --ui-tint-08: color-mix(in oklab, canvastext 8%, transparent);
+    --ui-tint-10: color-mix(in oklab, canvastext 10%, transparent);
+    --ui-tint-12: color-mix(in oklab, canvastext 12%, transparent);
+    --ui-tint-15: color-mix(in oklab, canvastext 15%, transparent);
+    --ui-tint-18: color-mix(in oklab, canvastext 18%, transparent);
+    --ui-tint-20: color-mix(in oklab, canvastext 20%, transparent);
+    --ui-tint-25: color-mix(in oklab, canvastext 25%, transparent);
+    --ui-tint-35: color-mix(in oklab, canvastext 35%, transparent);
+    --ui-tint-45: color-mix(in oklab, canvastext 45%, transparent);
+    --ui-tint-65: color-mix(in oklab, canvastext 65%, transparent);
+    --ui-tint-88: color-mix(in oklab, canvastext 88%, transparent);
+
+    --ui-shade-06: color-mix(in oklab, canvastext 6%, canvas);
+    --ui-shade-08: color-mix(in oklab, canvastext 8%, canvas);
+    --ui-shade-12: color-mix(in oklab, canvastext 12%, canvas);
+    --ui-shade-18: color-mix(in oklab, canvastext 18%, canvas);
+
+    --ui-accent-tint-15: color-mix(in oklab, AccentColor 15%, transparent);
+    --ui-accent-shade-12: color-mix(in oklab, AccentColor 12%, canvas);
+
+    --ui-divider: var(--ui-tint-15);
+    --ui-control-border: var(--ui-tint-25);
+    --ui-surface-border: var(--ui-tint-20);
+    --ui-surface-bg-subtle: var(--ui-shade-06);
+    --ui-hover-bg-subtle: var(--ui-tint-08);
+    --ui-hover-bg-strong: var(--ui-shade-12);
+    --ui-active-bg-strong: var(--ui-shade-18);
+    --ui-text-muted: var(--ui-tint-88);
+
+    --ui-surface-shadow: 0 2px 8px var(--ui-tint-10);
+    --ui-shadow-raised: 0 4px 16px var(--ui-tint-18);
+  }
+}

@@ -23,7 +23,7 @@ useAutoOpen(options.trigger, open, close)
   <PlaygroundLayout>
     <template #stage>
       <div class="playground-stage">
-        <button class="playground-anchor" v-bind="anchorProps">Reference</button>
+        <button class="playground-anchor ui-surface" v-bind="anchorProps">Reference</button>
       </div>
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">

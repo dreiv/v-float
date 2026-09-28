@@ -25,52 +25,53 @@ const links = [
 </template>
 
 <style scoped>
-.primitives-layout {
-  --tabs-height: 3.25rem;
+@layer components {
+  .primitives-layout {
+    --tabs-height: 3.25rem;
 
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-}
-
-.primitives-layout__tabs {
-  display: flex;
-  align-items: stretch;
-  gap: 0.25rem;
-  height: var(--tabs-height);
-  padding: 0 1.5rem;
-  border-bottom: 1px solid color-mix(in oklab, canvastext 15%, transparent);
-  overflow-x: auto;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: canvas;
-  z-index: 20;
-}
-
-.primitives-layout__tab {
-  display: flex;
-  align-items: center;
-  padding: 0 1rem;
-  color: inherit;
-  text-decoration: none;
-  white-space: nowrap;
-  border-bottom: 2px solid transparent;
-
-  &:hover {
-    background: color-mix(in oklab, canvastext 8%, transparent);
+    display: flex;
+    flex-direction: column;
+    min-block-size: 100%;
   }
 
-  &.router-link-active {
-    border-bottom-color: canvastext;
-    font-weight: 600;
+  .primitives-layout__tabs {
+    display: flex;
+    align-items: stretch;
+    gap: 0.25rem;
+    block-size: var(--tabs-height);
+    padding: 0 1.5rem;
+    border-bottom: 1px solid var(--ui-divider);
+    overflow-x: auto;
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline: 0;
+    background: var(--ui-surface-bg);
+    z-index: 20;
   }
-}
 
-.primitives-layout__content {
-  flex: 1;
-  min-width: 0;
-  padding: calc(var(--tabs-height) + 1.5rem) 1.5rem 1.5rem;
+  .primitives-layout__tab {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+      background: var(--ui-hover-bg-subtle);
+    }
+
+    &.router-link-active {
+      border-bottom-color: canvastext;
+      font-weight: 600;
+    }
+  }
+
+  .primitives-layout__content {
+    flex: 1;
+    min-inline-size: 0;
+    padding: calc(var(--tabs-height) + 1.5rem) 1.5rem 1.5rem;
+  }
 }
 </style>

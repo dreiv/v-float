@@ -32,7 +32,9 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
     <template #stage>
       <div class="playground-stage--scroll-area">
         <div class="playground-stage__scroll-target">
-          <button ref="anchorRef" class="playground-anchor" v-bind="anchorProps">Reference</button>
+          <button ref="anchorRef" class="playground-anchor ui-surface" v-bind="anchorProps">
+            Reference
+          </button>
         </div>
       </div>
 
@@ -44,7 +46,7 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
     </template>
 
     <template #controls>
-      <button type="button" class="playground-controls__action" @click="scrollToAnchor">
+      <button type="button" class="playground-controls__action ui-field" @click="scrollToAnchor">
         Scroll to reference
       </button>
       <SelectControl

@@ -111,9 +111,5 @@
     &[data-flip='false'] {
       position-try-fallbacks: none;
     }
-
-    @media (forced-colors: active) {
-      border-color: CanvasText;
-    }
   }
 }

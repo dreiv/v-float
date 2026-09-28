@@ -6,33 +6,30 @@ import type {
   FloatingPopoverMode,
 } from '@/composables/floating/types'
 
-const props = withDefaults(
-  defineProps<{
-    style?: Record<string, string>
-    placement?: FloatingPlacement
-    mode?: FloatingPopoverMode
-    flip?: boolean
-    shift?: boolean
-    hide?: FloatingHideMode
-    autoSize?: boolean
-    as?: string
-  }>(),
-  {
-    placement: 'bottom',
-    mode: 'auto',
-    flip: true,
-    shift: false,
-    hide: false,
-    autoSize: false,
-    as: 'div',
-  },
-)
+const {
+  placement = 'bottom',
+  mode = 'auto',
+  flip = true,
+  shift = false,
+  hide = false,
+  autoSize = false,
+  as = 'div',
+} = defineProps<{
+  style?: Record<string, string>
+  placement?: FloatingPlacement
+  mode?: FloatingPopoverMode
+  flip?: boolean
+  shift?: boolean
+  hide?: FloatingHideMode
+  autoSize?: boolean
+  as?: string
+}>()
 
 const panelEl = useTemplateRef<
   HTMLElement & { showPopover?: () => void; hidePopover?: () => void; togglePopover?: () => void }
 >('panelEl')
 
-const hideAttr = computed(() => (props.hide === false ? undefined : String(props.hide)))
+const hideAttr = computed(() => (hide === false ? undefined : String(hide)))
 
 defineExpose({
   show: () => panelEl.value?.showPopover?.(),

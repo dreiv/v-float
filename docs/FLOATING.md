@@ -84,6 +84,6 @@ flip, hide, offset, shift, and size.
 ## Browser support
 
 Requires CSS Anchor Positioning, `position-area`, and
-`position-try-fallbacks` (Baseline Jan 2026 — current Chrome/Edge). The
-arrow's flip-tracking additionally needs `@container anchored()`
-(Chrome/Edge 143+).
+`position-try-fallbacks`, supported in current Chrome/Edge, Safari 26+, and
+Firefox 147+. The arrow's flip-tracking additionally needs
+`@container anchored()`, which is Chromium-only for now (Chrome/Edge 143+).
