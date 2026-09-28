@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import './controls.css'
 defineProps<{
   label: string
 }>()
@@ -12,3 +13,13 @@ const model = defineModel<boolean>({ required: true })
     <span>{{ label }}</span>
   </label>
 </template>
+
+<style scoped>
+@layer components {
+  .control--inline {
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+</style>

@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import './playground.css'
+</script>
 
 <template>
   <section class="playground">

@@ -30,3 +30,21 @@ const { anchorProps, panelProps, arrowProps, panelId } = useFloating({
     </div>
   </FloatingPanel>
 </template>
+
+<style scoped>
+@layer components {
+  .v-tooltip {
+    inline-size: max-content;
+  }
+
+  .v-tooltip__content {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.875rem;
+    max-inline-size: 15rem;
+  }
+
+  :slotted(p) {
+    margin: 0;
+  }
+}
+</style>

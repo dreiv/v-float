@@ -1,4 +1,5 @@
 import type { App } from 'vue'
+import './styles/index.css'
 import FloatingPanel from './FloatingPanel.vue'
 import FloatingArrow from './FloatingArrow.vue'
 

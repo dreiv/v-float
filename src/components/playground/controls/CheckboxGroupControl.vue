@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import './controls.css'
 defineProps<{
   label: string
   options: { value: string; label: string }[]
@@ -25,3 +26,21 @@ function toggle(value: string, checked: boolean) {
     </label>
   </fieldset>
 </template>
+
+<style scoped>
+@layer components {
+  fieldset.control {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .control__option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 400;
+    cursor: pointer;
+  }
+}
+</style>

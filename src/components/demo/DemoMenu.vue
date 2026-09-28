@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import './demo-menu.css'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import UiButton from '@/components/ui/UiButton.vue'
 
@@ -22,3 +23,12 @@ const { anchorProps, panelProps } = useFloating({
     <slot />
   </FloatingPanel>
 </template>
+
+<style scoped>
+@layer components {
+  .demo-menu__trigger {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+  }
+}
+</style>

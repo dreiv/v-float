@@ -1,0 +1,45 @@
+@layer components {
+  .demo-menu__panel {
+    inline-size: 15rem;
+    padding: 0.4rem;
+  }
+
+  .demo-menu__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    inline-size: 100%;
+    padding: 0.5rem 0.6rem;
+    border-radius: 4px;
+    font: inherit;
+    font-size: 0.95rem;
+    text-align: start;
+
+    div& {
+      cursor: default;
+    }
+
+    button& {
+      background: none;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      transition: background-color var(--ui-transition-duration) var(--ui-transition-easing);
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: var(--ui-hover-bg-subtle);
+    }
+
+    &:focus-visible {
+      outline: 2px solid AccentColor;
+      outline-offset: -2px;
+    }
+  }
+
+  .demo-menu__item-label {
+    flex: 1;
+    min-inline-size: 0;
+  }
+}

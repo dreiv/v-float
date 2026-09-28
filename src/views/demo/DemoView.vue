@@ -96,3 +96,77 @@ import { TooltipText } from '@/components/tooltip'
     </section>
   </div>
 </template>
+
+<style scoped>
+@layer components {
+  .demo {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    max-inline-size: 40rem;
+    margin: 0 auto;
+    padding-block-end: 4rem;
+    font-size: 1rem;
+  }
+
+  .demo__intro h1 {
+    margin: 0 0 0.75rem;
+    font-size: 1.75rem;
+  }
+
+  .demo__intro p,
+  .demo__section p {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ui-text-muted);
+
+    & a {
+      color: inherit;
+    }
+  }
+
+  .demo__section h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .demo__stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-block-size: 8.75rem;
+    margin-block-start: 1rem;
+    padding: 2rem;
+    border: 1px dashed var(--ui-surface-border);
+    border-radius: var(--ui-surface-radius);
+  }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    font-size: 0.875em;
+    padding: 0.15em 0.4em;
+    background: var(--ui-shade-08);
+    border: 1px solid var(--ui-tint-12);
+    border-radius: 4px;
+  }
+
+  .demo__code {
+    margin: 0.75rem 0;
+    padding: 1rem 1.15rem;
+    overflow-x: auto;
+    background: var(--ui-surface-bg-subtle);
+    border: 1px solid var(--ui-divider);
+    border-radius: var(--ui-surface-radius);
+
+    & code {
+      display: block;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+  }
+}
+</style>

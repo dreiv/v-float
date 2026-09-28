@@ -18,3 +18,30 @@ const { placement = 'top' } = defineProps<{
     <p>{{ hint }}</p>
   </Tooltip>
 </template>
+
+<style scoped>
+@layer components {
+  .v-tooltip-term {
+    font: inherit;
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    cursor: help;
+    text-decoration: underline dashed;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--ui-tint-45);
+
+    &:hover,
+    &:focus-visible {
+      text-decoration-color: AccentColor;
+    }
+
+    &:focus-visible {
+      outline: 2px solid AccentColor;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+}
+</style>

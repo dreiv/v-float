@@ -1,5 +1,38 @@
 <template>
-  <button type="button" class="ui-surface">
+  <button type="button" class="ui-button">
     <slot />
   </button>
 </template>
+
+<style scoped>
+@layer ui {
+  .ui-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font: inherit;
+    border-radius: var(--ui-surface-radius);
+    border: 1px solid var(--ui-surface-border);
+    background: var(--ui-surface-bg-subtle);
+    color: inherit;
+    cursor: pointer;
+    transition-property: background-color, outline-color;
+    transition-duration: var(--ui-transition-duration);
+    transition-timing-function: var(--ui-transition-easing);
+
+    &:hover {
+      background: var(--ui-hover-bg-strong);
+    }
+
+    &:active {
+      background: var(--ui-active-bg-strong);
+      scale: 0.97;
+    }
+
+    &:focus-visible {
+      outline: 2px solid AccentColor;
+      outline-offset: 2px;
+    }
+  }
+}
+</style>

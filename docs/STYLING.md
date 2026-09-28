@@ -1,64 +1,63 @@
 # Styling
 
-Plain CSS, no framework. Global styles are imported once in `main.ts`;
-component-local styles that don't belong anywhere else stay in scoped
-`<style>` blocks.
+Plain CSS, no framework. Component styles live next to their component;
+only cross-cutting CSS is global.
 
-## Files
+## Global (`src/assets/styles/`)
 
 ```
-src/assets/styles/
-  layers.css       cascade order, nothing else — import this first
-  tokens.css       all custom properties (:root)
-  base.css         element reset
-  surfaces.css     .ui-surface (used by <UiButton>)
-  controls.css     playground form controls
-  demo.css         demo page, menu, tooltip
-  playground.css   playground stage / anchor / panel
-  floating/        the floating-ui primitives (anchor positioning, popover)
+layers.css   cascade order, nothing else
+tokens.css   all custom properties (:root)
+base.css     element reset
 ```
+
+These three are imported first in `main.ts`.
 
 ## Layers
 
-`layers.css` declares the full cascade order once:
+`layers.css` declares the full order once:
 
 ```css
-@layer reset, tokens, components, floating.base, floating.arrow, floating.utilities;
+@layer reset, tokens, ui, components, floating.base, floating.arrow, floating.utilities;
 ```
 
-Every other stylesheet just opens `@layer <name> { ... }` using one of
-those names — it doesn't need to know about anything else. This is what
-keeps `floating/*.css` from ever losing to app CSS (or vice versa)
-regardless of selector specificity or import order.
+Every stylesheet just opens `@layer <name> { ... }`. `ui` holds the base look
+of shared primitives (`UiButton`) so any `components` rule can override it
+without fighting specificity.
+
+## Where component CSS goes
+
+- **One component only** → scoped `<style>` in the SFC.
+- **Shared by a few components, or applied to slot content** → a plain `.css`
+  file next to them, imported by those components:
+  `demo/demo-menu.css`, `playground/playground.css`,
+  `playground/controls/controls.css`. Scoped styles can't reach slot content
+  rendered by another component, which is why the playground stage and panel
+  styles aren't scoped.
+- **Floating library** → `components/floating/styles/`, imported by
+  `components/floating/index.ts`.
 
 ## Tokens
 
-`tokens.css` holds two primitive scales plus a set of semantic aliases
-that build on them:
+`tokens.css` has two primitive scales plus semantic aliases:
 
-- `--ui-tint-*` — `canvastext` mixed toward transparent (borders, muted
-  text, dashed lines)
-- `--ui-shade-*` — `canvastext` mixed toward `canvas` (solid fills)
-- semantic aliases (`--ui-divider`, `--ui-hover-bg-strong`,
-  `--ui-surface-border`, etc.) — what most component CSS should actually
-  reach for
+- `--ui-tint-*` — `canvastext` mixed toward transparent
+- `--ui-shade-*` — `canvastext` mixed toward `canvas`
+- aliases (`--ui-divider`, `--ui-hover-bg-strong`, `--ui-surface-border`, ...)
+  are what component CSS should reach for
 
-Add a new value to the scale before reaching for a raw `color-mix(...)`
-literal in a component file.
+Add a value to the scale before using a raw `color-mix(...)` in a component.
 
 ## Buttons
 
-`<UiButton>` (`src/components/ui/UiButton.vue`) renders a native `<button>`
-with the shared `.ui-surface` look (filled, bordered, hover / active /
-focus-visible). Attributes, listeners and `v-bind="anchorProps"` fall
-through to the button; a template ref gives the component instance, so use
-its `$el` for the element. Give it a component class only for what's
-unique (size, padding).
+`<UiButton>` (`components/ui/UiButton.vue`) renders a native `<button>` with
+the shared look. Attributes, listeners and `v-bind="anchorProps"` fall through
+to it. A template ref gives the component instance; use its `$el` for the
+element. Add a component class only for what's unique (size, padding).
 
 ## Conventions
 
-- BEM (`block__element--modifier`) for component classes.
-- Logical properties (`inline-size`, `inset-block-start`, ...) over
-  physical ones, except inside `floating/*.css` where a value is pinned
-  to a physical axis by `anchor()`/`position-area` on purpose.
-- No visual-facing magic numbers — pull from `tokens.css` instead.
+- BEM (`block__element--modifier`).
+- Logical properties over physical ones, except in the floating library where
+  `anchor()` pins a value to a physical axis on purpose.
+- No visual magic numbers — use `tokens.css`.

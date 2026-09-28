@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import './demo-menu.css'
 import { useFloating, FloatingPanel } from '@/components/floating'
 
 defineProps<{
@@ -24,3 +25,15 @@ const { anchorProps, panelProps } = useFloating({
     <slot />
   </FloatingPanel>
 </template>
+
+<style scoped>
+@layer components {
+  .demo-menu__item-arrow {
+    flex-shrink: 0;
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ui-tint-65);
+  }
+}
+</style>
