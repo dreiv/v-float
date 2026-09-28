@@ -11,7 +11,7 @@ src/assets/styles/
   layers.css       cascade order, nothing else — import this first
   tokens.css       all custom properties (:root)
   base.css         element reset
-  surfaces.css     .ui-surface / .ui-field shared classes
+  surfaces.css     .ui-surface (used by <UiButton>)
   controls.css     playground form controls
   demo.css         demo page, menu, tooltip
   playground.css   playground stage / anchor / panel
@@ -46,14 +46,14 @@ that build on them:
 Add a new value to the scale before reaching for a raw `color-mix(...)`
 literal in a component file.
 
-## Shared classes
+## Buttons
 
-`.ui-surface` (filled, bordered, has hover/active/focus-visible — used by
-buttons like the demo menu trigger and the playground anchor) and
-`.ui-field` (plain bordered shell — used by the playground's scroll
-button and the select control) live in `surfaces.css`. Add either as a
-second class alongside a component's own BEM class; keep only what's
-actually unique to that component in its own stylesheet.
+`<UiButton>` (`src/components/ui/UiButton.vue`) renders a native `<button>`
+with the shared `.ui-surface` look (filled, bordered, hover / active /
+focus-visible). Attributes, listeners and `v-bind="anchorProps"` fall
+through to the button; a template ref gives the component instance, so use
+its `$el` for the element. Give it a component class only for what's
+unique (size, padding).
 
 ## Conventions
 

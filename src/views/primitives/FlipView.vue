@@ -2,6 +2,7 @@
 import { computed, useTemplateRef } from 'vue'
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
+import UiButton from '@/components/ui/UiButton.vue'
 import {
   CheckboxGroupControl,
   NumberControl,
@@ -23,7 +24,7 @@ const hideEnabled = computed({
   set: (value: boolean) => (options.hide = value),
 })
 
-const anchorRef = useTemplateRef<HTMLButtonElement>('anchorRef')
+const anchorRef = useTemplateRef<InstanceType<typeof UiButton>>('anchorRef')
 const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, open, close)
 </script>
 
@@ -32,9 +33,9 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
     <template #stage>
       <div class="playground-stage--scroll-area">
         <div class="playground-stage__scroll-target">
-          <button ref="anchorRef" class="playground-anchor ui-surface" v-bind="anchorProps">
-            Reference
-          </button>
+          <UiButton ref="anchorRef" class="playground-anchor" v-bind="anchorProps"
+            >Reference</UiButton
+          >
         </div>
       </div>
 
@@ -46,9 +47,9 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
     </template>
 
     <template #controls>
-      <button type="button" class="playground-controls__action ui-field" @click="scrollToAnchor">
+      <UiButton class="playground-controls__action" @click="scrollToAnchor">
         Scroll to reference
-      </button>
+      </UiButton>
       <SelectControl
         :model-value="options.placement"
         label="Placement"

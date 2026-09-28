@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useFloating, FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
+import UiButton from '@/components/ui/UiButton.vue'
 import {
   CheckboxGroupControl,
   NumberControl,
@@ -23,7 +24,7 @@ useAutoOpen(options.trigger, open, close)
   <PlaygroundLayout>
     <template #stage>
       <div class="playground-stage">
-        <button class="playground-anchor ui-surface" v-bind="anchorProps">Reference</button>
+        <UiButton class="playground-anchor" v-bind="anchorProps">Reference</UiButton>
       </div>
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">

@@ -27,12 +27,4 @@
       outline-offset: 2px;
     }
   }
-
-  .ui-field {
-    font: inherit;
-    border-radius: var(--ui-field-radius);
-    border: 1px solid var(--ui-control-border);
-    background: var(--ui-surface-bg);
-    color: inherit;
-  }
 }
