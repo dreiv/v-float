@@ -22,7 +22,7 @@ import './playground.css'
   .playground {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--ui-sp-4);
     min-inline-size: 0;
   }
 
@@ -33,14 +33,14 @@ import './playground.css'
 
   .playground__controls {
     position: fixed;
-    inset-inline-end: 1rem;
-    inset-block-end: 1rem;
+    inset-inline-end: var(--ui-sp-4);
+    inset-block-end: var(--ui-sp-4);
     z-index: 10;
-    inline-size: 240px;
-    max-inline-size: calc(100vw - 2rem);
+    inline-size: var(--ui-w-panel);
+    max-inline-size: calc(100vw - var(--ui-sp-8));
     background: var(--ui-surface-bg);
     color: inherit;
-    border: 1px solid var(--ui-divider);
+    border: var(--ui-border-divider);
     border-radius: var(--ui-surface-radius);
     box-shadow: var(--ui-shadow-raised);
     overflow: hidden;
@@ -52,7 +52,7 @@ import './playground.css'
     justify-content: space-between;
     font: inherit;
     font-weight: 600;
-    padding: 0.75rem 1rem;
+    padding: var(--ui-sp-3) var(--ui-sp-4);
     cursor: pointer;
     list-style: none;
 
@@ -77,11 +77,11 @@ import './playground.css'
   .playground__controls-body {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    max-block-size: min(60vh, 480px);
+    gap: var(--ui-sp-4);
+    padding: var(--ui-sp-4);
+    max-block-size: min(60vh, 30rem);
     overflow-y: auto;
-    border-top: 1px solid var(--ui-divider);
+    border-block-start: var(--ui-border-divider);
   }
 }
 </style>

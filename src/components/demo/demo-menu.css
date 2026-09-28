@@ -1,18 +1,18 @@
 @layer components {
   .demo-menu__panel {
-    inline-size: 15rem;
-    padding: 0.4rem;
+    inline-size: var(--ui-w-panel);
+    padding: var(--ui-sp-2);
   }
 
   .demo-menu__item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--ui-sp-2);
     inline-size: 100%;
-    padding: 0.5rem 0.6rem;
-    border-radius: 4px;
+    padding: var(--ui-sp-2) var(--ui-sp-3);
+    border-radius: var(--ui-radius-sm);
     font: inherit;
-    font-size: 0.95rem;
+    font-size: var(--ui-fs-md);
     text-align: start;
 
     div& {
@@ -33,7 +33,6 @@
     }
 
     &:focus-visible {
-      outline: 2px solid AccentColor;
       outline-offset: -2px;
     }
   }

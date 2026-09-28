@@ -38,9 +38,9 @@ const { anchorProps, panelProps, arrowProps, panelId } = useFloating({
   }
 
   .v-tooltip__content {
-    padding: 0.45rem 0.7rem;
-    font-size: 0.875rem;
-    max-inline-size: 15rem;
+    padding: var(--ui-sp-2) var(--ui-sp-3);
+    font-size: var(--ui-fs-sm);
+    max-inline-size: var(--ui-w-panel);
   }
 
   :slotted(p) {

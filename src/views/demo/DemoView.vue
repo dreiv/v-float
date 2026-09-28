@@ -102,43 +102,37 @@ import { TooltipText } from '@/components/tooltip'
   .demo {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: var(--ui-sp-10);
     max-inline-size: 40rem;
     margin: 0 auto;
-    padding-block-end: 4rem;
-    font-size: 1rem;
+    padding-block-end: var(--ui-sp-16);
   }
 
   .demo__intro h1 {
-    margin: 0 0 0.75rem;
-    font-size: 1.75rem;
+    margin: 0 0 var(--ui-sp-3);
+    font-size: var(--ui-fs-xl);
   }
 
   .demo__intro p,
   .demo__section p {
-    font-size: 1rem;
     line-height: 1.65;
     color: var(--ui-text-muted);
-
-    & a {
-      color: inherit;
-    }
   }
 
   .demo__section h2 {
-    margin: 0 0 0.5rem;
-    font-size: 1.25rem;
+    margin: 0 0 var(--ui-sp-2);
+    font-size: var(--ui-fs-lg);
   }
 
   .demo__stage {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    min-block-size: 8.75rem;
-    margin-block-start: 1rem;
-    padding: 2rem;
-    border: 1px dashed var(--ui-surface-border);
+    gap: var(--ui-sp-4);
+    min-block-size: 9rem;
+    margin-block-start: var(--ui-sp-4);
+    padding: var(--ui-sp-8);
+    border: var(--ui-border-width) dashed var(--ui-surface-border);
     border-radius: var(--ui-surface-radius);
   }
 
@@ -147,21 +141,21 @@ import { TooltipText } from '@/components/tooltip'
     font-size: 0.875em;
     padding: 0.15em 0.4em;
     background: var(--ui-shade-08);
-    border: 1px solid var(--ui-tint-12);
-    border-radius: 4px;
+    border: var(--ui-border-width) solid var(--ui-tint-12);
+    border-radius: var(--ui-radius-sm);
   }
 
   .demo__code {
-    margin: 0.75rem 0;
-    padding: 1rem 1.15rem;
+    margin: var(--ui-sp-3) 0;
+    padding: var(--ui-sp-4);
     overflow-x: auto;
     background: var(--ui-surface-bg-subtle);
-    border: 1px solid var(--ui-divider);
+    border: var(--ui-border-divider);
     border-radius: var(--ui-surface-radius);
 
     & code {
       display: block;
-      font-size: 0.85rem;
+      font-size: var(--ui-fs-sm);
       line-height: 1.6;
       padding: 0;
       background: none;

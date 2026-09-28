@@ -39,14 +39,27 @@ without fighting specificity.
 
 ## Tokens
 
-`tokens.css` has two primitive scales plus semantic aliases:
+`tokens.css` holds the values that repeat across components:
 
+- `--ui-sp-*` — spacing, `n * 0.25rem` (`--ui-sp-4` is `1rem`)
+- `--ui-fs-*` — font sizes (`xs`, `sm`, `md`, `lg`, `xl`)
+- `--ui-w-panel` — shared width for narrow floating panels (menus, tooltips, the controls dock)
+- `--ui-radius-*`, `--ui-surface-radius`, `--ui-field-radius` — corner radii
+- `--ui-border-width` and the composites `--ui-border`, `--ui-border-divider`,
+  `--ui-border-control`
 - `--ui-tint-*` — `canvastext` mixed toward transparent
 - `--ui-shade-*` — `canvastext` mixed toward `canvas`
 - aliases (`--ui-divider`, `--ui-hover-bg-strong`, `--ui-surface-border`, ...)
   are what component CSS should reach for
 
-Add a value to the scale before using a raw `color-mix(...)` in a component.
+Add a value to a scale before using a raw `color-mix(...)`, `rem` spacing or
+font size in a component. Sizes that belong to one component (a fixed width,
+the tab bar height, a font family used once) stay local.
+
+The focus ring is a single `:focus-visible` rule in `base.css`; components only
+override it when they need a different offset. Native form controls (`input`,
+`select`, `textarea`) are excluded and keep the browser's own ring, which stays
+visible in both color schemes.
 
 ## Buttons
 
