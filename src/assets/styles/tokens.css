@@ -69,9 +69,10 @@
     --ui-border-divider: var(--ui-border-width) solid var(--ui-divider);
     --ui-border-control: var(--ui-border-width) solid var(--ui-control-border);
 
-    --ui-focus-ring: 2px solid AccentColor;
+    --ui-focus-width: 3px;
+    --ui-focus-ring: var(--ui-focus-width) solid AccentColor;
     --ui-focus-offset: 2px;
-    --ui-focus-offset-inset: calc(var(--ui-focus-offset) * -1);
+    --ui-focus-offset-inset: calc(var(--ui-focus-width) * -1);
 
     --ui-shadow-color: light-dark(rgb(0 0 0 / 12%), rgb(0 0 0 / 55%));
     --ui-surface-shadow: 0 2px 8px var(--ui-shadow-color);

@@ -30,7 +30,6 @@ const { anchorProps, panelProps } = useFloating({
 @layer components {
   .demo-menu__trigger {
     font-size: var(--ui-fs-md);
-    padding: var(--ui-sp-2) var(--ui-sp-4);
   }
 }
 </style>

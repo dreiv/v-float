@@ -16,9 +16,10 @@
   }
 
   .playground-anchor {
+    --ui-button-padding: 0;
+
     inline-size: 6rem;
     block-size: 6rem;
-    padding: 0;
     font-size: var(--ui-fs-sm);
     text-align: center;
     line-height: 1.2;
@@ -27,7 +28,7 @@
     text-decoration-color: var(--ui-surface-border);
   }
 
-  .playground__stage:has(.v-float-panel:popover-open) .playground-anchor {
+  .playground__stage:has(.v-float-panel:popover-open) .playground-anchor .ui-button__face {
     border-color: AccentColor;
     background: var(--ui-accent-shade-12);
   }
@@ -55,8 +56,9 @@
   }
 
   .playground-controls__action {
+    --ui-button-padding: var(--ui-sp-2) var(--ui-sp-3);
+
     font-size: var(--ui-fs-sm);
-    padding: var(--ui-sp-2) var(--ui-sp-3);
     align-self: flex-start;
   }
 }
