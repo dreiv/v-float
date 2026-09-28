@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, useTemplateRef } from 'vue'
-import { useFloating, FloatingPanel } from '@/components/floating'
+import { FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
+import PlaygroundStage from '@/components/playground/PlaygroundStage.vue'
 import UiButton from '@/components/ui/UiButton.vue'
 import {
   CheckboxGroupControl,
@@ -10,36 +11,28 @@ import {
   SwitchControl,
 } from '@/components/playground/controls'
 import { placementOptions, triggerOptions } from '@/components/playground/placementOptions'
-import { useScrollIntoViewDemo } from '@/composables/playground/useScrollIntoViewDemo'
-import type { FloatingPlacement } from '@/composables/floating/types'
+import { usePlaygroundFloating } from '@/composables/playground/usePlaygroundFloating'
 
-const { anchorProps, panelProps, options, open, close } = useFloating({
-  placement: 'bottom',
-  offset: 8,
-  autoSize: true,
-  trigger: [],
-})
-
-const contentLength = ref<'short' | 'long'>('short')
 const contentOptions = [
   { value: 'short', label: 'Short' },
   { value: 'long', label: 'Long (forces scroll)' },
-]
+] as const
 
-const anchorRef = useTemplateRef<InstanceType<typeof UiButton>>('anchorRef')
-const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, open, close)
+const { anchorProps, panelProps, options } = usePlaygroundFloating({
+  placement: 'bottom',
+  offset: 8,
+  autoSize: true,
+})
+
+const contentLength = ref<(typeof contentOptions)[number]['value']>('short')
+
+const stageRef = useTemplateRef<InstanceType<typeof PlaygroundStage>>('stage')
 </script>
 
 <template>
   <PlaygroundLayout>
     <template #stage>
-      <div class="playground-stage--scroll-area">
-        <div class="playground-stage__scroll-target">
-          <UiButton ref="anchorRef" class="playground-anchor" v-bind="anchorProps"
-            >Reference</UiButton
-          >
-        </div>
-      </div>
+      <PlaygroundStage ref="stage" scroll v-bind="anchorProps" />
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">
         <div
@@ -61,28 +54,14 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
     </template>
 
     <template #controls>
-      <UiButton class="playground-controls__action" @click="scrollToAnchor">
+      <UiButton class="playground-controls__action" @click="stageRef?.scrollToAnchor()">
         Scroll to reference
       </UiButton>
-      <SelectControl
-        :model-value="options.placement"
-        label="Placement"
-        :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
-      />
+      <SelectControl v-model="options.placement" label="Placement" :options="placementOptions" />
       <SwitchControl v-model="options.autoSize" label="Cap panel size" />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="48" :step="2" />
-      <SelectControl
-        :model-value="contentLength"
-        label="Content"
-        :options="contentOptions"
-        @update:model-value="(value) => (contentLength = value as 'short' | 'long')"
-      />
-      <CheckboxGroupControl
-        v-model="options.trigger"
-        label="Trigger"
-        :options="[...triggerOptions]"
-      />
+      <SelectControl v-model="contentLength" label="Content" :options="contentOptions" />
+      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="triggerOptions" />
     </template>
   </PlaygroundLayout>
 </template>

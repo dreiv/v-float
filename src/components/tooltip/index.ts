@@ -1,4 +1,2 @@
-import BaseTooltip from './BaseTooltip.vue'
-import TooltipText from './TooltipText.vue'
-
-export { BaseTooltip as Tooltip, TooltipText }
+export { default as Tooltip } from './BaseTooltip.vue'
+export { default as TooltipText } from './TooltipText.vue'

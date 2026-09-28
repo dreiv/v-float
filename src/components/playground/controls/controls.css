@@ -2,8 +2,8 @@
   .control {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    font-size: 0.85rem;
+    gap: var(--ui-sp-1);
+    font-size: var(--ui-fs-sm);
   }
 
   .control__label {

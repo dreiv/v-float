@@ -16,7 +16,13 @@ const { anchorProps, panelProps } = useFloating({
 </script>
 
 <template>
-  <button type="button" class="demo-menu__item" role="menuitem" v-bind="anchorProps">
+  <button
+    type="button"
+    class="demo-menu__item"
+    role="menuitem"
+    aria-haspopup="menu"
+    v-bind="anchorProps"
+  >
     <span class="demo-menu__item-label">{{ label }}</span>
     <span class="demo-menu__item-arrow" aria-hidden="true">›</span>
   </button>

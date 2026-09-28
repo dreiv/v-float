@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, useTemplateRef } from 'vue'
 import type {
   FloatingHideMode,
   FloatingPlacement,
@@ -15,7 +14,6 @@ const {
   autoSize = false,
   as = 'div',
 } = defineProps<{
-  style?: Record<string, string>
   placement?: FloatingPlacement
   mode?: FloatingPopoverMode
   flip?: boolean
@@ -24,32 +22,17 @@ const {
   autoSize?: boolean
   as?: string
 }>()
-
-const panelEl = useTemplateRef<
-  HTMLElement & { showPopover?: () => void; hidePopover?: () => void; togglePopover?: () => void }
->('panelEl')
-
-const hideAttr = computed(() => (hide === false ? undefined : String(hide)))
-
-defineExpose({
-  show: () => panelEl.value?.showPopover?.(),
-  hide: () => panelEl.value?.hidePopover?.(),
-  toggle: () => panelEl.value?.togglePopover?.(),
-  el: panelEl,
-})
 </script>
 
 <template>
   <component
     :is="as"
-    ref="panelEl"
     class="v-float-panel"
     :popover="mode"
-    :style="style"
     :data-placement="placement"
     :data-flip="flip"
     :data-shift="shift || undefined"
-    :data-hide="hideAttr"
+    :data-hide="hide === false ? undefined : String(hide)"
     :data-auto-size="autoSize || undefined"
   >
     <slot />

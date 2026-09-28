@@ -32,15 +32,11 @@ const { placement = 'top' } = defineProps<{
     text-underline-offset: 3px;
     text-decoration-color: var(--ui-tint-45);
 
+    border-radius: var(--ui-radius-xs);
+
     &:hover,
     &:focus-visible {
       text-decoration-color: AccentColor;
-    }
-
-    &:focus-visible {
-      outline: 2px solid AccentColor;
-      outline-offset: 2px;
-      border-radius: 2px;
     }
   }
 }

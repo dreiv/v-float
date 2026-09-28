@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import './controls.css'
+
 const { step = 1 } = defineProps<{
   label: string
   min: number
@@ -15,12 +16,12 @@ const model = defineModel<number>({ required: true })
     <span class="control__label">{{ label }}</span>
     <span class="control__row">
       <input
+        v-model.number="model"
         class="control__range"
         type="range"
         :min="min"
         :max="max"
         :step="step"
-        v-model.number="model"
       />
       <output class="control__value">{{ model }}</output>
     </span>
@@ -32,7 +33,7 @@ const model = defineModel<number>({ required: true })
   .control__row {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--ui-sp-2);
   }
 
   .control__range {
@@ -41,7 +42,7 @@ const model = defineModel<number>({ required: true })
 
   .control__value {
     min-inline-size: 3ch;
-    text-align: right;
+    text-align: end;
     font-variant-numeric: tabular-nums;
     opacity: 0.8;
   }

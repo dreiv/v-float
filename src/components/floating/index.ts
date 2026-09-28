@@ -1,15 +1,6 @@
-import type { App } from 'vue'
 import './styles/index.css'
-import FloatingPanel from './FloatingPanel.vue'
-import FloatingArrow from './FloatingArrow.vue'
 
-export { FloatingPanel, FloatingArrow }
-export { useFloating, isValidPlacement } from '@/composables/floating/useFloating'
+export { default as FloatingPanel } from './FloatingPanel.vue'
+export { default as FloatingArrow } from './FloatingArrow.vue'
+export { useFloating } from '@/composables/floating/useFloating'
 export * from '@/composables/floating/types'
-
-export const floatingPlugin = {
-  install(app: App) {
-    app.component('FloatingPanel', FloatingPanel)
-    app.component('FloatingArrow', FloatingArrow)
-  },
-}

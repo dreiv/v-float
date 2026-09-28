@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import { useFloating, FloatingPanel, FloatingArrow } from '@/components/floating'
-import type { FloatingPlacement } from '@/composables/floating/types'
+import { watchEffect } from 'vue'
+import {
+  useFloating,
+  FloatingPanel,
+  FloatingArrow,
+  type FloatingPlacement,
+} from '@/components/floating'
 
 const {
   placement = 'top',
@@ -12,11 +17,13 @@ const {
   arrow?: boolean
 }>()
 
-const { anchorProps, panelProps, arrowProps, panelId } = useFloating({
-  placement,
-  offset,
+const { anchorProps, panelProps, arrowProps, panelId, options } = useFloating({
   trigger: ['hover', 'focus'],
-  shift: false,
+})
+
+watchEffect(() => {
+  options.placement = placement
+  options.offset = offset
 })
 </script>
 

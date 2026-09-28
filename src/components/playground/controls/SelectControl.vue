@@ -1,18 +1,19 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends string | number | boolean">
 import './controls.css'
+
 defineProps<{
   label: string
-  options: { value: string; label: string }[]
+  options: readonly { value: T; label: string }[]
 }>()
 
-const model = defineModel<string>({ required: true })
+const model = defineModel<T>({ required: true })
 </script>
 
 <template>
   <label class="control">
     <span class="control__label">{{ label }}</span>
-    <select class="control__select" v-model="model">
-      <option v-for="option in options" :key="option.value" :value="option.value">
+    <select v-model="model" class="control__select">
+      <option v-for="option in options" :key="String(option.value)" :value="option.value">
         {{ option.label }}
       </option>
     </select>
@@ -23,9 +24,9 @@ const model = defineModel<string>({ required: true })
 @layer components {
   .control__select {
     font: inherit;
-    padding: 0.4rem 0.5rem;
+    padding: var(--ui-sp-1) var(--ui-sp-2);
     border-radius: var(--ui-field-radius);
-    border: 1px solid var(--ui-control-border);
+    border: var(--ui-border-control);
     background: var(--ui-surface-bg);
     color: inherit;
   }

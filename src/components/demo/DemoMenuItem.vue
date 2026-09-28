@@ -28,7 +28,7 @@ defineProps<{
 <style scoped>
 @layer components {
   .demo-menu__item-shortcut {
-    font-size: 0.8rem;
+    font-size: var(--ui-fs-xs);
     opacity: 0.6;
   }
 
@@ -39,10 +39,10 @@ defineProps<{
     inline-size: 1.15rem;
     block-size: 1.15rem;
     flex-shrink: 0;
-    font-size: 0.75rem;
+    font-size: var(--ui-fs-xs);
     line-height: 1;
     border-radius: 50%;
-    border: 1px solid var(--ui-tint-35);
+    border: var(--ui-border-width) solid var(--ui-tint-35);
     background: transparent;
     color: inherit;
     cursor: help;
@@ -51,11 +51,6 @@ defineProps<{
     &:focus-visible {
       background: var(--ui-accent-tint-15);
       border-color: AccentColor;
-    }
-
-    &:focus-visible {
-      outline: 2px solid AccentColor;
-      outline-offset: 2px;
     }
   }
 }

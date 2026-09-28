@@ -1,25 +1,24 @@
-import { computed, getCurrentInstance, reactive } from 'vue'
-import { FLOATING_PLACEMENTS } from './types'
+import { computed, reactive, useId } from 'vue'
 import { usePopoverTrigger } from './usePopoverTrigger'
 import { buildAnchorProps, buildPanelProps } from './floatingProps'
-import type { AnchorName, FloatingPlacement, FloatingStrategy, FloatingStyleVars } from './types'
+import type { AnchorName, FloatingOptions, FloatingStrategy, FloatingStyleVars } from './types'
 
-let fallbackId = 0
+const createDefaults = (): FloatingOptions => ({
+  placement: 'bottom',
+  offset: 8,
+  flip: true,
+  shift: false,
+  hide: false,
+  autoSize: false,
+  trigger: ['click'],
+})
 
-export function useFloating(initial: FloatingStrategy = {}) {
-  const uid = getCurrentInstance()?.uid ?? fallbackId++
-  const anchorName = `--v-float-anchor-${uid}` as AnchorName
-  const panelId = `v-float-panel-${uid}`
+export function useFloating(strategy: FloatingStrategy = {}) {
+  const id = useId()
+  const anchorName: AnchorName = `--v-float-anchor-${id}`
+  const panelId = `v-float-panel-${id}`
 
-  const options = reactive<Required<FloatingStrategy>>({
-    placement: initial.placement ?? 'bottom',
-    offset: initial.offset ?? 8,
-    flip: initial.flip ?? true,
-    shift: initial.shift ?? false,
-    hide: initial.hide ?? false,
-    autoSize: initial.autoSize ?? false,
-    trigger: initial.trigger ?? ['click'],
-  })
+  const options = reactive<FloatingOptions>({ ...createDefaults(), ...strategy })
 
   const trigger = usePopoverTrigger(panelId)
 
@@ -42,8 +41,4 @@ export function useFloating(initial: FloatingStrategy = {}) {
     open: trigger.open,
     close: trigger.close,
   }
-}
-
-export function isValidPlacement(value: string): value is FloatingPlacement {
-  return (FLOATING_PLACEMENTS as readonly string[]).includes(value)
 }

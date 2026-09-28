@@ -49,6 +49,7 @@ without fighting specificity.
   `--ui-border-control`
 - `--ui-tint-*` — `canvastext` mixed toward transparent
 - `--ui-shade-*` — `canvastext` mixed toward `canvas`
+- `--ui-focus-*` — focus ring, offset and inset offset
 - aliases (`--ui-divider`, `--ui-hover-bg-strong`, `--ui-surface-border`, ...)
   are what component CSS should reach for
 
@@ -56,10 +57,25 @@ Add a value to a scale before using a raw `color-mix(...)`, `rem` spacing or
 font size in a component. Sizes that belong to one component (a fixed width,
 the tab bar height, a font family used once) stay local.
 
-The focus ring is a single `:focus-visible` rule in `base.css`; components only
-override it when they need a different offset. Native form controls (`input`,
-`select`, `textarea`) are excluded and keep the browser's own ring, which stays
-visible in both color schemes.
+## Color scheme
+
+`base.css` sets `color-scheme: light dark`, and every color is derived from system
+colors (`Canvas`, `CanvasText`, `AccentColor`) or `light-dark()`, so both schemes work
+without a separate theme. Shadows use `--ui-shadow-color`, the one token that needs
+`light-dark()`, because a tint of `CanvasText` would glow on a dark surface.
+
+`prefers-reduced-motion` zeroes `--ui-transition-duration`; use that token for every
+transition.
+
+## Focus
+
+The focus ring is a single `:focus-visible` rule in `base.css` built from
+`--ui-focus-ring` and `--ui-focus-offset`. It applies to every element, including native
+form controls, so the ring is the same accent color in both schemes instead of depending on
+the browser's default ring.
+
+Components never redraw the ring. Inside a container that clips overflow (tab bar,
+controls dock, menu rows) set `outline-offset: var(--ui-focus-offset-inset)`.
 
 ## Buttons
 

@@ -29,34 +29,32 @@
     --ui-transition-duration: 0.2s;
     --ui-transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
 
-    --ui-surface-bg: canvas;
-    --ui-surface-fg: canvastext;
+    --ui-surface-bg: Canvas;
+    --ui-surface-fg: CanvasText;
     --ui-radius-xs: 2px;
     --ui-radius-sm: 4px;
     --ui-field-radius: 6px;
     --ui-surface-radius: 8px;
     --ui-border-width: 1px;
 
-    --ui-tint-06: color-mix(in oklab, canvastext 6%, transparent);
-    --ui-tint-08: color-mix(in oklab, canvastext 8%, transparent);
-    --ui-tint-10: color-mix(in oklab, canvastext 10%, transparent);
-    --ui-tint-12: color-mix(in oklab, canvastext 12%, transparent);
-    --ui-tint-15: color-mix(in oklab, canvastext 15%, transparent);
-    --ui-tint-18: color-mix(in oklab, canvastext 18%, transparent);
-    --ui-tint-20: color-mix(in oklab, canvastext 20%, transparent);
-    --ui-tint-25: color-mix(in oklab, canvastext 25%, transparent);
-    --ui-tint-35: color-mix(in oklab, canvastext 35%, transparent);
-    --ui-tint-45: color-mix(in oklab, canvastext 45%, transparent);
-    --ui-tint-65: color-mix(in oklab, canvastext 65%, transparent);
-    --ui-tint-88: color-mix(in oklab, canvastext 88%, transparent);
+    --ui-tint-06: color-mix(in oklab, CanvasText 6%, transparent);
+    --ui-tint-08: color-mix(in oklab, CanvasText 8%, transparent);
+    --ui-tint-12: color-mix(in oklab, CanvasText 12%, transparent);
+    --ui-tint-15: color-mix(in oklab, CanvasText 15%, transparent);
+    --ui-tint-20: color-mix(in oklab, CanvasText 20%, transparent);
+    --ui-tint-25: color-mix(in oklab, CanvasText 25%, transparent);
+    --ui-tint-35: color-mix(in oklab, CanvasText 35%, transparent);
+    --ui-tint-45: color-mix(in oklab, CanvasText 45%, transparent);
+    --ui-tint-65: color-mix(in oklab, CanvasText 65%, transparent);
+    --ui-tint-88: color-mix(in oklab, CanvasText 88%, transparent);
 
-    --ui-shade-06: color-mix(in oklab, canvastext 6%, canvas);
-    --ui-shade-08: color-mix(in oklab, canvastext 8%, canvas);
-    --ui-shade-12: color-mix(in oklab, canvastext 12%, canvas);
-    --ui-shade-18: color-mix(in oklab, canvastext 18%, canvas);
+    --ui-shade-06: color-mix(in oklab, CanvasText 6%, Canvas);
+    --ui-shade-08: color-mix(in oklab, CanvasText 8%, Canvas);
+    --ui-shade-12: color-mix(in oklab, CanvasText 12%, Canvas);
+    --ui-shade-18: color-mix(in oklab, CanvasText 18%, Canvas);
 
     --ui-accent-tint-15: color-mix(in oklab, AccentColor 15%, transparent);
-    --ui-accent-shade-12: color-mix(in oklab, AccentColor 12%, canvas);
+    --ui-accent-shade-12: color-mix(in oklab, AccentColor 12%, Canvas);
 
     --ui-divider: var(--ui-tint-15);
     --ui-control-border: var(--ui-tint-25);
@@ -71,7 +69,18 @@
     --ui-border-divider: var(--ui-border-width) solid var(--ui-divider);
     --ui-border-control: var(--ui-border-width) solid var(--ui-control-border);
 
-    --ui-surface-shadow: 0 2px 8px var(--ui-tint-10);
-    --ui-shadow-raised: 0 4px 16px var(--ui-tint-18);
+    --ui-focus-ring: 2px solid AccentColor;
+    --ui-focus-offset: 2px;
+    --ui-focus-offset-inset: calc(var(--ui-focus-offset) * -1);
+
+    --ui-shadow-color: light-dark(rgb(0 0 0 / 12%), rgb(0 0 0 / 55%));
+    --ui-surface-shadow: 0 2px 8px var(--ui-shadow-color);
+    --ui-shadow-raised: 0 4px 16px var(--ui-shadow-color);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --ui-transition-duration: 0s;
+    }
   }
 }

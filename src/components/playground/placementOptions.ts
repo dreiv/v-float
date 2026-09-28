@@ -25,8 +25,8 @@ export const verticalPlacementOptions = placementOptions.filter(
 )
 
 export const hideModeOptions = [
-  { value: 'false', label: 'Off' },
-  { value: 'true', label: 'anchors-visible' },
+  { value: false, label: 'Off' },
+  { value: true, label: 'anchors-visible' },
   { value: 'no-overflow', label: 'no-overflow' },
 ] as const
 

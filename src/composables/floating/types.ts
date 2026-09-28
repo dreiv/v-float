@@ -33,6 +33,8 @@ export interface FloatingStrategy {
   trigger?: FloatingTrigger
 }
 
+export type FloatingOptions = Required<FloatingStrategy>
+
 export type AnchorName = `--v-float-anchor-${string}`
 
 export interface FloatingStyleVars {

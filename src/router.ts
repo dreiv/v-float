@@ -1,62 +1,19 @@
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
+import { primitivePages } from '@/views/primitivePages'
 
-export const primitiveRoutes: RouteRecordRaw[] = [
+export const routes: RouteRecordRaw[] = [
+  { path: '/', redirect: { name: 'demo' } },
   {
     path: '/primitives',
     component: () => import('@/views/layouts/PrimitivesLayout.vue'),
     children: [
-      { path: '', redirect: '/primitives/demo' },
-      {
-        path: 'demo',
-        name: 'primitives-demo',
-        component: () => import('@/views/demo/DemoView.vue'),
-        meta: { title: 'Demo' },
-      },
-      {
-        path: 'offset',
-        name: 'primitives-offset',
-        component: () => import('@/views/primitives/OffsetView.vue'),
-        meta: { title: 'Offset' },
-      },
-      {
-        path: 'flip',
-        name: 'primitives-flip',
-        component: () => import('@/views/primitives/FlipView.vue'),
-        meta: { title: 'Flip' },
-      },
-      {
-        path: 'shift',
-        name: 'primitives-shift',
-        component: () => import('@/views/primitives/ShiftView.vue'),
-        meta: { title: 'Shift' },
-      },
-      {
-        path: 'arrow',
-        name: 'primitives-arrow',
-        component: () => import('@/views/primitives/ArrowView.vue'),
-        meta: { title: 'Arrow' },
-      },
-      {
-        path: 'size',
-        name: 'primitives-size',
-        component: () => import('@/views/primitives/SizeView.vue'),
-        meta: { title: 'Size' },
-      },
-      {
-        path: 'hide',
-        name: 'primitives-hide',
-        component: () => import('@/views/primitives/HideView.vue'),
-        meta: { title: 'Hide' },
-      },
+      { path: '', redirect: { name: 'demo' } },
+      ...primitivePages.map(({ name, component }) => ({ path: name, name, component })),
     ],
   },
 ]
 
-const routes: RouteRecordRaw[] = [{ path: '/', redirect: '/primitives/demo' }, ...primitiveRoutes]
-
-const router = createRouter({
-  history: createWebHashHistory('/v-float/'),
+export default createRouter({
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
 })
-
-export default router

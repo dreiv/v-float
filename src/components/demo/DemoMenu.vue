@@ -17,7 +17,9 @@ const { anchorProps, panelProps } = useFloating({
 </script>
 
 <template>
-  <UiButton class="demo-menu__trigger" v-bind="anchorProps">{{ label }}</UiButton>
+  <UiButton class="demo-menu__trigger" aria-haspopup="menu" v-bind="anchorProps">{{
+    label
+  }}</UiButton>
 
   <FloatingPanel v-bind="panelProps" role="menu" class="demo-menu__panel">
     <slot />
@@ -27,8 +29,8 @@ const { anchorProps, panelProps } = useFloating({
 <style scoped>
 @layer components {
   .demo-menu__trigger {
-    font-size: 0.95rem;
-    padding: 0.5rem 1rem;
+    font-size: var(--ui-fs-md);
+    padding: var(--ui-sp-2) var(--ui-sp-4);
   }
 }
 </style>

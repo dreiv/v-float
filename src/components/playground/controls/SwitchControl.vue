@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import './controls.css'
+
 defineProps<{
   label: string
 }>()
@@ -9,7 +10,7 @@ const model = defineModel<boolean>({ required: true })
 
 <template>
   <label class="control control--inline">
-    <input type="checkbox" v-model="model" />
+    <input v-model="model" type="checkbox" role="switch" />
     <span>{{ label }}</span>
   </label>
 </template>

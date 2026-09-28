@@ -72,6 +72,10 @@ import './playground.css'
     &:hover {
       background: var(--ui-hover-bg-subtle);
     }
+
+    &:focus-visible {
+      outline-offset: var(--ui-focus-offset-inset);
+    }
   }
 
   .playground__controls-body {

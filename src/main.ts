@@ -1,16 +1,8 @@
 import './assets/styles/index.css'
 
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import { floatingPlugin } from './components/floating'
 
-const app = createApp(App)
-
-app.use(createPinia())
-app.use(router)
-app.use(floatingPlugin)
-
-app.mount('#app')
+createApp(App).use(router).mount('#app')

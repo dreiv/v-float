@@ -1,7 +1,5 @@
-import type { FloatingStrategy, FloatingStyleVars } from './types'
+import type { FloatingOptions, FloatingStyleVars } from './types'
 import type { PopoverTrigger } from './usePopoverTrigger'
-
-type FloatingOptions = Required<FloatingStrategy>
 
 export function buildAnchorProps(
   options: FloatingOptions,

@@ -1,9 +1,3 @@
-<script setup lang="ts">
-defineProps<{
-  style?: Record<string, string>
-}>()
-</script>
-
 <template>
-  <span class="v-float-arrow" :style="style" aria-hidden="true" />
+  <span class="v-float-arrow" aria-hidden="true" />
 </template>

@@ -1,31 +1,25 @@
 <script setup lang="ts">
-import { useFloating, FloatingPanel } from '@/components/floating'
+import { FloatingPanel } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
-import UiButton from '@/components/ui/UiButton.vue'
+import PlaygroundStage from '@/components/playground/PlaygroundStage.vue'
 import {
   CheckboxGroupControl,
   NumberControl,
   SelectControl,
 } from '@/components/playground/controls'
 import { placementOptions, triggerOptions } from '@/components/playground/placementOptions'
-import { useAutoOpen } from '@/composables/playground/useAutoOpen'
-import type { FloatingPlacement } from '@/composables/floating/types'
+import { usePlaygroundFloating } from '@/composables/playground/usePlaygroundFloating'
 
-const { anchorProps, panelProps, options, open, close } = useFloating({
+const { anchorProps, panelProps, options } = usePlaygroundFloating({
   placement: 'bottom',
   offset: 8,
-  trigger: [],
 })
-
-useAutoOpen(options.trigger, open, close)
 </script>
 
 <template>
   <PlaygroundLayout>
     <template #stage>
-      <div class="playground-stage">
-        <UiButton class="playground-anchor" v-bind="anchorProps">Reference</UiButton>
-      </div>
+      <PlaygroundStage v-bind="anchorProps" />
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">
         <div class="playground-panel__content">
@@ -35,18 +29,9 @@ useAutoOpen(options.trigger, open, close)
     </template>
 
     <template #controls>
-      <SelectControl
-        :model-value="options.placement"
-        label="Placement"
-        :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
-      />
+      <SelectControl v-model="options.placement" label="Placement" :options="placementOptions" />
       <NumberControl v-model="options.offset" label="Offset" :min="0" :max="48" :step="2" />
-      <CheckboxGroupControl
-        v-model="options.trigger"
-        label="Trigger"
-        :options="[...triggerOptions]"
-      />
+      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="triggerOptions" />
     </template>
   </PlaygroundLayout>
 </template>

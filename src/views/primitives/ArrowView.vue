@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, useTemplateRef } from 'vue'
-import { useFloating, FloatingPanel, FloatingArrow } from '@/components/floating'
+import { FloatingPanel, FloatingArrow } from '@/components/floating'
 import PlaygroundLayout from '@/components/playground/PlaygroundLayout.vue'
+import PlaygroundStage from '@/components/playground/PlaygroundStage.vue'
 import UiButton from '@/components/ui/UiButton.vue'
 import {
   CheckboxGroupControl,
@@ -10,30 +11,21 @@ import {
   SwitchControl,
 } from '@/components/playground/controls'
 import { placementOptions, triggerOptions } from '@/components/playground/placementOptions'
-import { useScrollIntoViewDemo } from '@/composables/playground/useScrollIntoViewDemo'
-import type { FloatingPlacement } from '@/composables/floating/types'
+import { usePlaygroundFloating } from '@/composables/playground/usePlaygroundFloating'
 
-const { anchorProps, panelProps, arrowProps, options, open, close } = useFloating({
+const { anchorProps, panelProps, arrowProps, options } = usePlaygroundFloating({
   placement: 'bottom',
   offset: 12,
-  trigger: [],
 })
 const showArrow = ref(true)
 
-const anchorRef = useTemplateRef<InstanceType<typeof UiButton>>('anchorRef')
-const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, open, close)
+const stageRef = useTemplateRef<InstanceType<typeof PlaygroundStage>>('stage')
 </script>
 
 <template>
   <PlaygroundLayout>
     <template #stage>
-      <div class="playground-stage--scroll-area">
-        <div class="playground-stage__scroll-target">
-          <UiButton ref="anchorRef" class="playground-anchor" v-bind="anchorProps"
-            >Reference</UiButton
-          >
-        </div>
-      </div>
+      <PlaygroundStage ref="stage" scroll v-bind="anchorProps" />
 
       <FloatingPanel v-bind="panelProps" class="playground-panel">
         <FloatingArrow v-if="showArrow" v-bind="arrowProps" />
@@ -44,22 +36,13 @@ const { scrollToAnchor } = useScrollIntoViewDemo(anchorRef, options.trigger, ope
     </template>
 
     <template #controls>
-      <UiButton class="playground-controls__action" @click="scrollToAnchor">
+      <UiButton class="playground-controls__action" @click="stageRef?.scrollToAnchor()">
         Scroll to reference
       </UiButton>
-      <SelectControl
-        :model-value="options.placement"
-        label="Placement"
-        :options="[...placementOptions]"
-        @update:model-value="(value) => (options.placement = value as FloatingPlacement)"
-      />
+      <SelectControl v-model="options.placement" label="Placement" :options="placementOptions" />
       <SwitchControl v-model="showArrow" label="Show arrow" />
       <NumberControl v-model="options.offset" label="Offset" :min="4" :max="32" :step="2" />
-      <CheckboxGroupControl
-        v-model="options.trigger"
-        label="Trigger"
-        :options="[...triggerOptions]"
-      />
+      <CheckboxGroupControl v-model="options.trigger" label="Trigger" :options="triggerOptions" />
     </template>
   </PlaygroundLayout>
 </template>

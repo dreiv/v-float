@@ -104,7 +104,7 @@ import { TooltipText } from '@/components/tooltip'
     flex-direction: column;
     gap: var(--ui-sp-10);
     max-inline-size: 40rem;
-    margin: 0 auto;
+    margin-inline: auto;
     padding-block-end: var(--ui-sp-16);
   }
 

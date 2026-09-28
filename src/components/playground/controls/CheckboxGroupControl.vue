@@ -1,27 +1,19 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends string">
 import './controls.css'
+
 defineProps<{
   label: string
-  options: { value: string; label: string }[]
+  options: readonly { value: T; label: string }[]
 }>()
 
-const model = defineModel<string[]>({ required: true })
-
-function toggle(value: string, checked: boolean) {
-  model.value = checked ? [...model.value, value] : model.value.filter((item) => item !== value)
-}
+const model = defineModel<T[]>({ required: true })
 </script>
 
 <template>
   <fieldset class="control">
     <legend class="control__label">{{ label }}</legend>
     <label v-for="option in options" :key="option.value" class="control__option">
-      <input
-        type="checkbox"
-        :value="option.value"
-        :checked="model.includes(option.value)"
-        @change="toggle(option.value, ($event.target as HTMLInputElement).checked)"
-      />
+      <input v-model="model" type="checkbox" :value="option.value" />
       <span>{{ option.label }}</span>
     </label>
   </fieldset>
@@ -38,7 +30,7 @@ function toggle(value: string, checked: boolean) {
   .control__option {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--ui-sp-2);
     font-weight: 400;
     cursor: pointer;
   }

@@ -63,10 +63,8 @@ Pass these to `useFloating(options)`:
 
 Accepts `placement`, `mode` (`'auto' | 'manual'`), `flip`, `shift`, `hide`,
 `autoSize`, and `as` (the rendered tag, default `div`). Normally you just
-spread `panelProps` onto it rather than setting these by hand.
-
-It also exposes `show()`, `hide()`, and `toggle()` via template ref, for
-manual control beyond `open`/`close`.
+spread `panelProps` onto it rather than setting these by hand. Other attributes and
+listeners fall through to the rendered element.
 
 ## Triggers
 

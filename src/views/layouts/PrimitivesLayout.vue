@@ -1,20 +1,17 @@
 <script setup lang="ts">
-const links = [
-  { to: '/primitives/demo', label: 'Demo' },
-  { to: '/primitives/offset', label: 'Offset' },
-  { to: '/primitives/flip', label: 'Flip' },
-  { to: '/primitives/shift', label: 'Shift' },
-  { to: '/primitives/arrow', label: 'Arrow' },
-  { to: '/primitives/size', label: 'Size' },
-  { to: '/primitives/hide', label: 'Hide' },
-]
+import { primitivePages } from '@/views/primitivePages'
 </script>
 
 <template>
   <div class="primitives-layout">
     <nav class="primitives-layout__tabs" aria-label="Floating primitives and demo">
-      <RouterLink v-for="link in links" :key="link.to" :to="link.to" class="primitives-layout__tab">
-        {{ link.label }}
+      <RouterLink
+        v-for="page in primitivePages"
+        :key="page.name"
+        :to="{ name: page.name }"
+        class="primitives-layout__tab"
+      >
+        {{ page.title }}
       </RouterLink>
     </nav>
 
@@ -37,10 +34,10 @@ const links = [
   .primitives-layout__tabs {
     display: flex;
     align-items: stretch;
-    gap: 0.25rem;
+    gap: var(--ui-sp-1);
     block-size: var(--tabs-height);
-    padding: 0 1.5rem;
-    border-bottom: 1px solid var(--ui-divider);
+    padding-inline: var(--ui-sp-6);
+    border-block-end: var(--ui-border-divider);
     overflow-x: auto;
     position: fixed;
     inset-block-start: 0;
@@ -52,18 +49,22 @@ const links = [
   .primitives-layout__tab {
     display: flex;
     align-items: center;
-    padding: 0 1rem;
+    padding-inline: var(--ui-sp-4);
     color: inherit;
     text-decoration: none;
     white-space: nowrap;
-    border-bottom: 2px solid transparent;
+    border-block-end: 2px solid transparent;
 
     &:hover {
       background: var(--ui-hover-bg-subtle);
     }
 
+    &:focus-visible {
+      outline-offset: var(--ui-focus-offset-inset);
+    }
+
     &.router-link-active {
-      border-bottom-color: canvastext;
+      border-block-end-color: CanvasText;
       font-weight: 600;
     }
   }
@@ -71,7 +72,7 @@ const links = [
   .primitives-layout__content {
     flex: 1;
     min-inline-size: 0;
-    padding: calc(var(--tabs-height) + 1.5rem) 1.5rem 1.5rem;
+    padding: calc(var(--tabs-height) + var(--ui-sp-6)) var(--ui-sp-6) var(--ui-sp-6);
   }
 }
 </style>

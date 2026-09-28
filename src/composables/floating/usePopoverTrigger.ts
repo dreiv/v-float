@@ -1,33 +1,24 @@
 import { onScopeDispose } from 'vue'
 
-type PopoverEl = HTMLElement & {
-  showPopover?: () => void
-  hidePopover?: () => void
-}
-
 const HOVER_CLOSE_DELAY = 120
 
 export function usePopoverTrigger(panelId: string) {
   let closeTimer: ReturnType<typeof setTimeout> | undefined
 
-  function getPanelEl(): PopoverEl | null {
-    return document.getElementById(panelId) as PopoverEl | null
-  }
+  const getPanel = () => document.getElementById(panelId)
 
   function clearCloseTimer() {
-    if (closeTimer === undefined) return
     clearTimeout(closeTimer)
-    closeTimer = undefined
   }
 
   function open() {
     clearCloseTimer()
-    getPanelEl()?.showPopover?.()
+    getPanel()?.showPopover()
   }
 
   function close() {
     clearCloseTimer()
-    getPanelEl()?.hidePopover?.()
+    getPanel()?.hidePopover()
   }
 
   function closeAfterDelay() {
