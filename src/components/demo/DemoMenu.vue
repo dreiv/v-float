@@ -25,11 +25,3 @@ const { anchorProps, panelProps } = useFloating({
     <slot />
   </FloatingPanel>
 </template>
-
-<style scoped>
-@layer components {
-  .demo-menu__trigger {
-    font-size: var(--ui-fs-md);
-  }
-}
-</style>

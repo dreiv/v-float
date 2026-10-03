@@ -41,4 +41,43 @@
     flex: 1;
     min-inline-size: 0;
   }
+
+  .demo-menu__trigger {
+    font-size: var(--ui-fs-md);
+  }
+
+  .demo-menu__item-shortcut {
+    font-size: var(--ui-fs-xs);
+    opacity: 0.6;
+  }
+
+  .demo-menu__item-hint {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+    flex-shrink: 0;
+    font-size: var(--ui-fs-xs);
+    line-height: 1;
+    border-radius: 50%;
+    border: var(--ui-border-width) solid var(--ui-tint-35);
+    background: transparent;
+    color: inherit;
+    cursor: help;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--ui-accent-tint-15);
+      border-color: AccentColor;
+    }
+  }
+
+  .demo-menu__item-arrow {
+    flex-shrink: 0;
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ui-tint-65);
+  }
 }

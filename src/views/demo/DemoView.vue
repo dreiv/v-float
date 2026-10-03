@@ -4,8 +4,8 @@ import { TooltipText } from '@/components/tooltip'
 </script>
 
 <template>
-  <article class="demo">
-    <header class="demo__intro">
+  <article class="prose demo">
+    <header>
       <h1>Demo</h1>
       <p>
         Everything below is built from the same two primitives used on the other tabs — a
@@ -39,7 +39,7 @@ import { TooltipText } from '@/components/tooltip'
       </p>
     </header>
 
-    <section class="demo__section">
+    <section>
       <h2>Menu with a submenu</h2>
       <p>
         A click-triggered <code>DemoMenu</code>, containing a row (<code>DemoSubmenu</code>) that
@@ -69,14 +69,14 @@ import { TooltipText } from '@/components/tooltip'
       </div>
     </section>
 
-    <section class="demo__section">
+    <section>
       <h2>How the CSS popover is doing this</h2>
       <p>
         There's no JavaScript position math anywhere on this page. Every panel is a
         <code>popover</code> element anchored to its trigger with CSS, and placement comes from
         attribute selectors reading a <code>data-placement</code> value:
       </p>
-      <pre class="demo__code"><code>.v-float-panel {
+      <pre><code>.v-float-panel {
   position-anchor: var(--v-float-anchor-name);
   position: fixed;
 
@@ -103,25 +103,7 @@ import { TooltipText } from '@/components/tooltip'
     display: flex;
     flex-direction: column;
     gap: var(--ui-sp-10);
-    max-inline-size: 40rem;
-    margin-inline: auto;
     padding-block-end: var(--ui-sp-16);
-  }
-
-  .demo__intro h1 {
-    margin: 0 0 var(--ui-sp-3);
-    font-size: var(--ui-fs-xl);
-  }
-
-  .demo__intro p,
-  .demo__section p {
-    line-height: 1.65;
-    color: var(--ui-text-muted);
-  }
-
-  .demo__section h2 {
-    margin: 0 0 var(--ui-sp-2);
-    font-size: var(--ui-fs-lg);
   }
 
   .demo__stage {
@@ -134,33 +116,6 @@ import { TooltipText } from '@/components/tooltip'
     padding: var(--ui-sp-8);
     border: var(--ui-border-width) dashed var(--ui-surface-border);
     border-radius: var(--ui-surface-radius);
-  }
-
-  code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
-    font-size: 0.875em;
-    padding: 0.15em 0.4em;
-    background: var(--ui-shade-08);
-    border: var(--ui-border-width) solid var(--ui-tint-12);
-    border-radius: var(--ui-radius-sm);
-  }
-
-  .demo__code {
-    margin: var(--ui-sp-3) 0;
-    padding: var(--ui-sp-4);
-    overflow-x: auto;
-    background: var(--ui-surface-bg-subtle);
-    border: var(--ui-border-divider);
-    border-radius: var(--ui-surface-radius);
-
-    & code {
-      display: block;
-      font-size: var(--ui-fs-sm);
-      line-height: 1.6;
-      padding: 0;
-      background: none;
-      border: none;
-    }
   }
 }
 </style>

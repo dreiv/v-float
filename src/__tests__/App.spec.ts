@@ -3,8 +3,7 @@ import { describe, it, expect } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import App from '@/App.vue'
-import { routes } from '@/router'
-import { primitivePages } from '@/views/primitivePages'
+import { primitivePages, routes } from '@/router'
 
 async function mountAt(path: string) {
   const router = createRouter({ history: createMemoryHistory(), routes })

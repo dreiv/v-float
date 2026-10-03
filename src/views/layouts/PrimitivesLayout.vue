@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { primitivePages } from '@/views/primitivePages'
+import { primitivePages } from '@/router'
 </script>
 
 <template>

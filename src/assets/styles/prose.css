@@ -1,0 +1,48 @@
+@layer components {
+  .prose {
+    max-inline-size: 40rem;
+    margin-inline: auto;
+
+    & h1 {
+      margin: 0 0 var(--ui-sp-3);
+      font-size: var(--ui-fs-xl);
+    }
+
+    & h2 {
+      margin: 0 0 var(--ui-sp-2);
+      font-size: var(--ui-fs-lg);
+    }
+
+    & p {
+      line-height: 1.65;
+      color: var(--ui-text-muted);
+    }
+
+    & code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+      font-size: 0.875em;
+      padding: 0.15em 0.4em;
+      background: var(--ui-shade-08);
+      border: var(--ui-border-width) solid var(--ui-tint-12);
+      border-radius: var(--ui-radius-sm);
+    }
+
+    & pre {
+      margin: var(--ui-sp-3) 0;
+      padding: var(--ui-sp-4);
+      overflow-x: auto;
+      background: var(--ui-surface-bg-subtle);
+      border: var(--ui-border-divider);
+      border-radius: var(--ui-surface-radius);
+
+      & code {
+        display: block;
+        font-size: var(--ui-fs-sm);
+        line-height: 1.6;
+        padding: 0;
+        background: none;
+        border: none;
+      }
+    }
+  }
+}

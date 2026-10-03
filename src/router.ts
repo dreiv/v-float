@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
-import { primitivePages } from '@/views/primitivePages'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -9,14 +8,24 @@ declare module 'vue-router' {
 
 const SITE_TITLE = 'v-float'
 
+export const primitivePages = [
+  { name: 'demo', title: 'Demo', component: () => import('@/views/demo/DemoView.vue') },
+  { name: 'offset', title: 'Offset', component: () => import('@/views/primitives/OffsetView.vue') },
+  { name: 'flip', title: 'Flip', component: () => import('@/views/primitives/FlipView.vue') },
+  { name: 'shift', title: 'Shift', component: () => import('@/views/primitives/ShiftView.vue') },
+  { name: 'arrow', title: 'Arrow', component: () => import('@/views/primitives/ArrowView.vue') },
+  { name: 'size', title: 'Size', component: () => import('@/views/primitives/SizeView.vue') },
+  { name: 'hide', title: 'Hide', component: () => import('@/views/primitives/HideView.vue') },
+]
+
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('@/views/layouts/PrimitivesLayout.vue'),
     children: [
-      ...primitivePages.map(({ path, name, title, component }) => ({
-        path,
+      ...primitivePages.map(({ name, title, component }) => ({
         name,
+        path: name === 'demo' ? '' : name,
         component,
         meta: { title },
       })),
