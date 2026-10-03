@@ -26,6 +26,10 @@
     --ui-w-panel: 15rem;
     --ui-size-viewport-gutter: var(--ui-sp-4);
 
+    --ui-z-arrow: 1;
+    --ui-z-controls: 10;
+    --ui-z-nav: 20;
+
     --ui-transition-duration: 0.2s;
     --ui-transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
 

@@ -8,7 +8,7 @@
     border-inline-start: var(--ui-border);
     border-block-start: var(--ui-border);
     border-start-start-radius: var(--ui-arrow-radius);
-    z-index: 1;
+    z-index: var(--ui-z-arrow);
     pointer-events: none;
 
     [data-placement^='bottom'] & {

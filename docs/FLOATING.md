@@ -36,15 +36,15 @@ const { anchorProps, panelProps, arrowProps } = useFloating({ placement: 'bottom
 
 Pass these to `useFloating(options)`:
 
-| Option      | Type                                 | Default     | Description                                              |
-| ----------- | ------------------------------------ | ----------- | ---------------------------------------------------------|
-| `placement` | `FloatingPlacement`                  | `'bottom'`  | Where the panel sits relative to the anchor.              |
-| `offset`    | `number`                             | `8`         | Gap between anchor and panel, in pixels.                  |
-| `flip`      | `boolean`                            | `true`      | Flip to the opposite side when there's no room.           |
-| `shift`     | `boolean`                            | `false`     | Clamp the panel to stay within the viewport.               |
-| `hide`      | `boolean \| 'no-overflow'`           | `false`     | Hide the panel when the anchor is off-screen or clipped.   |
-| `autoSize`  | `boolean`                            | `false`     | Cap the panel's size to the available space.               |
-| `trigger`   | `('click' \| 'hover' \| 'focus')[]`  | `['click']` | What opens the panel. Combine as needed.                   |
+| Option      | Type                                | Default     | Description                                              |
+| ----------- | ----------------------------------- | ----------- | -------------------------------------------------------- |
+| `placement` | `FloatingPlacement`                 | `'bottom'`  | Where the panel sits relative to the anchor.             |
+| `offset`    | `number`                            | `8`         | Gap between anchor and panel, in pixels.                 |
+| `flip`      | `boolean`                           | `true`      | Flip to the opposite side when there's no room.          |
+| `shift`     | `boolean`                           | `false`     | Clamp the panel to stay within the viewport.             |
+| `hide`      | `boolean \| 'no-overflow'`          | `false`     | Hide the panel when the anchor is off-screen or clipped. |
+| `autoSize`  | `boolean`                           | `false`     | Cap the panel's size to the available space.             |
+| `trigger`   | `('click' \| 'hover' \| 'focus')[]` | `['click']` | What opens the panel. Combine as needed.                 |
 
 `FloatingPlacement` is one of: `top`, `top-start`, `top-end`, `right`,
 `right-start`, `right-end`, `bottom`, `bottom-start`, `bottom-end`, `left`,
@@ -70,7 +70,7 @@ listeners fall through to the rendered element.
 
 - `click` — uses the native popover `popovertarget` attribute.
 - `hover` — opens on mouseenter, closes on mouseleave (with a short delay).
-- `focus` — opens on focus, closes on blur.
+- `focus` — opens on focus, closes shortly after blur. Focus can move into the panel without closing it.
 
 Combine as needed, e.g. `trigger: ['click', 'focus']`.
 

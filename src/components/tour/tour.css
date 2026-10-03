@@ -1,0 +1,7 @@
+@layer components {
+  [data-tour-active] {
+    outline: var(--ui-focus-width) solid AccentColor;
+    outline-offset: var(--ui-sp-2);
+    border-radius: var(--ui-surface-radius);
+  }
+}

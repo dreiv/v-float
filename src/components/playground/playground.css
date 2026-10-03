@@ -28,7 +28,7 @@
     text-decoration-color: var(--ui-surface-border);
   }
 
-  .playground__stage:has(.v-float-panel:popover-open) .playground-anchor .ui-button__face {
+  .playground:has(.v-float-panel:popover-open) .playground-anchor .ui-button__face {
     border-color: AccentColor;
     background: var(--ui-accent-shade-12);
   }
@@ -69,28 +69,11 @@
     min-inline-size: 0;
   }
 
-  .playground__title {
-    position: absolute;
-    inline-size: 1px;
-    block-size: 1px;
-    margin: -1px;
-    padding: 0;
-    border: 0;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  .playground__stage {
-    min-inline-size: 0;
-    position: relative;
-  }
-
   .playground__controls {
     position: fixed;
     inset-inline-end: var(--ui-sp-4);
     inset-block-end: var(--ui-sp-4);
-    z-index: 10;
+    z-index: var(--ui-z-controls);
     inline-size: var(--ui-w-panel);
     max-inline-size: calc(100vw - var(--ui-sp-8));
     background: var(--ui-surface-bg);

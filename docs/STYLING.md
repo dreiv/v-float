@@ -4,9 +4,11 @@ Plain CSS, no framework. Component styles live next to their component; only cro
 
 ## Global (`src/assets/styles/`)
 
-- `layers.css` — cascade order (`reset, tokens, ui, components, floating.*`)
-- `tokens.css` — all custom properties
+- `layers.css` — cascade order (`reset, tokens, ui, components, floating.*, utilities`)
+- `tokens.css` — all custom properties, including the `--ui-z-*` stacking scale
 - `base.css` — element reset and the focus ring
+- `prose.css` — `.prose` text styles for article-like pages
+- `utilities.css` — single-purpose classes such as `.visually-hidden` for screen-reader-only content
 
 Every stylesheet opens with `@layer <name> { ... }`. The `ui` layer holds shared primitives like `UiButton`, so `components` rules can override them.
 
@@ -19,6 +21,10 @@ Every stylesheet opens with `@layer <name> { ... }`. The `ui` layer holds shared
 ## Tokens
 
 Use the aliases in `tokens.css` (`--ui-sp-*`, `--ui-fs-*`, `--ui-tint-*`, `--ui-shade-*`, `--ui-radius-*`, ...) instead of raw values. Use `--ui-transition-duration` for every transition.
+
+## Stacking
+
+Never write a raw `z-index`. Use `--ui-z-arrow`, `--ui-z-controls` or `--ui-z-nav`. Floating panels live in the top layer and need none.
 
 ## Focus
 

@@ -1,0 +1,13 @@
+@layer components {
+  .demo-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ui-sp-4);
+    min-block-size: 9rem;
+    margin-block-start: var(--ui-sp-4);
+    padding: var(--ui-sp-8);
+    border: var(--ui-border-width) dashed var(--ui-surface-border);
+    border-radius: var(--ui-surface-radius);
+  }
+}

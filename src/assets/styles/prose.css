@@ -13,7 +13,7 @@
       font-size: var(--ui-fs-lg);
     }
 
-    & p {
+    & p:not(.v-float-panel p) {
       line-height: 1.65;
       color: var(--ui-text-muted);
     }

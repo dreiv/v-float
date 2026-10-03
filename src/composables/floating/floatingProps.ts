@@ -24,7 +24,7 @@ export function buildAnchorProps(
 
   if (options.trigger.includes('focus')) {
     props.onFocus = trigger.open
-    props.onBlur = trigger.close
+    props.onBlur = trigger.closeAfterDelay
   }
 
   return props
@@ -36,7 +36,7 @@ export function buildPanelProps(
   styleVars: FloatingStyleVars,
   trigger: PopoverTrigger,
 ) {
-  const base = {
+  const props: Record<string, unknown> = {
     id: panelId,
     style: styleVars,
     placement: options.placement,
@@ -44,14 +44,18 @@ export function buildPanelProps(
     shift: options.shift,
     hide: options.hide,
     autoSize: options.autoSize,
-    mode: options.trigger.includes('click') ? ('auto' as const) : ('manual' as const),
+    mode: options.trigger.includes('click') ? 'auto' : 'manual',
   }
 
-  if (!options.trigger.includes('hover')) return base
-
-  return {
-    ...base,
-    onMouseenter: trigger.clearCloseTimer,
-    onMouseleave: trigger.closeAfterDelay,
+  if (options.trigger.includes('hover')) {
+    props.onMouseenter = trigger.clearCloseTimer
+    props.onMouseleave = trigger.closeAfterDelay
   }
+
+  if (options.trigger.includes('focus')) {
+    props.onFocusin = trigger.clearCloseTimer
+    props.onFocusout = trigger.closeAfterDelay
+  }
+
+  return props
 }

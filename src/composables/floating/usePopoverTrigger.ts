@@ -13,7 +13,14 @@ export function usePopoverTrigger(panelId: string) {
 
   function open() {
     clearCloseTimer()
-    getPanel()?.showPopover()
+    const panel = getPanel()
+    if (!panel) return
+
+    try {
+      panel.showPopover()
+    } catch {
+      queueMicrotask(() => panel.showPopover())
+    }
   }
 
   function close() {

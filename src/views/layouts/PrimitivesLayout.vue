@@ -18,7 +18,6 @@ import { primitivePages } from '@/router'
 
 <style scoped>
 @layer components {
-
   .primitives-layout__nav,
   .primitives-layout__content {
     --tabs-height: 3.25rem;
@@ -28,7 +27,7 @@ import { primitivePages } from '@/router'
     position: fixed;
     inset-block-start: 0;
     inset-inline: 0;
-    z-index: 20;
+    z-index: var(--ui-z-nav);
     block-size: var(--tabs-height);
     padding-inline: var(--ui-sp-6);
     overflow-x: auto;

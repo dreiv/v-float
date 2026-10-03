@@ -1,3 +1,6 @@
+export { default as DemoContextMenu } from './DemoContextMenu.vue'
 export { default as DemoMenu } from './DemoMenu.vue'
+export { default as DemoMenuAction } from './DemoMenuAction.vue'
 export { default as DemoMenuItem } from './DemoMenuItem.vue'
+export { default as DemoProfileCard } from './DemoProfileCard.vue'
 export { default as DemoSubmenu } from './DemoSubmenu.vue'

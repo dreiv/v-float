@@ -3,7 +3,7 @@ import Tooltip from './BaseTooltip.vue'
 import type { FloatingPlacement } from '@/composables/floating/types'
 
 const { placement = 'top' } = defineProps<{
-  hint: string
+  hint?: string
   placement?: FloatingPlacement
 }>()
 </script>
@@ -15,7 +15,9 @@ const { placement = 'top' } = defineProps<{
         <slot />
       </button>
     </template>
-    <p>{{ hint }}</p>
+    <slot name="hint">
+      <p>{{ hint }}</p>
+    </slot>
   </Tooltip>
 </template>
 
