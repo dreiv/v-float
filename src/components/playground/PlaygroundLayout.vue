@@ -1,9 +1,16 @@
 <script setup lang="ts">
+import { useId } from 'vue'
+import { useRoute } from 'vue-router'
 import './playground.css'
+
+const route = useRoute()
+const titleId = useId()
 </script>
 
 <template>
-  <section class="playground">
+  <section class="playground" :aria-labelledby="titleId">
+    <h1 :id="titleId" class="playground__title">{{ route.meta.title }}</h1>
+
     <div class="playground__stage">
       <slot name="stage" />
     </div>
@@ -24,6 +31,18 @@ import './playground.css'
     flex-direction: column;
     gap: var(--ui-sp-4);
     min-inline-size: 0;
+  }
+
+  .playground__title {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .playground__stage {

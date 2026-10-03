@@ -4,16 +4,17 @@ import { primitivePages } from '@/views/primitivePages'
 
 <template>
   <div class="primitives-layout">
-    <nav class="primitives-layout__tabs" aria-label="Floating primitives and demo">
-      <RouterLink
-        v-for="page in primitivePages"
-        :key="page.name"
-        :to="{ name: page.name }"
-        class="primitives-layout__tab"
-      >
-        {{ page.title }}
-      </RouterLink>
-    </nav>
+    <header class="primitives-layout__header">
+      <nav class="primitives-layout__nav" aria-label="Floating primitives and demo">
+        <ul class="primitives-layout__tabs">
+          <li v-for="page in primitivePages" :key="page.name" class="primitives-layout__item">
+            <RouterLink :to="{ name: page.name }" class="primitives-layout__tab">
+              {{ page.title }}
+            </RouterLink>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
     <main class="primitives-layout__content">
       <RouterView />
@@ -31,19 +32,33 @@ import { primitivePages } from '@/views/primitivePages'
     min-block-size: 100%;
   }
 
-  .primitives-layout__tabs {
-    display: flex;
-    align-items: stretch;
-    gap: var(--ui-sp-1);
-    block-size: var(--tabs-height);
-    padding-inline: var(--ui-sp-6);
-    border-block-end: var(--ui-border-divider);
-    overflow-x: auto;
+  .primitives-layout__header {
     position: fixed;
     inset-block-start: 0;
     inset-inline: 0;
+    block-size: var(--tabs-height);
+    border-block-end: var(--ui-border-divider);
     background: var(--ui-surface-bg);
     z-index: 20;
+  }
+
+  .primitives-layout__nav {
+    block-size: 100%;
+    padding-inline: var(--ui-sp-6);
+    overflow-x: auto;
+  }
+
+  .primitives-layout__tabs {
+    display: flex;
+    gap: var(--ui-sp-1);
+    block-size: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .primitives-layout__item {
+    display: flex;
   }
 
   .primitives-layout__tab {
@@ -63,7 +78,7 @@ import { primitivePages } from '@/views/primitivePages'
       outline-offset: var(--ui-focus-offset-inset);
     }
 
-    &.router-link-active {
+    &[aria-current='page'] {
       border-block-end-color: CanvasText;
       font-weight: 600;
     }

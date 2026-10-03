@@ -4,7 +4,7 @@ import { TooltipText } from '@/components/tooltip'
 </script>
 
 <template>
-  <div class="demo">
+  <article class="demo">
     <header class="demo__intro">
       <h1>Demo</h1>
       <p>
@@ -94,7 +94,7 @@ import { TooltipText } from '@/components/tooltip'
         the interaction level.
       </p>
     </section>
-  </div>
+  </article>
 </template>
 
 <style scoped>
